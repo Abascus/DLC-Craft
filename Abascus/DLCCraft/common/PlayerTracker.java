@@ -47,7 +47,7 @@ public class PlayerTracker implements IPlayerTracker
 	            if (DLCManager.names[i] != null)
 	            {
 	                dlc = new NBTTagCompound();
-	                dlc.setByte(DLCManager.names[i], (byte) 0);
+	                dlc.setInteger(DLCManager.names[i], (byte) 0);
 	                tagList.appendTag(dlc);
 	            }
 	        }

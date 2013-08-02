@@ -24,7 +24,7 @@ public class PlayerDLCStats
             if (DLCManager.names[i] != null)
             {
                 dlc = new NBTTagCompound();
-                dlc.setByte(DLCManager.names[i], states.get(DLCManager.names[i]).state);
+                dlc.setInteger(DLCManager.names[i], states.get(DLCManager.names[i]).state);
                 tagList.appendTag(dlc);
             }
         }
@@ -34,15 +34,13 @@ public class PlayerDLCStats
 
     public void readFromNBT (NBTTagCompound tags)
     {
-
-    	
         for (int i = 0; i < DLCManager.names.length; ++i)
         {
             if (DLCManager.names[i] != null)
             {
             	NBTTagCompound nbttagcompound = tags.getCompoundTag("DLCCraft");
-            	byte s = (byte) (nbttagcompound.getByte(DLCManager.names[i]) & 255);
-                states.put(DLCManager.names[i], new State((byte) 1));
+            	int s =  (nbttagcompound.getInteger(DLCManager.names[i]));
+                states.put(DLCManager.names[i], new State(1));
             }
         }
     }
