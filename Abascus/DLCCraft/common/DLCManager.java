@@ -3,7 +3,7 @@ package Abascus.DLCCraft.common;
 public class DLCManager 
 {
 	public static String[] names = new String[20];
-	public static DLC[] dlcs = new DLC[20];
+	public DLC[] dlcs = new DLC[20];
 	
 	public DLCManager()
 	{
@@ -17,6 +17,11 @@ public class DLCManager
 		names[7] = "furnace";
 		names[8] = "brewing";
 		names[9] = "mobDrops";
+		
+		for(int i = 0; i< dlcs.length; i++)
+		{
+			dlcs[i] = new DLC(i, names[i]);
+		}
 	}
 
 }

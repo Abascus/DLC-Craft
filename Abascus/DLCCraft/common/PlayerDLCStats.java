@@ -14,6 +14,7 @@ public class PlayerDLCStats
     public WeakReference<EntityPlayer> player;
     public ConcurrentHashMap<String, State> states = new ConcurrentHashMap<String, State>();
     public List<DLC> dlcs;
+    public DLCManager dlcManager = new DLCManager();
     public int Coins;
     
     public void init()
