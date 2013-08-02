@@ -1,5 +1,6 @@
 package Abascus.DLCCraft.common.Client;
 
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.AnvilConverterException;
@@ -9,7 +10,6 @@ import net.minecraft.client.gui.GuiErrorScreen;
 import net.minecraft.client.gui.GuiLanguage;
 import net.minecraft.client.gui.GuiSmallButton;
 import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.GuiWorldSlot;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.gui.inventory.CreativeCrafting;
@@ -26,6 +26,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.EnumGameType;
+import net.minecraft.world.storage.ISaveFormat;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -33,7 +34,9 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import Abascus.DLCCraft.common.ContainerDLCShop;
+import Abascus.DLCCraft.common.DLCCraft;
 import Abascus.DLCCraft.common.DLCGuiTabs;
+import Abascus.DLCCraft.common.DLCManager;
 import Abascus.DLCCraft.common.DLCSloteManager;
 import Abascus.DLCCraft.common.GuiDLCSlot;
 import cpw.mods.fml.relauncher.Side;
@@ -58,38 +61,23 @@ public class DLCShopGUI extends GuiContainer
 	private boolean wasClicking;
 	private GuiTextField searchField;
 
-	
-	 protected String screenTitle = "Select world";
 
-	    private boolean selected;
+	protected String screenTitle = "Select world";
 
-	    private int selectedWorld;
+	private boolean selected;
 
-	    private List dlcList;
-	    private GuiDLCSlot dlcSlotContainer;
+	private int selectedWorld;
 
-	    /** E.g. World, Welt, Monde, Mundo */
-	    private String localizedWorldText;
-	    private String localizedMustConvertText;
+	private List dlcList;
+	private GuiDLCSlot dlcSlotContainer;
 
-	    /**
-	     * The game mode text that is displayed with each world on the world selection list.
-	     */
-	    private String[] localizedGameModeText = new String[3];
+	/** E.g. World, Welt, Monde, Mundo */
+	private String localizedWorldText;
+	private String localizedMustConvertText;
 
-	    /** set to true if you arein the process of deleteing a world/save */
-	    private boolean deleting;
+	private GuiButton buttonBuy;
+	private GuiButton buttonDone;
 
-	    /** The delete button in the world selection GUI */
-	    private GuiButton buttonDelete;
-
-	    /** the select button in the world selection gui */
-	    private GuiButton buttonSelect;
-
-	    /** The rename button in the world selection GUI */
-	    private GuiButton buttonRename;
-	    private GuiButton buttonRecreate;
-	
 	/**
 	 * Used to back up the ContainerDLCShop's inventory slots before filling it with the player's inventory slots for
 	 * the inventory tab.
@@ -100,10 +88,11 @@ public class DLCShopGUI extends GuiContainer
 	private CreativeCrafting field_82324_x;
 	private static int tabPage = 0;
 	private int maxPages = 0;
-
+	EntityPlayer ep;
 	public DLCShopGUI(EntityPlayer par1EntityPlayer)
 	{
 		super(new ContainerDLCShop(par1EntityPlayer));
+		ep = par1EntityPlayer;
 		par1EntityPlayer.openContainer = this.inventorySlots;
 		this.allowUserInput = true;
 		this.ySize = 136;
@@ -148,48 +137,57 @@ public class DLCShopGUI extends GuiContainer
 	 */
 	public void initGui()
 	{
-		
-			super.initGui();
-			this.buttonList.clear();
-			Keyboard.enableRepeatEvents(true);
-			this.searchField = new GuiTextField(this.fontRenderer, this.guiLeft + 82, this.guiTop + 6, 89, this.fontRenderer.FONT_HEIGHT);
-			this.searchField.setMaxStringLength(15);
-			this.searchField.setEnableBackgroundDrawing(false);
-			this.searchField.setVisible(false);
-			this.searchField.setTextColor(16777215);
-			int i = selectedTabIndex;
-			selectedTabIndex = -1;
-			this.setCurrentCreativeTab(DLCGuiTabs.creativeTabArray[i]);
-			this.field_82324_x = new CreativeCrafting(this.mc);
-			this.mc.thePlayer.inventoryContainer.addCraftingToCrafters(this.field_82324_x);
-			int tabCount = DLCGuiTabs.creativeTabArray.length;
-			if (tabCount > 12)
-			{
-				buttonList.add(new GuiButton(101, guiLeft,              guiTop - 50, 20, 20, "<"));
-				buttonList.add(new GuiButton(102, guiLeft + xSize - 20, guiTop - 50, 20, 20, ">"));
-				maxPages = ((tabCount - 12) / 10) + 1;
-			}
-			this.screenTitle = I18n.func_135053_a("selectWorld.title");
 
-	        try
-	        {
-	            this.loadSaves();
-	        }
-	        catch (AnvilConverterException anvilconverterexception)
-	        {
-	            anvilconverterexception.printStackTrace();
-	            this.mc.displayGuiScreen(new GuiErrorScreen("Unable to load words", anvilconverterexception.getMessage()));
-	            return;
-	        }
+		super.initGui();
+		this.buttonList.clear();
+		Keyboard.enableRepeatEvents(true);
+		this.searchField = new GuiTextField(this.fontRenderer, this.guiLeft + 82, this.guiTop + 6, 89, this.fontRenderer.FONT_HEIGHT);
+		this.searchField.setMaxStringLength(15);
+		this.searchField.setEnableBackgroundDrawing(false);
+		this.searchField.setVisible(false);
+		this.searchField.setTextColor(16777215);
+		int i = selectedTabIndex;
+		selectedTabIndex = -1;
+		this.setCurrentCreativeTab(DLCGuiTabs.creativeTabArray[i]);
+		this.field_82324_x = new CreativeCrafting(this.mc);
+		this.mc.thePlayer.inventoryContainer.addCraftingToCrafters(this.field_82324_x);
+		int tabCount = DLCGuiTabs.creativeTabArray.length;
+		if (tabCount > 12)
+		{
+			buttonList.add(new GuiButton(101, guiLeft,              guiTop - 50, 20, 20, "<"));
+			buttonList.add(new GuiButton(102, guiLeft + xSize - 20, guiTop - 50, 20, 20, ">"));
+			maxPages = ((tabCount - 12) / 10) + 1;
+		}
+		this.screenTitle = I18n.func_135053_a("selectWorld.title");
 
-	        this.localizedWorldText = I18n.func_135053_a("selectWorld.world");
-	        this.localizedMustConvertText = I18n.func_135053_a("selectWorld.conversion");
-	        this.localizedGameModeText[EnumGameType.SURVIVAL.getID()] = I18n.func_135053_a("gameMode.survival");
-	        this.localizedGameModeText[EnumGameType.CREATIVE.getID()] = I18n.func_135053_a("gameMode.creative");
-	        this.localizedGameModeText[EnumGameType.ADVENTURE.getID()] = I18n.func_135053_a("gameMode.adventure");
-	        this.worldSlotContainer = new GuiWorldSlot(this);
-	        this.worldSlotContainer.registerScrollButtons(4, 5);
-	        this.initButtons();
+		try
+		{
+			this.loadSaves();
+		}
+		catch (AnvilConverterException anvilconverterexception)
+		{
+			anvilconverterexception.printStackTrace();
+			this.mc.displayGuiScreen(new GuiErrorScreen("Unable to load words", anvilconverterexception.getMessage()));
+			return;
+		}
+
+		this.localizedWorldText = I18n.func_135053_a("selectWorld.world");
+		this.localizedMustConvertText = I18n.func_135053_a("selectWorld.conversion");
+		this.localizedGameModeText[EnumGameType.SURVIVAL.getID()] = I18n.func_135053_a("gameMode.survival");
+		this.localizedGameModeText[EnumGameType.CREATIVE.getID()] = I18n.func_135053_a("gameMode.creative");
+		this.localizedGameModeText[EnumGameType.ADVENTURE.getID()] = I18n.func_135053_a("gameMode.adventure");
+		this.worldSlotContainer = new GuiDLCSlot(this);
+		this.worldSlotContainer.registerScrollButtons(4, 5);
+		this.initButtons();
+	}
+
+	private void loadSaves()
+	{
+		DLCManager dlcManager = DLCCraft.playerTracker.playerStats.get(ep.username).dlcManager;
+		for(int i =0;i<dlcManager.dlcs.length;i++)
+		{
+			
+		}
 	}
 
 	/**

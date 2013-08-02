@@ -1,7 +1,5 @@
 package Abascus.DLCCraft.common;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Date;
 
 import net.minecraft.client.gui.GuiSlot;
@@ -10,16 +8,19 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.storage.SaveFormatComparator;
+import Abascus.DLCCraft.common.Client.DLCShopGUI;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiWorldSlot extends GuiSlot
+public class GuiDLCSlot extends GuiSlot
 {
-    final GuiSelectWorld parentWorldGui;
+    final DLCShopGUI parentWorldGui;
 
-    public GuiWorldSlot(GuiSelectWorld par1GuiSelectWorld)
+    public GuiDLCSlot(DLCShopGUI par1DLCShopGUI)
     {
-        super(par1GuiSelectWorld.mc, par1GuiSelectWorld.width, par1GuiSelectWorld.height, 32, par1GuiSelectWorld.height - 64, 36);
-        this.parentWorldGui = par1GuiSelectWorld;
+        super(par1DLCShopGUI.mc1, par1DLCShopGUI.width, par1DLCShopGUI.height, 32, par1DLCShopGUI.height - 64, 36);
+        this.parentWorldGui = par1DLCShopGUI;
     }
 
     /**
@@ -27,7 +28,7 @@ public class GuiWorldSlot extends GuiSlot
      */
     protected int getSize()
     {
-        return GuiSelectWorld.getSize(this.parentWorldGui).size();
+        return DLCShopGUI.getSize(this.parentWorldGui).size();
     }
 
     /**
@@ -35,12 +36,12 @@ public class GuiWorldSlot extends GuiSlot
      */
     protected void elementClicked(int par1, boolean par2)
     {
-        GuiSelectWorld.onElementSelected(this.parentWorldGui, par1);
-        boolean flag1 = GuiSelectWorld.getSelectedWorld(this.parentWorldGui) >= 0 && GuiSelectWorld.getSelectedWorld(this.parentWorldGui) < this.getSize();
-        GuiSelectWorld.getSelectButton(this.parentWorldGui).enabled = flag1;
-        GuiSelectWorld.getRenameButton(this.parentWorldGui).enabled = flag1;
-        GuiSelectWorld.getDeleteButton(this.parentWorldGui).enabled = flag1;
-        GuiSelectWorld.func_82312_f(this.parentWorldGui).enabled = flag1;
+        DLCShopGUI.onElementSelected(this.parentWorldGui, par1);
+        boolean flag1 = DLCShopGUI.getSelectedWorld(this.parentWorldGui) >= 0 && DLCShopGUI.getSelectedWorld(this.parentWorldGui) < this.getSize();
+        DLCShopGUI.getSelectButton(this.parentWorldGui).enabled = flag1;
+        DLCShopGUI.getRenameButton(this.parentWorldGui).enabled = flag1;
+        DLCShopGUI.getDeleteButton(this.parentWorldGui).enabled = flag1;
+        DLCShopGUI.func_82312_f(this.parentWorldGui).enabled = flag1;
 
         if (par2 && flag1)
         {
@@ -53,7 +54,7 @@ public class GuiWorldSlot extends GuiSlot
      */
     protected boolean isSelected(int par1)
     {
-        return par1 == GuiSelectWorld.getSelectedWorld(this.parentWorldGui);
+        return par1 == DLCShopGUI.getSelectedWorld(this.parentWorldGui);
     }
 
     /**
@@ -61,7 +62,7 @@ public class GuiWorldSlot extends GuiSlot
      */
     protected int getContentHeight()
     {
-        return GuiSelectWorld.getSize(this.parentWorldGui).size() * 36;
+        return DLCShopGUI.getSize(this.parentWorldGui).size() * 36;
     }
 
     protected void drawBackground()
@@ -71,26 +72,26 @@ public class GuiWorldSlot extends GuiSlot
 
     protected void drawSlot(int par1, int par2, int par3, int par4, Tessellator par5Tessellator)
     {
-        SaveFormatComparator saveformatcomparator = (SaveFormatComparator)GuiSelectWorld.getSize(this.parentWorldGui).get(par1);
+        SaveFormatComparator saveformatcomparator = (SaveFormatComparator)DLCShopGUI.getSize(this.parentWorldGui).get(par1);
         String s = saveformatcomparator.getDisplayName();
 
         if (s == null || MathHelper.stringNullOrLengthZero(s))
         {
-            s = GuiSelectWorld.func_82313_g(this.parentWorldGui) + " " + (par1 + 1);
+            s = DLCShopGUI.func_82313_g(this.parentWorldGui) + " " + (par1 + 1);
         }
 
         String s1 = saveformatcomparator.getFileName();
-        s1 = s1 + " (" + GuiSelectWorld.func_82315_h(this.parentWorldGui).format(new Date(saveformatcomparator.getLastTimePlayed()));
+        s1 = s1 + " (" + DLCShopGUI.func_82315_h(this.parentWorldGui).format(new Date(saveformatcomparator.getLastTimePlayed()));
         s1 = s1 + ")";
         String s2 = "";
 
         if (saveformatcomparator.requiresConversion())
         {
-            s2 = GuiSelectWorld.func_82311_i(this.parentWorldGui) + " " + s2;
+            s2 = DLCShopGUI.func_82311_i(this.parentWorldGui) + " " + s2;
         }
         else
         {
-            s2 = GuiSelectWorld.func_82314_j(this.parentWorldGui)[saveformatcomparator.getEnumGameType().getID()];
+            s2 = DLCShopGUI.func_82314_j(this.parentWorldGui)[saveformatcomparator.getEnumGameType().getID()];
 
             if (saveformatcomparator.isHardcoreModeEnabled())
             {
