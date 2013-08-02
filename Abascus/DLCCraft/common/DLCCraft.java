@@ -67,13 +67,13 @@ public class DLCCraft
 		config.save();
 		//Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
 		//Capes = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Capes.txt");
-		
+
 		coin = (new DLCCraftItem(CoinID)).setUnlocalizedName("coin").setCreativeTab(CreativeTabs.tabMaterials);
 		dlc = (new DLCCraftItem(DLCID)).setUnlocalizedName("dlc").setCreativeTab(CreativeTabs.tabMaterials);
-		
+
 		LanguageRegistry.instance().addName(coin, "Coin");
 		LanguageRegistry.instance().addName(dlc, "DLC");
-		
+
 		KeyBinding[] key = {new KeyBinding("DLC Shop", Keyboard.KEY_F)};
 		boolean[] repeat = {false};
 		KeyBindingRegistry.registerKeyBinding(new DLCKeyBinding(key, repeat));
@@ -81,7 +81,7 @@ public class DLCCraft
 		MinecraftForge.EVENT_BUS.register(new EventManager());
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
-
+		proxy.registerRenderInformation();
 
 		playerTracker = new PlayerTracker();
 		GameRegistry.registerPlayerTracker(playerTracker);

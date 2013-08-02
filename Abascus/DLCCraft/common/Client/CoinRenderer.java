@@ -15,13 +15,13 @@ public class CoinRenderer implements IItemRenderer
 	@Override
 	public boolean handleRenderType(ItemStack itemStack, ItemRenderType type)
 	{
-		return type == ItemRenderType.ENTITY;
+		return type == ItemRenderType.EQUIPPED;
 	}
 
 	@Override
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,  ItemRendererHelper helper) 
 	{
-		return false;
+		return true;
 	}
 
 	@Override
@@ -37,11 +37,11 @@ public class CoinRenderer implements IItemRenderer
 
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawing(GL11.GL_QUADS);
-		tessellator.setColorRGBA(0, 0, 0, 128);
+		tessellator.setColorRGBA(0, 0, 0, 512);
 		tessellator.addVertex(0, 0, 0);
-		tessellator.addVertex(0, 8, 0);
-		tessellator.addVertex(8, 8, 0);
-		tessellator.addVertex(8, 0, 0);
+		tessellator.addVertex(0, 32, 0);
+		tessellator.addVertex(32, 32, 0);
+		tessellator.addVertex(32, 0, 0);
 		tessellator.draw();
 
 		GL11.glDepthMask(true);

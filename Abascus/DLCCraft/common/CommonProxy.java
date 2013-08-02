@@ -9,6 +9,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class CommonProxy implements IGuiHandler 
 {
 
+	public void registerRenderInformation()
+	{
+
+	}
+	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,	int x, int y, int z)
 	{
