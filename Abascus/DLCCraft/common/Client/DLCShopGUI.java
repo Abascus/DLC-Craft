@@ -2,11 +2,14 @@ package Abascus.DLCCraft.common.Client;
 
 import java.util.List;
 
+import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiErrorScreen;
 import net.minecraft.client.gui.GuiLanguage;
 import net.minecraft.client.gui.GuiSmallButton;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.GuiWorldSlot;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.gui.inventory.CreativeCrafting;
@@ -22,6 +25,7 @@ import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.EnumGameType;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -31,6 +35,7 @@ import org.lwjgl.opengl.GL12;
 import Abascus.DLCCraft.common.ContainerDLCShop;
 import Abascus.DLCCraft.common.DLCGuiTabs;
 import Abascus.DLCCraft.common.DLCSloteManager;
+import Abascus.DLCCraft.common.GuiDLCSlot;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -53,6 +58,38 @@ public class DLCShopGUI extends GuiContainer
 	private boolean wasClicking;
 	private GuiTextField searchField;
 
+	
+	 protected String screenTitle = "Select world";
+
+	    private boolean selected;
+
+	    private int selectedWorld;
+
+	    private List dlcList;
+	    private GuiDLCSlot dlcSlotContainer;
+
+	    /** E.g. World, Welt, Monde, Mundo */
+	    private String localizedWorldText;
+	    private String localizedMustConvertText;
+
+	    /**
+	     * The game mode text that is displayed with each world on the world selection list.
+	     */
+	    private String[] localizedGameModeText = new String[3];
+
+	    /** set to true if you arein the process of deleteing a world/save */
+	    private boolean deleting;
+
+	    /** The delete button in the world selection GUI */
+	    private GuiButton buttonDelete;
+
+	    /** the select button in the world selection gui */
+	    private GuiButton buttonSelect;
+
+	    /** The rename button in the world selection GUI */
+	    private GuiButton buttonRename;
+	    private GuiButton buttonRecreate;
+	
 	/**
 	 * Used to back up the ContainerDLCShop's inventory slots before filling it with the player's inventory slots for
 	 * the inventory tab.
@@ -71,7 +108,6 @@ public class DLCShopGUI extends GuiContainer
 		this.allowUserInput = true;
 		this.ySize = 136;
 		this.xSize = 195;
-		mc1 = mc;
 	}
 
 	protected void handleMouseClick(Slot par1Slot, int par2, int par3, int par4)
@@ -112,8 +148,7 @@ public class DLCShopGUI extends GuiContainer
 	 */
 	public void initGui()
 	{
-		if (this.mc.playerController.isInCreativeMode())
-		{
+		
 			super.initGui();
 			this.buttonList.clear();
 			Keyboard.enableRepeatEvents(true);
@@ -134,11 +169,27 @@ public class DLCShopGUI extends GuiContainer
 				buttonList.add(new GuiButton(102, guiLeft + xSize - 20, guiTop - 50, 20, 20, ">"));
 				maxPages = ((tabCount - 12) / 10) + 1;
 			}
-		}
-		else
-		{
-			this.mc.displayGuiScreen(new GuiInventory(this.mc.thePlayer));
-		}
+			this.screenTitle = I18n.func_135053_a("selectWorld.title");
+
+	        try
+	        {
+	            this.loadSaves();
+	        }
+	        catch (AnvilConverterException anvilconverterexception)
+	        {
+	            anvilconverterexception.printStackTrace();
+	            this.mc.displayGuiScreen(new GuiErrorScreen("Unable to load words", anvilconverterexception.getMessage()));
+	            return;
+	        }
+
+	        this.localizedWorldText = I18n.func_135053_a("selectWorld.world");
+	        this.localizedMustConvertText = I18n.func_135053_a("selectWorld.conversion");
+	        this.localizedGameModeText[EnumGameType.SURVIVAL.getID()] = I18n.func_135053_a("gameMode.survival");
+	        this.localizedGameModeText[EnumGameType.CREATIVE.getID()] = I18n.func_135053_a("gameMode.creative");
+	        this.localizedGameModeText[EnumGameType.ADVENTURE.getID()] = I18n.func_135053_a("gameMode.adventure");
+	        this.worldSlotContainer = new GuiWorldSlot(this);
+	        this.worldSlotContainer.registerScrollButtons(4, 5);
+	        this.initButtons();
 	}
 
 	/**
