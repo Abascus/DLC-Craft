@@ -28,19 +28,22 @@ public class EventManager
 	
 	public void rightClickBlock(PlayerInteractEvent event)
 	{
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
 		
 	}
 	
 	public void rightClickAir(PlayerInteractEvent event)
 	{
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
 		
 	}
 	
 	public void leftClickBlock(PlayerInteractEvent event)
 	{
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
 		if(Minecraft.getMinecraft().theWorld.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
 		{
-			PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
+			
 		if(stats.states.get("punchWood").state != 2)
 		{
 			event.setCanceled(true);

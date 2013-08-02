@@ -14,9 +14,8 @@ public class PlayerDLCStats
     public WeakReference<EntityPlayer> player;
     public ConcurrentHashMap<String, State> states = new ConcurrentHashMap<String, State>();
     
-    public void saveToNBT (EntityPlayer entityplayer)
+    public void saveToNBT (NBTTagCompound tags)
     {
-        NBTTagCompound tags = entityplayer.getEntityData();
         NBTTagList tagList = new NBTTagList();
         NBTTagCompound dlc;
 

@@ -40,9 +40,8 @@ public class PlayerTracker implements IPlayerTracker
 			tags.setCompoundTag("DLCCraft", new NBTTagCompound());
 		}
 		PlayerDLCStats stats = new PlayerDLCStats();
-		stats.player = new WeakReference<EntityPlayer>(entityplayer);
+		stats.player = new WeakReference<EntityPlayer>(entityplayer);		
 		stats.readFromNBT(tags);
-
 		playerStats.put(entityplayer.username, stats);
 	}
 
@@ -119,7 +118,7 @@ public class PlayerTracker implements IPlayerTracker
 			PlayerDLCStats stats = getPlayerDLCStats(player.username);
 			if (stats != null && stats.states != null)
 			{
-				stats.saveToNBT(player);
+				stats.saveToNBT(player.getEntityData());
 				if (clean)
 					playerStats.remove(player.username);
 			}
