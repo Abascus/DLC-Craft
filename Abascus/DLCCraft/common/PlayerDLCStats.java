@@ -25,7 +25,6 @@ public class PlayerDLCStats
             {
             	states.put(DLCManager.names[i], new State(0));
             	DLC dlc = new DLC(i, DLCManager.names[i]);
-            	dlcs.add(i, dlc);
             }
         }
     }
@@ -55,12 +54,12 @@ public class PlayerDLCStats
         {
             if (DLCManager.names[i] != null)
             {
-            	NBTTagCompound nbttagcompound = tags.getCompoundTag("DLCCraft");
+            	/*NBTTagCompound nbttagcompound = tags.getCompoundTag("DLCCraft");
             	int s =  (nbttagcompound.getInteger(DLCManager.names[i]));
                 states.put(DLCManager.names[i], new State(s));
                 DLC dlc = new DLC(i, DLCManager.names[i]);
                 dlc.setState(s);
-            	dlcs.add(i, dlc);
+            	dlcs.add(i, dlc);*/
             }
         }
         dlcManager.readFromNBT(tags);
