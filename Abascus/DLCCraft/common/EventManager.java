@@ -52,7 +52,10 @@ public class EventManager
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
 		if(event.item.getEntityItem().itemID == DLCCraft.instance.CoinID)
 		{
-
+			PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
+			stats.Coins++;
+			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
+			event.item.setDead();
 		}
 		else if(event.item.getEntityItem().itemID == DLCCraft.instance.DLCID)
 		{
@@ -62,7 +65,7 @@ public class EventManager
 		{
 			if(dlcs.getState("collectDrops") != 2)
 			{
-				event.setCanceled(true);
+				//event.setCanceled(true);
 			}
 		}
 	}
@@ -92,7 +95,7 @@ public class EventManager
 				event.setCanceled(true);
 			}
 		}
-			
+
 	}
 
 	@ForgeSubscribe

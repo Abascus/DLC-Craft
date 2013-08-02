@@ -72,6 +72,7 @@ public class DLCCraft
 		dlc = (new DLCCraftItem(DLCID)).setUnlocalizedName("dlc").setCreativeTab(CreativeTabs.tabMaterials);
 		
 		LanguageRegistry.instance().addName(coin, "Coin");
+		LanguageRegistry.instance().addName(dlc, "DLC");
 		
 		KeyBinding[] key = {new KeyBinding("DLC Shop", Keyboard.KEY_F)};
 		boolean[] repeat = {false};
