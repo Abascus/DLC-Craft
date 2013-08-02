@@ -14,6 +14,17 @@ public class PlayerDLCStats
     public WeakReference<EntityPlayer> player;
     public ConcurrentHashMap<String, State> states = new ConcurrentHashMap<String, State>();
     
+    public void init()
+    {
+    	for (int i = 0; i < DLCManager.names.length; ++i)
+        {
+            if (DLCManager.names[i] != null)
+            {
+            	states.put(DLCManager.names[i], new State(0));
+            }
+        }
+    }
+    
     public void saveToNBT (NBTTagCompound tags)
     {
         NBTTagList tagList = new NBTTagList();

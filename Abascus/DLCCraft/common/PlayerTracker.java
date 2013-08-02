@@ -33,8 +33,7 @@ public class PlayerTracker implements IPlayerTracker
 	@Override
 	public void onPlayerLogin (EntityPlayer entityplayer)
 	{
-		//System.out.println("Player: "+entityplayer);
-		//Lookup player
+		PlayerDLCStats stats = new PlayerDLCStats();
 		NBTTagCompound tags = entityplayer.getEntityData();
 		if (!tags.hasKey("DLCCraft"))
 		{
@@ -53,8 +52,9 @@ public class PlayerTracker implements IPlayerTracker
 	        }
 
 	        tags.setTag("DLCCraft", tagList);
+	        stats.init();
 		}
-		PlayerDLCStats stats = new PlayerDLCStats();
+		
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);		
 		stats.readFromNBT(tags);
 		playerStats.put(entityplayer.username, stats);
