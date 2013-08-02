@@ -5,9 +5,11 @@ import java.lang.ref.WeakReference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -15,7 +17,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class EventManager 
@@ -67,9 +69,13 @@ public class EventManager
 	}
 	
 	@ForgeSubscribe
-	public void pEvent(PlayerEvent event)
+	public void entityInteract(EntityInteractEvent event)
 	{
-		
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
+		if(event.entity instanceof EntityVillager)
+		{
+			
+		}
 	}
 	
 	@ForgeSubscribe
@@ -168,6 +174,13 @@ public class EventManager
 				event.setCanceled(true);
 			}
 		}
+		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemBlock)
+		{
+			if(dlcs.getState("placeBlocks") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
 	}
 
 	public void leftClickBlock(PlayerInteractEvent event)
@@ -177,6 +190,14 @@ public class EventManager
 		{
 
 		if(dlcs.getState(0) != 2)
+		{
+			event.setCanceled(true);
+		}
+		}
+		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemPickaxe && event.entityPlayer.getCurrentEquippedItem().canHarvestBlock(Block.oreDiamond))
+		{
+
+		if(dlcs.getState("useIronPick") != 2)
 		{
 			event.setCanceled(true);
 		}

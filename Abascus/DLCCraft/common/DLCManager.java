@@ -28,7 +28,7 @@ public class DLCManager
 		names[15] = "jump";
 		names[16] = "placeBlocks";
 		names[17] = "useIronPick";
-		names[18] = "interactWithEntity";
+		names[18] = "fishing";
 		names[19] = "feedAnimal";
 		names[20] = "trade";
 		names[21] = "PvP";
@@ -55,6 +55,7 @@ public class DLCManager
 		dlcs[13].setState(1);
 		dlcs[14].setState(1);
 		dlcs[15].setState(1);
+		dlcs[16].setState(1);
 		dlcs[21].setState(1);
 		dlcs[22].setState(1);
 	}
