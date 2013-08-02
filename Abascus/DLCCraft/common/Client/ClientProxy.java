@@ -1,8 +1,10 @@
 package Abascus.DLCCraft.common.Client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import Abascus.DLCCraft.common.CommonProxy;
 import Abascus.DLCCraft.common.DLCCraft;
 import cpw.mods.fml.relauncher.Side;
@@ -14,6 +16,7 @@ public class ClientProxy extends CommonProxy
 	@SideOnly(Side.CLIENT)
 	public void registerRenderInformation()
 	{
+		MinecraftForge.EVENT_BUS.register(new HUDRenderer(Minecraft.getMinecraft()));
 		MinecraftForgeClient.registerItemRenderer(DLCCraft.instance.coin.itemID, new CoinRenderer());
 	}
 	

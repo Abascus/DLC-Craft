@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -16,6 +17,7 @@ import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 
 import Abascus.DLCCraft.common.Client.CoinRenderer;
+import Abascus.DLCCraft.common.Client.HUDRenderer;
 import Abascus.DLCCraft.common.Client.TickHandlerClient;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.Mod;
@@ -88,9 +90,10 @@ public class DLCCraft
 		playerTracker = new PlayerTracker();
 		GameRegistry.registerPlayerTracker(playerTracker);
 		MinecraftForge.EVENT_BUS.register(playerTracker);
+		 
 		TickRegistry.registerTickHandler(new TickHandlerClient(), Side.CLIENT);
 		TickRegistry.registerTickHandler(new Tickhandler(), Side.SERVER);
-		MinecraftForgeClient.registerItemRenderer(DLCCraft.instance.coin.itemID, new CoinRenderer());
+		
 	}
 
 	@EventHandler

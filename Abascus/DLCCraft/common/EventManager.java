@@ -58,7 +58,7 @@ public class EventManager
 		{
 			event.setCanceled(true);
 			PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
-			stats.Coins++;
+			stats.Coins+= event.item.getEntityItem().stackSize;
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
 			event.item.setDead();
 			event.item.attackEntityFrom(DamageSource.inFire, 10000);
