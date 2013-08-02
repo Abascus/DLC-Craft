@@ -15,6 +15,7 @@ import net.minecraftforge.event.EventPriority;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.item.ItemEvent;
+import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -108,7 +109,7 @@ public class EventManager
 	@ForgeSubscribe
 	public void itemEvent(ItemEvent event)
 	{
-		if(event.entityItem.getEntityItem().itemID == DLCCraft.instance.CoinID)
+		if(event.entityItem.getEntityItem().itemID == DLCCraft.instance.coin.itemID)
 		{
 			event.entityItem.boundingBox.maxX = event.entityItem.boundingBox.maxX*3;
 			event.entityItem.boundingBox.maxY = event.entityItem.boundingBox.maxY*3;
@@ -116,7 +117,18 @@ public class EventManager
 		}
 	}
 
-
+	@ForgeSubscribe
+	public void itemExpireEvent(ItemExpireEvent event)
+	{
+		if(event.entityItem.getEntityItem().itemID == DLCCraft.instance.coin.itemID)
+		{
+			event.extraLife = 9999;
+			event.setCanceled(true);
+		}
+		
+	}
+	
+	
 	@ForgeSubscribe
 	public void onLivingDrop (LivingDropsEvent event)
 	{
