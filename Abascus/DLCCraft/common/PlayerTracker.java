@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.util.player;
+package Abascus.DLCCraft.common;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -25,278 +25,206 @@ import cpw.mods.fml.relauncher.Side;
 
 public class PlayerTracker implements IPlayerTracker
 {
-    /* Player */
-    //public int hunger;
-    public ConcurrentHashMap<String, PlayerDLCStats> playerStats = new ConcurrentHashMap<String, PlayerDLCStats>();
+	/* Player */
+	//public int hunger;
+	public ConcurrentHashMap<String, PlayerDLCStats> playerStats = new ConcurrentHashMap<String, PlayerDLCStats>();
 
-    @Override
-    public void onPlayerLogin (EntityPlayer entityplayer)
-    {
-        //System.out.println("Player: "+entityplayer);
-        //Lookup player
-        NBTTagCompound tags = entityplayer.getEntityData();
-        if (!tags.hasKey("TConstruct"))
-        {
-            tags.setCompoundTag("TConstruct", new NBTTagCompound());
-        }
-        PlayerDLCStats stats = new PlayerDLCStats();
-        stats.player = new WeakReference<EntityPlayer>(entityplayer);
-        stats.readFromNBT(entityplayer);
+	@Override
+	public void onPlayerLogin (EntityPlayer entityplayer)
+	{
+		//System.out.println("Player: "+entityplayer);
+		//Lookup player
+		NBTTagCompound tags = entityplayer.getEntityData();
+		if (!tags.hasKey("TConstruct"))
+		{
+			tags.setCompoundTag("TConstruct", new NBTTagCompound());
+		}
+		PlayerDLCStats stats = new PlayerDLCStats();
+		stats.player = new WeakReference<EntityPlayer>(entityplayer);
+		stats.readFromNBT(entityplayer);
 
-        playerStats.put(entityplayer.username, stats);
+		playerStats.put(entityplayer.username, stats);
 
-        //TContent.modRecipes();
-        //updatePlayerInventory(entityplayer, stats);
-        //sendSkills(entityplayer, stats);
-    }
+		//TContent.modRecipes();
+		//updatePlayerInventory(entityplayer, stats);
+		//sendSkills(entityplayer, stats);
+	}
 
-    void updatePlayerInventory (EntityPlayer entityplayer, PlayerDLCStats stats)
-    {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-        DataOutputStream outputStream = new DataOutputStream(bos);
-        try
-        {
-            outputStream.writeByte(2);
-            updateClientPlayer(bos, entityplayer);
-        }
+	void updatePlayerInventory (EntityPlayer entityplayer, PlayerDLCStats stats)
+	{
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
+		try
+		{
+			outputStream.writeByte(2);
+			updateClientPlayer(bos, entityplayer);
+		}
 
-        catch (Exception ex)
-        {
+		catch (Exception ex)
+		{
 
-        }
-    }
+		}
+	}
 
-    void sendSkills (EntityPlayer entityplayer, PlayerDLCStats stats)
-    {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-        DataOutputStream outputStream = new DataOutputStream(bos);
-        List<Skill> skills = stats.skillList;
+	void sendDLCs (EntityPlayer entityplayer, PlayerDLCStats stats)
+	{
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
 
-        try
-        {
-            outputStream.writeByte(1);
-            outputStream.writeInt(skills.size());
+		try
+		{
+			outputStream.writeByte(1);
+			outputStream.writeInt(DLCManager.names.length);
+			for (int i = 0; i < DLCManager.names.length; ++i)
+			{
+				if (DLCManager.names[i] != null)
+				{
+					outputStream.writeChars(DLCManager.names[i]);
+					outputStream.writeByte(stats.states.get(DLCManager.names[i]).state);
 
-            for (Skill skill : stats.skillList)
-            {
-                outputStream.writeInt(skill.getSkillID());
-                outputStream.writeBoolean(skill.getActive());
-            }
-            //outputStream.writeByte(key);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 
-        updateClientPlayer(bos, entityplayer);
-    }
 
-    void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
-    {
-        Packet250CustomPayload packet = new Packet250CustomPayload();
-        packet.channel = "TConstruct";
-        packet.data = bos.toByteArray();
-        packet.length = bos.size();
+		updateClientPlayer(bos, entityplayer);
+	}
 
-        PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
-    }
+	void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
+	{
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "TConstruct";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
 
-    public void activateSkill (EntityPlayer player, int slot)
-    {
-        PlayerDLCStats stats = gePlayerDLCStats(player.username);
-        if (stats.skillList.size() > slot)
-        {
-            Skill skill = stats.skillList.get(slot);
-            if (skill != null)
-            {
-                skill.activate(player, player.worldObj);
-            }
-        }
-    }
+		PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
+	}
 
-    @Override
-    public void onPlayerLogout (EntityPlayer entityplayer)
-    {
-        savePlayerStats(entityplayer, true);
-    }
+	@Override
+	public void onPlayerLogout (EntityPlayer entityplayer)
+	{
+		savePlayerStats(entityplayer, true);
+	}
 
-    @Override
-    public void onPlayerChangedDimension (EntityPlayer entityplayer)
-    {
-        savePlayerStats(entityplayer, false);
-    }
+	@Override
+	public void onPlayerChangedDimension (EntityPlayer entityplayer)
+	{
+		savePlayerStats(entityplayer, false);
+	}
 
-    void savePlayerStats (EntityPlayer player, boolean clean)
-    {
-        if (player != null)
-        {
-            PlayerDLCStats stats = gePlayerDLCStats(player.username);
-            if (stats != null && stats.armor != null)
-            {
-                stats.armor.saveToNBT(player);
-                stats.knapsack.saveToNBT(player);
-                if (clean)
-                    playerStats.remove(player.username);
-            }
-            else
-            //Revalidate all players
-            {
+	void savePlayerStats (EntityPlayer player, boolean clean)
+	{
+		if (player != null)
+		{
+			PlayerDLCStats stats = gePlayerDLCStats(player.username);
+			if (stats != null && stats.states != null)
+			{
+				stats.saveToNBT(player);
+				if (clean)
+					playerStats.remove(player.username);
+			}
+			else
+				//Revalidate all players
+			{
 
-            }
-        }
-    }
+			}
+		}
+	}
 
-    @Override
-    public void onPlayerRespawn (EntityPlayer entityplayer)
-    {
-        //Boom!
-        PlayerDLCStats stats = gePlayerDLCStats(entityplayer.username);
-        stats.player = new WeakReference<EntityPlayer>(entityplayer);
-        stats.armor.recalculateHealth(entityplayer, stats);
+	@Override
+	public void onPlayerRespawn (EntityPlayer entityplayer)
+	{
+		//Boom!
+		PlayerDLCStats stats = gePlayerDLCStats(entityplayer.username);
+		stats.player = new WeakReference<EntityPlayer>(entityplayer);
 
-        TFoodStats food = new TFoodStats();
-        entityplayer.foodStats = food;
+		NBTTagCompound tags = entityplayer.getEntityData();
+		NBTTagCompound tTag = new NBTTagCompound();
+		tags.setCompoundTag("DLCraft", tTag);
 
-        if (PHConstruct.keepLevels)
-            entityplayer.experienceLevel = stats.level;
-        if (PHConstruct.keepHunger)
-            entityplayer.getFoodStats().addStats(-1 * (20 - stats.hunger), 0);
-        NBTTagCompound tags = entityplayer.getEntityData();
-        NBTTagCompound tTag = new NBTTagCompound();
-        tTag.setBoolean("beginnerManual", stats.beginnerManual);
-        tTag.setBoolean("materialManual", stats.materialManual);
-        tTag.setBoolean("smelteryManual", stats.smelteryManual);
-        tags.setCompoundTag("TConstruct", tTag);
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+	}
 
-        Side side = FMLCommonHandler.instance().getEffectiveSide();
-        if (side == Side.CLIENT)
-        {
-            //TProxyClient.controlInstance.resetControls();
-            if (PHConstruct.keepHunger)
-                entityplayer.getFoodStats().setFoodLevel(stats.hunger);
-        }
-    }
 
-    @ForgeSubscribe
-    public void livingFall (LivingFallEvent evt) //Only for negating fall damage
-    {
-        if (evt.entityLiving instanceof EntityPlayer)
-        {
-            evt.distance -= 1;
-        }
-    }
+	/* Find the right player */
+	public PlayerDLCStats gePlayerDLCStats (String username)
+	{
+		PlayerDLCStats stats = playerStats.get(username);
+		//System.out.println("Stats: "+stats);
+		if (stats == null)
+		{
+			stats = new PlayerDLCStats();
+			playerStats.put(username, stats);
+		}
+		return stats;
+	}
 
-    /*@ForgeSubscribe
-    public void livingUpdate (LivingUpdateEvent evt)
-    {
-    	Side side = FMLCommonHandler.instance().getEffectiveSide();
-    	if (side == Side.CLIENT && evt.entityLiving instanceof EntityPlayer)
-    	{
-    		EntityPlayer player = (EntityPlayer) evt.entityLiving;
-    		PlayerDLCStats stats = playerStats.get(player.username);
-    		if (player.onGround != stats.prevOnGround)
-    		{
-    			if (player.onGround)// && -stats.prevMotionY > 0.1)
-    				//player.motionY = 0.5;
-    				player.motionY = -stats.prevMotionY * 0.8;
-    				//player.motionY *= -1.2;
-    			stats.prevOnGround = player.onGround;
-    			//if ()
-    				
-    			//System.out.println("Fall: "+player.fallDistance);
-    		}
-    	}
-    }*/
+	public EntityPlayer getEntityPlayer (String username)
+	{
+		PlayerDLCStats stats = playerStats.get(username);
+		if (stats == null)
+		{
+			return null;
+		}
+		else
+		{
+			return stats.player.get();
+		}
+	}
 
-    @ForgeSubscribe
-    public void playerDrops (PlayerDropsEvent evt)
-    {
-        PlayerDLCStats stats = gePlayerDLCStats(evt.entityPlayer.username);
-        stats.level = evt.entityPlayer.experienceLevel / 2;
-        //stats.health = 20;
-        int hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
-        if (hunger < 6)
-            stats.hunger = 6;
-        else
-            stats.hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
-    }
-
-    /* Find the right player */
-    public PlayerDLCStats gePlayerDLCStats (String username)
-    {
-        PlayerDLCStats stats = playerStats.get(username);
-        //System.out.println("Stats: "+stats);
-        if (stats == null)
-        {
-            stats = new PlayerDLCStats();
-            playerStats.put(username, stats);
-        }
-        return stats;
-    }
-
-    public EntityPlayer getEntityPlayer (String username)
-    {
-        PlayerDLCStats stats = playerStats.get(username);
-        if (stats == null)
-        {
-            return null;
-        }
-        else
-        {
-            return stats.player.get();
-        }
-    }
-
-    /* Modify Player */
-    public void updateSize (String user, float offset)
-    {
-        /*EntityPlayer player = getEntityPlayer(user);
+	/* Modify Player */
+	public void updateSize (String user, float offset)
+	{
+		/*EntityPlayer player = getEntityPlayer(user);
         setEntitySize(0.6F, offset, player);
         player.yOffset = offset - 0.18f;*/
-    }
+	}
 
-    public static void setEntitySize (float width, float height, Entity entity)
-    {
-        //System.out.println("Size: " + height);
-        if (width != entity.width || height != entity.height)
-        {
-            entity.width = width;
-            entity.height = height;
-            entity.boundingBox.maxX = entity.boundingBox.minX + (double) entity.width;
-            entity.boundingBox.maxZ = entity.boundingBox.minZ + (double) entity.width;
-            entity.boundingBox.maxY = entity.boundingBox.minY + (double) entity.height;
-        }
+	public static void setEntitySize (float width, float height, Entity entity)
+	{
+		//System.out.println("Size: " + height);
+		if (width != entity.width || height != entity.height)
+		{
+			entity.width = width;
+			entity.height = height;
+			entity.boundingBox.maxX = entity.boundingBox.minX + (double) entity.width;
+			entity.boundingBox.maxZ = entity.boundingBox.minZ + (double) entity.width;
+			entity.boundingBox.maxY = entity.boundingBox.minY + (double) entity.height;
+		}
 
-        float que = width % 2.0F;
+		float que = width % 2.0F;
 
-        if ((double) que < 0.375D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_1;
-        }
-        else if ((double) que < 0.75D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_2;
-        }
-        else if ((double) que < 1.0D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_3;
-        }
-        else if ((double) que < 1.375D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_4;
-        }
-        else if ((double) que < 1.75D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_5;
-        }
-        else
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_6;
-        }
-        //entity.yOffset = height;
-    }
+		if ((double) que < 0.375D)
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_1;
+		}
+		else if ((double) que < 0.75D)
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_2;
+		}
+		else if ((double) que < 1.0D)
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_3;
+		}
+		else if ((double) que < 1.375D)
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_4;
+		}
+		else if ((double) que < 1.75D)
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_5;
+		}
+		else
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_6;
+		}
+		//entity.yOffset = height;
+	}
 
-    Random rand = new Random();
+	Random rand = new Random();
 
 }
