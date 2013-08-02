@@ -5,7 +5,10 @@ import java.lang.ref.WeakReference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemPotion;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -91,8 +94,47 @@ public class EventManager
 
 	public void rightClickBlock(PlayerInteractEvent event)
 	{
-		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
+		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.chest.blockID)
+		{
 
+		if(dlcs.getState("chest") != 2)
+		{
+			event.setCanceled(true);
+		}
+		}
+		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.enchantmentTable.blockID)
+		{
+
+		if(dlcs.getState("enchanting") != 2)
+		{
+			event.setCanceled(true);
+		}
+		}
+		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.brewingStand.blockID)
+		{
+
+		if(dlcs.getState("brewing") != 2)
+		{
+			event.setCanceled(true);
+		}
+		}
+		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.furnaceIdle.blockID)
+		{
+
+		if(dlcs.getState("furnace") != 2)
+		{
+			event.setCanceled(true);
+		}
+		}
+		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.furnaceBurning.blockID)
+		{
+
+		if(dlcs.getState("furnace") != 2)
+		{
+			event.setCanceled(true);
+		}
+		}
 	}
 
 	public void rightClickAir(PlayerInteractEvent event)
@@ -101,6 +143,27 @@ public class EventManager
 		if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
 		{
 			if(dlcs.getState("eat") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
+		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemPotion)
+		{
+			if(dlcs.getState("potion") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
+		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemBow)
+		{
+			if(dlcs.getState("bow") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
+		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFishingRod)
+		{
+			if(dlcs.getState("fishing") != 2)
 			{
 				event.setCanceled(true);
 			}

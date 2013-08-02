@@ -14,7 +14,7 @@ public class DLCManager
 		names[1] = "sprint";
 		names[2] = "eat";
 		names[3] = "air";
-		names[4] = "potions";
+		names[4] = "potion";
 		names[5] = "chest";
 		names[6] = "enchanting";
 		names[7] = "furnace";
@@ -35,7 +35,7 @@ public class DLCManager
 		names[22] = "inventory";
 		names[23] = "buttonLever";
 		names[24] = "mobCoins";
-		names[25] = "fishing";
+		names[25] = "hopper";
 		names[26] = "fishing";
 		names[27] = "fishing";
 		names[28] = "fishing";

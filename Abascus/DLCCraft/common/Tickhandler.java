@@ -15,9 +15,8 @@ public class Tickhandler implements ITickHandler
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData)
 	{
+		
 		 playerTick((EntityPlayer)tickData[0]);
-
-
 		if(type.equals(EnumSet.of(TickType.PLAYER)))
 		{
 			if(Minecraft.getMinecraft().theWorld != null && Minecraft.getMinecraft().theWorld.loadedEntityList.size() > 0)
@@ -25,11 +24,19 @@ public class Tickhandler implements ITickHandler
 				List<EntityPlayer> players = Minecraft.getMinecraft().theWorld.playerEntities;
 				for(EntityPlayer player : players)
 				{
-					if(DLCCraft.playerTracker.getPlayerDLCStats(player.username).states.get("air").state != 2)
+					DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(player.username).dlcManager;
+					if(dlcs.getState("air") != 2)
 					{
 						if(player.isInWater())
 						{
 							player.attackEntityFrom(DamageSource.drown, 2);
+						}
+					}
+					else if(dlcs.getState("sprint") != 2)
+					{
+						if(player.isInWater())
+						{
+							player.setSprinting(false);
 						}
 					}
 				}
