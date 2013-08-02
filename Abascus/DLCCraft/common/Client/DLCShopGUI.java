@@ -158,11 +158,6 @@ public class DLCShopGUI extends InventoryEffectRenderer
                         this.mc.playerController.func_78752_a(this.mc.thePlayer.inventory.getItemStack());
                         this.mc.thePlayer.inventory.setItemStack((ItemStack)null);
                     }
-                    else
-                    {
-                        this.mc.thePlayer.inventoryContainer.slotClick(par1Slot == null ? par2 : SlotCreativeInventory.func_75240_a((SlotCreativeInventory)par1Slot).slotNumber, par3, par4, this.mc.thePlayer);
-                        this.mc.thePlayer.inventoryContainer.detectAndSendChanges();
-                    }
                 }
                 else if (par4 != 5 && par1Slot.inventory == inventory)
                 {
@@ -522,44 +517,6 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
             ContainerDLCShop.inventorySlots = new ArrayList();
 
-            for (int j = 0; j < container.inventorySlots.size(); ++j)
-            {
-                SlotCreativeInventory slotcreativeinventory = new SlotCreativeInventory(this, (Slot)container.inventorySlots.get(j), j);
-                ContainerDLCShop.inventorySlots.add(slotcreativeinventory);
-                int k;
-                int l;
-                int i1;
-
-                if (j >= 5 && j < 9)
-                {
-                    k = j - 5;
-                    l = k / 2;
-                    i1 = k % 2;
-                    slotcreativeinventory.xDisplayPosition = 9 + l * 54;
-                    slotcreativeinventory.yDisplayPosition = 6 + i1 * 27;
-                }
-                else if (j >= 0 && j < 5)
-                {
-                    slotcreativeinventory.yDisplayPosition = -2000;
-                    slotcreativeinventory.xDisplayPosition = -2000;
-                }
-                else if (j < container.inventorySlots.size())
-                {
-                    k = j - 9;
-                    l = k % 9;
-                    i1 = k / 9;
-                    slotcreativeinventory.xDisplayPosition = 9 + l * 18;
-
-                    if (j >= 36)
-                    {
-                        slotcreativeinventory.yDisplayPosition = 112;
-                    }
-                    else
-                    {
-                        slotcreativeinventory.yDisplayPosition = 54 + i1 * 18;
-                    }
-                }
-            }
 
             this.field_74235_v = new Slot(inventory, 0, 173, 112);
             ContainerDLCShop.inventorySlots.add(this.field_74235_v);

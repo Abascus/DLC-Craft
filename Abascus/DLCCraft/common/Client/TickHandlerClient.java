@@ -25,24 +25,6 @@ public class TickHandlerClient implements ITickHandler
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData)
 	{
-
-		if(type.equals(EnumSet.of(TickType.PLAYER)))
-		{
-			if(Minecraft.getMinecraft().theWorld != null && Minecraft.getMinecraft().theWorld.loadedEntityList.size() > 0)
-			{
-				List<EntityPlayer> players = Minecraft.getMinecraft().theWorld.playerEntities;
-				for(EntityPlayer player : players)
-				{
-					if(DLCCraft.playerTracker.gePlayerDLCStats(player.username).states.get("air").state != 2)
-					{
-						if(player.isInWater())
-						{
-							player.attackEntityFrom(DamageSource.drown, 2);
-						}
-					}
-				}
-			}
-		}
 	}
 
 	@Override
@@ -71,7 +53,7 @@ public class TickHandlerClient implements ITickHandler
 	@Override
 	public String getLabel()
 	{
-		return "UniversalBlocks - Player update tick";
+		return "DLC Craft - Player update tick - Client";
 	}
 
 }

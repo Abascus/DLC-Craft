@@ -63,11 +63,13 @@ public class DLCCraft
 		MinecraftForge.EVENT_BUS.register(new EventManager());
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
-		TickRegistry.registerTickHandler(new TickHandlerClient(), Side.CLIENT);
+		
 
 		playerTracker = new PlayerTracker();
 		GameRegistry.registerPlayerTracker(playerTracker);
 		MinecraftForge.EVENT_BUS.register(playerTracker);
+		TickRegistry.registerTickHandler(new TickHandlerClient(), Side.CLIENT);
+		TickRegistry.registerTickHandler(new Tickhandler(), Side.SERVER);
 
 	}
 

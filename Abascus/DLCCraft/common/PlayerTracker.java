@@ -35,9 +35,9 @@ public class PlayerTracker implements IPlayerTracker
 		//System.out.println("Player: "+entityplayer);
 		//Lookup player
 		NBTTagCompound tags = entityplayer.getEntityData();
-		if (!tags.hasKey("TConstruct"))
+		if (!tags.hasKey("DLCCraft"))
 		{
-			tags.setCompoundTag("TConstruct", new NBTTagCompound());
+			tags.setCompoundTag("DLCCraft", new NBTTagCompound());
 		}
 		PlayerDLCStats stats = new PlayerDLCStats();
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
@@ -97,7 +97,7 @@ public class PlayerTracker implements IPlayerTracker
 	void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
 	{
 		Packet250CustomPayload packet = new Packet250CustomPayload();
-		packet.channel = "TConstruct";
+		packet.channel = "DLCCraft";
 		packet.data = bos.toByteArray();
 		packet.length = bos.size();
 
@@ -120,7 +120,7 @@ public class PlayerTracker implements IPlayerTracker
 	{
 		if (player != null)
 		{
-			PlayerDLCStats stats = gePlayerDLCStats(player.username);
+			PlayerDLCStats stats = getPlayerDLCStats(player.username);
 			if (stats != null && stats.states != null)
 			{
 				stats.saveToNBT(player);
@@ -139,7 +139,7 @@ public class PlayerTracker implements IPlayerTracker
 	public void onPlayerRespawn (EntityPlayer entityplayer)
 	{
 		//Boom!
-		PlayerDLCStats stats = gePlayerDLCStats(entityplayer.username);
+		PlayerDLCStats stats = getPlayerDLCStats(entityplayer.username);
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
 
 		NBTTagCompound tags = entityplayer.getEntityData();
@@ -151,7 +151,7 @@ public class PlayerTracker implements IPlayerTracker
 
 
 	/* Find the right player */
-	public PlayerDLCStats gePlayerDLCStats (String username)
+	public PlayerDLCStats getPlayerDLCStats (String username)
 	{
 		PlayerDLCStats stats = playerStats.get(username);
 		//System.out.println("Stats: "+stats);
