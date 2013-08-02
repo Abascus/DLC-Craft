@@ -12,12 +12,12 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 @SideOnly(Side.CLIENT)
-public class ContainerCreative extends Container
+public class ContainerDLCShop extends Container
 {
     /** the list of items in this container */
     public List itemList = new ArrayList();
 
-    public ContainerCreative(EntityPlayer par1EntityPlayer)
+    public ContainerDLCShop(EntityPlayer par1EntityPlayer)
     {
         InventoryPlayer inventoryplayer = par1EntityPlayer.inventory;
         int i;
