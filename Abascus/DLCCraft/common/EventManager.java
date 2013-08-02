@@ -1,6 +1,7 @@
 package Abascus.DLCCraft.common;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBow;
@@ -119,13 +120,18 @@ public class EventManager
 	@ForgeSubscribe
 	public void onLivingDrop (LivingDropsEvent event)
 	{
-		/*EntityPlayer ep = (EntityPlayer)event.source.getSourceOfDamage();
-		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep.username).dlcManager;
+		try
+		{
+		EntityPlayer ep = (EntityPlayer)event.source.getSourceOfDamage();
+		String u = ep.username;
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(u).dlcManager;
 
 		if(dlcs.getState("mobDrops") != 2)
 		{
 			event.setCanceled(true);
-		}*/
+		}
+		}
+		catch(Exception e){}
 
 	}
 
