@@ -6,6 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import Abascus.DLCCraft.common.Client.TickHandlerClient;
+
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
@@ -17,6 +19,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "Abascus_DLCCraft", name = "DLC Craft", version = "0.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -59,6 +63,7 @@ public class DLCCraft
 		MinecraftForge.EVENT_BUS.register(new EventManager());
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
+		TickRegistry.registerTickHandler(new TickHandlerClient(), Side.CLIENT);
 
 		playerTracker = new PlayerTracker();
 		GameRegistry.registerPlayerTracker(playerTracker);

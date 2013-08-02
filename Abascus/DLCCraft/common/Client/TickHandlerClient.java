@@ -1,7 +1,9 @@
-package Abascus.DLCCraft.common;
+package Abascus.DLCCraft.common.Client;
 
 import java.util.EnumSet;
 import java.util.List;
+
+import Abascus.DLCCraft.common.DLCCraft;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ImageBufferDownload;
