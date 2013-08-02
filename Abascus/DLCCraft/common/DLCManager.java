@@ -92,7 +92,7 @@ public class DLCManager
 	            }
 	        }
 
-	        tags.setTag("DLCCraft.DLCManager", tagList);
+	        tags.setTag("DLCCraft", tagList);
 	    }
 
 	    public void readFromNBT (NBTTagCompound tags)
@@ -101,7 +101,7 @@ public class DLCManager
 	        {
 	            if (DLCManager.names[i] != null)
 	            {
-	            	NBTTagCompound nbttagcompound = tags.getCompoundTag("DLCCraft.DLCManager");
+	            	NBTTagCompound nbttagcompound = tags.getCompoundTag("DLCCraft");
 	            	int s =  (nbttagcompound.getInteger(DLCManager.names[i]));
 	                DLC dlc = new DLC(i, DLCManager.names[i]);
 	                dlc.setState(s);

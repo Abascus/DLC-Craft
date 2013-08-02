@@ -44,66 +44,58 @@ public class EventManager
 	@ForgeSubscribe
 	public void entityConstructing(EntityConstructing event)
 	{
-		if(event.entity instanceof EntityPlayer)
-		{
-			PlayerDLCStats stats = new PlayerDLCStats();
-			EntityPlayer ep = (EntityPlayer)event.entity;
-			NBTTagCompound tags = event.entity.getEntityData();
-			tags.setCompoundTag("DLCCraft", new NBTTagCompound());
-			NBTTagList tagList = new NBTTagList();
-			NBTTagCompound dlc;
-
-			for (int i = 0; i < DLCManager.names.length; ++i)
-			{
-				if (DLCManager.names[i] != null)
-				{
-					dlc = new NBTTagCompound();
-					dlc.setInteger(DLCManager.names[i], (byte) 0);
-					tagList.appendTag(dlc);
-				}
-			}
-
-			tags.setTag("DLCCraft", tagList);
-			stats.init();
-			stats.player = new WeakReference<EntityPlayer>(ep);
-		}
 	}
-	
+
 	@ForgeSubscribe
 	public void itemPickup(EntityItemPickupEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
 		if(event.item.getEntityItem().itemID == DLCCraft.instance.CoinID)
-		if(dlcs.getState("mobDrops") != 2)
 		{
-			event.setCanceled(true);
+
+		}
+		else if(event.item.getEntityItem().itemID == DLCCraft.instance.DLCID)
+		{
+
+		}
+		else
+		{
+			if(dlcs.getState("collectDrops") != 2)
+			{
+				event.setCanceled(true);
+			}
 		}
 	}
-	
+
 	@ForgeSubscribe
 	public void entityInteract(EntityInteractEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
 	}
-	
+
 	@ForgeSubscribe
 	public void itemEvent(ItemEvent event)
 	{
-
+		if(event.entityItem.getEntityItem().itemID == DLCCraft.instance.CoinID)
+		{
+			event.entityItem.boundingBox.maxX = event.entityItem.boundingBox.maxX*3;
+			event.entityItem.boundingBox.maxY = event.entityItem.boundingBox.maxY*3;
+			event.entityItem.boundingBox.maxZ = event.entityItem.boundingBox.maxZ*3;
+		}
 	}
 
 
 	@ForgeSubscribe
 	public void onLivingDrop (LivingDropsEvent event)
 	{
-			EntityPlayer ep = (EntityPlayer)event.source.getSourceOfDamage();
-			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep.username).dlcManager;
-			
-			if(dlcs.getState("mobDrops") != 2)
-			{
-				event.setCanceled(true);
-			}
-		
+		EntityPlayer ep = (EntityPlayer)event.source.getSourceOfDamage();
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep.username).dlcManager;
+
+		if(dlcs.getState("mobDrops") != 2)
+		{
+			event.setCanceled(true);
+		}
+
 	}
 
 	public void rightClickBlock(PlayerInteractEvent event)
@@ -112,42 +104,42 @@ public class EventManager
 		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.chest.blockID)
 		{
 
-		if(dlcs.getState("chest") != 2)
-		{
-			event.setCanceled(true);
-		}
+			if(dlcs.getState("chest") != 2)
+			{
+				event.setCanceled(true);
+			}
 		}
 		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.enchantmentTable.blockID)
 		{
 
-		if(dlcs.getState("enchanting") != 2)
-		{
-			event.setCanceled(true);
-		}
+			if(dlcs.getState("enchanting") != 2)
+			{
+				event.setCanceled(true);
+			}
 		}
 		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.brewingStand.blockID)
 		{
 
-		if(dlcs.getState("brewing") != 2)
-		{
-			event.setCanceled(true);
-		}
+			if(dlcs.getState("brewing") != 2)
+			{
+				event.setCanceled(true);
+			}
 		}
 		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.furnaceIdle.blockID)
 		{
 
-		if(dlcs.getState("furnace") != 2)
-		{
-			event.setCanceled(true);
-		}
+			if(dlcs.getState("furnace") != 2)
+			{
+				event.setCanceled(true);
+			}
 		}
 		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.furnaceBurning.blockID)
 		{
 
-		if(dlcs.getState("furnace") != 2)
-		{
-			event.setCanceled(true);
-		}
+			if(dlcs.getState("furnace") != 2)
+			{
+				event.setCanceled(true);
+			}
 		}
 	}
 
@@ -197,18 +189,18 @@ public class EventManager
 		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
 		{
 
-		if(dlcs.getState(0) != 2)
-		{
-			event.setCanceled(true);
-		}
+			if(dlcs.getState(0) != 2)
+			{
+				event.setCanceled(true);
+			}
 		}
 		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemPickaxe && event.entityPlayer.getCurrentEquippedItem().canHarvestBlock(Block.oreDiamond))
 		{
 
-		if(dlcs.getState("useIronPick") != 2)
-		{
-			event.setCanceled(true);
-		}
+			if(dlcs.getState("useIronPick") != 2)
+			{
+				event.setCanceled(true);
+			}
 		}
 	}
 

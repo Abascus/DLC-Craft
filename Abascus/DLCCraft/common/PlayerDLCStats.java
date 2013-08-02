@@ -15,7 +15,7 @@ public class PlayerDLCStats
     public ConcurrentHashMap<String, State> states = new ConcurrentHashMap<String, State>();
     public List<DLC> dlcs;
     public DLCManager dlcManager = new DLCManager();
-    public int Coins;
+    public int Coins = 20;
     
     public void init()
     {
