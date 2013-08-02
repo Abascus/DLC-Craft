@@ -11,7 +11,7 @@ import cpw.mods.fml.common.TickType;
 public class DLCKeyBinding extends KeyHandler
 {
          private EnumSet tickTypes = EnumSet.of(TickType.CLIENT);
-        
+         public static boolean keyPressed = false;
          public DLCKeyBinding(KeyBinding[] keyBindings, boolean[] repeatings)
          {
                  super(keyBindings, repeatings);
@@ -24,11 +24,12 @@ public class DLCKeyBinding extends KeyHandler
          @Override
          public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat)
          {
+        	 keyPressed = true;
          }
          @Override
          public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd)
          {
-                 //What to do when key is released/up
+        	 keyPressed = false;
          }
          @Override
          public EnumSet<TickType> ticks()
