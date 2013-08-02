@@ -6,7 +6,9 @@ public class DLCManager
 	
 	public DLCManager()
 	{
-		
+		names[0] = "punchWood";
+		names[1] = "sprint";
+		names[2] = "eat";
 	}
 
 }

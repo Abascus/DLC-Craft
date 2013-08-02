@@ -12,10 +12,6 @@ import net.minecraft.nbt.NBTTagList;
 public class PlayerDLCStats
 {
     public WeakReference<EntityPlayer> player;
-    public int level;
-    public int levelHealth;
-    public int bonusHealth;
-    public int hunger;
     public ConcurrentHashMap<String, State> states = new ConcurrentHashMap<String, State>();
     
     public void saveToNBT (EntityPlayer entityplayer)
@@ -41,15 +37,13 @@ public class PlayerDLCStats
     {
         NBTTagCompound tags = entityplayer.getEntityData();
         NBTTagList tagList = tags.getTagList("DLCCraft");
-        for (int i = 0; i < tagList.tagCount(); ++i)
+        for (int i = 0; i < DLCManager.names.length; ++i)
         {
-            NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.tagAt(i);
-            int j = nbttagcompound.getByte("Slot") & 255;
-            ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbttagcompound);
-
-            if (itemstack != null)
+            if (DLCManager.names[i] != null)
             {
-                this.inventory[j] = itemstack;
+            	NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.tagAt(i);
+            	byte s = (byte) (nbttagcompound.getByte(DLCManager.names[i]) & 255);
+                states.put(DLCManager.names[i], new State(s));
             }
         }
     }

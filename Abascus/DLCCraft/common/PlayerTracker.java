@@ -34,12 +34,6 @@ public class PlayerTracker implements IPlayerTracker
     {
         //System.out.println("Player: "+entityplayer);
         //Lookup player
-        if (!PHConstruct.enableHealthRegen)
-        {
-            TFoodStats food = new TFoodStats();
-            food.readStats(entityplayer.foodStats);
-            entityplayer.foodStats = food;
-        }
         NBTTagCompound tags = entityplayer.getEntityData();
         if (!tags.hasKey("TConstruct"))
         {
@@ -47,49 +41,9 @@ public class PlayerTracker implements IPlayerTracker
         }
         PlayerDLCStats stats = new PlayerDLCStats();
         stats.player = new WeakReference<EntityPlayer>(entityplayer);
-        stats.armor = new ArmorExtended();
-        stats.armor.init(entityplayer);
-        stats.armor.readFromNBT(entityplayer);
-
-        stats.knapsack = new KnapsackInventory();
-        stats.knapsack.init(entityplayer);
-        stats.knapsack.readFromNBT(entityplayer);
-
-        stats.level = entityplayer.experienceLevel;
-        stats.hunger = entityplayer.getFoodStats().getFoodLevel();
-        stats.beginnerManual = tags.getCompoundTag("TConstruct").getBoolean("beginnerManual");
-        stats.materialManual = tags.getCompoundTag("TConstruct").getBoolean("materialManual");
-        stats.smelteryManual = tags.getCompoundTag("TConstruct").getBoolean("smelteryManual");
-        if (!stats.beginnerManual)
-        {
-            stats.beginnerManual = true;
-            tags.getCompoundTag("TConstruct").setBoolean("beginnerManual", true);
-            if (PHConstruct.beginnerBook)
-            {
-                ItemStack diary = new ItemStack(TContent.manualBook);
-                if (!entityplayer.inventory.addItemStackToInventory(diary))
-                {
-                    AbilityHelper.spawnItemAtPlayer(entityplayer, diary);
-                }
-            }
-        }
-
-        stats.skillList = new ArrayList<Skill>();
-        //stats.armor.recalculateSkills(entityplayer, stats);
+        stats.readFromNBT(entityplayer);
 
         playerStats.put(entityplayer.username, stats);
-
-        if (PHConstruct.gregtech)
-        {
-            PHConstruct.gregtech = false;
-            if (PHConstruct.lavaFortuneInteraction)
-            {
-                entityplayer.addChatMessage("Warning: Cross-mod Exploit Present!");
-                entityplayer.addChatMessage("Solution 1: Disable Reverse Smelting recipes from GregTech.");
-                entityplayer.addChatMessage("Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
-            }
-            entityplayer.addChatMessage("Warning: Cross-mod Exploit Present!");
-        }
 
         //TContent.modRecipes();
         //updatePlayerInventory(entityplayer, stats);
