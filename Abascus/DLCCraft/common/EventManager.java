@@ -8,6 +8,7 @@ import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemPotion;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.EventPriority;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -53,14 +54,16 @@ public class EventManager
 	public void itemPickup(EntityItemPickupEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
-		if(event.item.getEntityItem().itemID == DLCCraft.instance.CoinID)
+		if(event.item.getEntityItem().itemID == DLCCraft.instance.coin.itemID)
 		{
+			event.setCanceled(true);
 			PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
 			stats.Coins++;
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
 			event.item.setDead();
+			event.item.attackEntityFrom(DamageSource.inFire, 10000);
 		}
-		else if(event.item.getEntityItem().itemID == DLCCraft.instance.DLCID)
+		else if(event.item.getEntityItem().itemID == DLCCraft.instance.dlc.itemID)
 		{
 
 		}

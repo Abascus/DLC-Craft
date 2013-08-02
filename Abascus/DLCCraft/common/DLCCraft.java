@@ -90,13 +90,14 @@ public class DLCCraft
 		MinecraftForge.EVENT_BUS.register(playerTracker);
 		TickRegistry.registerTickHandler(new TickHandlerClient(), Side.CLIENT);
 		TickRegistry.registerTickHandler(new Tickhandler(), Side.SERVER);
+		MinecraftForgeClient.registerItemRenderer(DLCCraft.instance.coin.itemID, new CoinRenderer());
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) 
 	{
 
-
+		MinecraftForgeClient.registerItemRenderer(DLCCraft.instance.coin.itemID, new CoinRenderer());
 	}
 
 	public static String[] grab(String location)
