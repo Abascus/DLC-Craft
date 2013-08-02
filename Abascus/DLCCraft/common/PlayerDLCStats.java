@@ -16,22 +16,21 @@ public class PlayerDLCStats
     public int levelHealth;
     public int bonusHealth;
     public int hunger;
-    public ConcurrentHashMap<String, PlayerDLCStats> playerStats = new ConcurrentHashMap<String, PlayerDLCStats>();
+    public ConcurrentHashMap<String, State> states = new ConcurrentHashMap<String, State>();
     
     public void saveToNBT (EntityPlayer entityplayer)
     {
         NBTTagCompound tags = entityplayer.getEntityData();
         NBTTagList tagList = new NBTTagList();
-        NBTTagCompound invSlot;
+        NBTTagCompound dlc;
 
-        for (int i = 0; i < this.inventory.length; ++i)
+        for (int i = 0; i < DLCManager.names.length; ++i)
         {
-            if (this.inventory[i] != null)
+            if (DLCManager.names[i] != null)
             {
-                invSlot = new NBTTagCompound();
-                invSlot.setByte("Slot", (byte) i);
-                this.inventory[i].writeToNBT(invSlot);
-                tagList.appendTag(invSlot);
+                dlc = new NBTTagCompound();
+                dlc.setByte(DLCManager.names[i], states.get(DLCManager.names[i]).state);
+                tagList.appendTag(dlc);
             }
         }
 
