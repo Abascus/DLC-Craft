@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,7 +45,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
     private static InventoryBasic inventory = new InventoryBasic("tmp", true, 45);
 
     /** Currently selected creative inventory tab index. */
-    private static int selectedTabIndex = CreativeTabs.tabBlock.getTabIndex();
+    private static int selectedTabIndex = DLCGuiTabs.tabBlock.getTabIndex();
 
     /** Amount scrolled in Creative mode inventory (0 = top, 1 = bottom) */
     private float currentScroll;
@@ -87,7 +86,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
         ItemStack itemstack;
         InventoryPlayer inventoryplayer;
 
-        if (par1Slot == null && selectedTabIndex != CreativeTabs.tabInventory.getTabIndex() && par4 != 5)
+        if (par1Slot == null && par4 != 5)
         {
             inventoryplayer = this.mc.thePlayer.inventory;
 
@@ -125,29 +124,8 @@ public class DLCShopGUI extends InventoryEffectRenderer
                 }
             }
             else
-            {
-                ItemStack itemstack1;
-
-                if (selectedTabIndex == CreativeTabs.tabInventory.getTabIndex())
-                {
-                    if (par1Slot == this.field_74235_v)
-                    {
-                        this.mc.thePlayer.inventory.setItemStack((ItemStack)null);
-                    }
-                    else if (par4 == 4 && par1Slot != null && par1Slot.getHasStack())
-                    {
-                        itemstack1 = par1Slot.decrStackSize(par3 == 0 ? 1 : par1Slot.getStack().getMaxStackSize());
-                        this.mc.thePlayer.dropPlayerItem(itemstack1);
-                        this.mc.playerController.func_78752_a(itemstack1);
-                    }
-                    else if (par4 == 4 && this.mc.thePlayer.inventory.getItemStack() != null)
-                    {
-                        this.mc.thePlayer.dropPlayerItem(this.mc.thePlayer.inventory.getItemStack());
-                        this.mc.playerController.func_78752_a(this.mc.thePlayer.inventory.getItemStack());
-                        this.mc.thePlayer.inventory.setItemStack((ItemStack)null);
-                    }
-                }
-                else if (par4 != 5 && par1Slot.inventory == inventory)
+            {              
+               if (par4 != 5 && par1Slot.inventory == inventory)
                 {
                     inventoryplayer = this.mc.thePlayer.inventory;
                     itemstack = inventoryplayer.getItemStack();
@@ -240,11 +218,6 @@ public class DLCShopGUI extends InventoryEffectRenderer
                             this.mc.playerController.sendSlotPacket(this.inventorySlots.getSlot(45 + l).getStack(), 36 + l);
                         }
                     }
-                    else if (par1Slot != null)
-                    {
-                        itemstack1 = this.inventorySlots.getSlot(par1Slot.slotNumber).getStack();
-                        this.mc.playerController.sendSlotPacket(itemstack1, par1Slot.slotNumber - this.inventorySlots.inventorySlots.size() + 9 + 36);
-                    }
                 }
             }
         }
@@ -267,10 +240,10 @@ public class DLCShopGUI extends InventoryEffectRenderer
             this.searchField.setTextColor(16777215);
             int i = selectedTabIndex;
             selectedTabIndex = -1;
-            this.setCurrentCreativeTab(CreativeTabs.creativeTabArray[i]);
+            this.setCurrentCreativeTab(DLCGuiTabs.creativeTabArray[i]);
             this.field_82324_x = new CreativeCrafting(this.mc);
             this.mc.thePlayer.inventoryContainer.addCraftingToCrafters(this.field_82324_x);
-            int tabCount = CreativeTabs.creativeTabArray.length;
+            int tabCount = DLCGuiTabs.creativeTabArray.length;
             if (tabCount > 12)
             {
                 buttonList.add(new GuiButton(101, guiLeft,              guiTop - 50, 20, 20, "<"));
@@ -304,101 +277,13 @@ public class DLCShopGUI extends InventoryEffectRenderer
      */
     protected void keyTyped(char par1, int par2)
     {
-        if (selectedTabIndex != CreativeTabs.tabAllSearch.getTabIndex())
-        {
-            if (GameSettings.isKeyDown(this.mc.gameSettings.keyBindChat))
-            {
-                this.setCurrentCreativeTab(CreativeTabs.tabAllSearch);
-            }
-            else
-            {
-                super.keyTyped(par1, par2);
-            }
-        }
-        else
-        {
-            if (this.field_74234_w)
-            {
-                this.field_74234_w = false;
-                this.searchField.setText("");
-            }
-
-            if (!this.checkHotbarKeys(par2))
-            {
-                if (this.searchField.textboxKeyTyped(par1, par2))
-                {
-                    this.updateCreativeSearch();
-                }
-                else
-                {
-                    super.keyTyped(par1, par2);
-                }
-            }
-        }
+       
     }
 
     private void updateCreativeSearch()
     {
         ContainerDLCShop ContainerDLCShop = (ContainerDLCShop)this.inventorySlots;
         ContainerDLCShop.dlcList.clear();
-        Item[] aitem = Item.itemsList;
-        int i = aitem.length;
-        int j;
-
-        for (j = 0; j < i; ++j)
-        {
-            Item item = aitem[j];
-
-            if (item != null && item.getCreativeTab() != null)
-            {
-                item.getSubItems(item.itemID, (CreativeTabs)null, ContainerDLCShop.dlcList);
-            }
-        }
-
-        Enchantment[] aenchantment = Enchantment.enchantmentsList;
-        i = aenchantment.length;
-
-        for (j = 0; j < i; ++j)
-        {
-            Enchantment enchantment = aenchantment[j];
-
-            if (enchantment != null && enchantment.type != null)
-            {
-                Item.enchantedBook.func_92113_a(enchantment, ContainerDLCShop.dlcList);
-            }
-        }
-
-        Iterator iterator = ContainerDLCShop.dlcList.iterator();
-        String s = this.searchField.getText().toLowerCase();
-
-        while (iterator.hasNext())
-        {
-            ItemStack itemstack = (ItemStack)iterator.next();
-            boolean flag = false;
-            Iterator iterator1 = itemstack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips).iterator();
-
-            while (true)
-            {
-                if (iterator1.hasNext())
-                {
-                    String s1 = (String)iterator1.next();
-
-                    if (!s1.toLowerCase().contains(s))
-                    {
-                        continue;
-                    }
-
-                    flag = true;
-                }
-
-                if (!flag)
-                {
-                    iterator.remove();
-                }
-
-                break;
-            }
-        }
 
         this.currentScroll = 0.0F;
         ContainerDLCShop.scrollTo(0.0F);
@@ -409,11 +294,11 @@ public class DLCShopGUI extends InventoryEffectRenderer
      */
     protected void drawGuiContainerForegroundLayer(int par1, int par2)
     {
-        CreativeTabs creativetabs = CreativeTabs.creativeTabArray[selectedTabIndex];
+        DLCGuiTabs dLCGuiTabs = DLCGuiTabs.creativeTabArray[selectedTabIndex];
 
-        if (creativetabs != null && creativetabs.drawInForegroundOfTab())
+        if (dLCGuiTabs != null && dLCGuiTabs.drawInForegroundOfTab())
         {
-            this.fontRenderer.drawString(I18n.func_135053_a(creativetabs.getTranslatedTabLabel()), 8, 6, 4210752);
+            this.fontRenderer.drawString(I18n.func_135053_a(dLCGuiTabs.getTranslatedTabLabel()), 8, 6, 4210752);
         }
     }
 
@@ -426,14 +311,14 @@ public class DLCShopGUI extends InventoryEffectRenderer
         {
             int l = par1 - this.guiLeft;
             int i1 = par2 - this.guiTop;
-            CreativeTabs[] acreativetabs = CreativeTabs.creativeTabArray;
-            int j1 = acreativetabs.length;
+            DLCGuiTabs[] aDLCGuiTabs = DLCGuiTabs.creativeTabArray;
+            int j1 = aDLCGuiTabs.length;
 
             for (int k1 = 0; k1 < j1; ++k1)
             {
-                CreativeTabs creativetabs = acreativetabs[k1];
+                DLCGuiTabs DLCGuiTabs = aDLCGuiTabs[k1];
 
-                if (this.func_74232_a(creativetabs, l, i1))
+                if (this.func_74232_a(DLCGuiTabs, l, i1))
                 {
                     return;
                 }
@@ -453,16 +338,16 @@ public class DLCShopGUI extends InventoryEffectRenderer
         {
             int l = par1 - this.guiLeft;
             int i1 = par2 - this.guiTop;
-            CreativeTabs[] acreativetabs = CreativeTabs.creativeTabArray;
-            int j1 = acreativetabs.length;
+            DLCGuiTabs[] aDLCGuiTabs = DLCGuiTabs.creativeTabArray;
+            int j1 = aDLCGuiTabs.length;
 
             for (int k1 = 0; k1 < j1; ++k1)
             {
-                CreativeTabs creativetabs = acreativetabs[k1];
+                DLCGuiTabs DLCGuiTabs = aDLCGuiTabs[k1];
 
-                if (creativetabs != null && func_74232_a(creativetabs, l, i1))
+                if (DLCGuiTabs != null && func_74232_a(DLCGuiTabs, l, i1))
                 {
-                    this.setCurrentCreativeTab(creativetabs);
+                    this.setCurrentCreativeTab(DLCGuiTabs);
                     return;
                 }
             }
@@ -476,24 +361,22 @@ public class DLCShopGUI extends InventoryEffectRenderer
      */
     private boolean needsScrollBars()
     {
-        if (CreativeTabs.creativeTabArray[selectedTabIndex] == null) return false;
-        return selectedTabIndex != CreativeTabs.tabInventory.getTabIndex() && CreativeTabs.creativeTabArray[selectedTabIndex].shouldHidePlayerInventory() && ((ContainerDLCShop)this.inventorySlots).hasMoreThan1PageOfItemsInList();
-    }
+      }
 
-    private void setCurrentCreativeTab(CreativeTabs par1CreativeTabs)
+    private void setCurrentCreativeTab(DLCGuiTabs par1DLCGuiTabs)
     {
-        if (par1CreativeTabs == null)
+        if (par1DLCGuiTabs == null)
         {
             return;
         }
 
         int i = selectedTabIndex;
-        selectedTabIndex = par1CreativeTabs.getTabIndex();
+        selectedTabIndex = par1DLCGuiTabs.getTabIndex();
         ContainerDLCShop ContainerDLCShop = (ContainerDLCShop)this.inventorySlots;
         this.field_94077_p.clear();
         ContainerDLCShop.dlcList.clear();
 
-        if (par1CreativeTabs == CreativeTabs.tabInventory)
+        if (par1DLCGuiTabs == DLCGuiTabs.tabInventory)
         {
             Container container = this.mc.thePlayer.inventoryContainer;
 
@@ -508,7 +391,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
             this.field_74235_v = new Slot(inventory, 0, 173, 112);
             ContainerDLCShop.inventorySlots.add(this.field_74235_v);
         }
-        else if (i == CreativeTabs.tabInventory.getTabIndex())
+        else if (i == DLCGuiTabs.tabInventory.getTabIndex())
         {
             ContainerDLCShop.inventorySlots = this.backupContainerSlots;
             this.backupContainerSlots = null;
@@ -516,7 +399,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
         if (this.searchField != null)
         {
-            if (par1CreativeTabs == CreativeTabs.tabAllSearch)
+            if (par1DLCGuiTabs == DLCGuiTabs.tabAllSearch)
             {
                 this.searchField.setVisible(true);
                 this.searchField.setCanLoseFocus(false);
@@ -617,29 +500,29 @@ public class DLCShopGUI extends InventoryEffectRenderer
         }
 
         super.drawScreen(par1, par2, par3);
-        CreativeTabs[] acreativetabs = CreativeTabs.creativeTabArray;
+        DLCGuiTabs[] aDLCGuiTabs = DLCGuiTabs.creativeTabArray;
         int start = tabPage * 10;
-        int i2 = Math.min(acreativetabs.length, ((tabPage + 1) * 10) + 2);
+        int i2 = Math.min(aDLCGuiTabs.length, ((tabPage + 1) * 10) + 2);
         if (tabPage != 0) start += 2;
         boolean rendered = false;
 
         for (int j2 = start; j2 < i2; ++j2)
         {
-            CreativeTabs creativetabs = acreativetabs[j2];
+            DLCGuiTabs DLCGuiTabs = aDLCGuiTabs[j2];
 
-            if (creativetabs != null && this.renderCreativeInventoryHoveringText(creativetabs, par1, par2))
+            if (DLCGuiTabs != null && this.renderCreativeInventoryHoveringText(DLCGuiTabs, par1, par2))
             {
                 rendered = true;
                 break;
             }
         }
 
-        if (!rendered && !renderCreativeInventoryHoveringText(CreativeTabs.tabAllSearch, par1, par2))
+        if (!rendered && !renderCreativeInventoryHoveringText(DLCGuiTabs.tabAllSearch, par1, par2))
         {
-            renderCreativeInventoryHoveringText(CreativeTabs.tabInventory, par1, par2);
+            renderCreativeInventoryHoveringText(DLCGuiTabs.tabInventory, par1, par2);
         }
 
-        if (this.field_74235_v != null && selectedTabIndex == CreativeTabs.tabInventory.getTabIndex() && this.isPointInRegion(this.field_74235_v.xDisplayPosition, this.field_74235_v.yDisplayPosition, 16, 16, par1, par2))
+        if (this.field_74235_v != null && selectedTabIndex == DLCGuiTabs.tabInventory.getTabIndex() && this.isPointInRegion(this.field_74235_v.xDisplayPosition, this.field_74235_v.yDisplayPosition, 16, 16, par1, par2))
         {
             this.drawCreativeTabHoveringText(I18n.func_135053_a("inventory.binSlot"), par1, par2);
         }
@@ -662,37 +545,37 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
     protected void drawItemStackTooltip(ItemStack par1ItemStack, int par2, int par3)
     {
-        if (selectedTabIndex == CreativeTabs.tabAllSearch.getTabIndex())
+        if (selectedTabIndex == DLCGuiTabs.tabAllSearch.getTabIndex())
         {
             List list = par1ItemStack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);
-            CreativeTabs creativetabs = par1ItemStack.getItem().getCreativeTab();
+            DLCGuiTabs DLCGuiTabs = par1ItemStack.getItem().getCreativeTab();
 
-            if (creativetabs == null && par1ItemStack.itemID == Item.enchantedBook.itemID)
+            if (DLCGuiTabs == null && par1ItemStack.itemID == Item.enchantedBook.itemID)
             {
                 Map map = EnchantmentHelper.getEnchantments(par1ItemStack);
 
                 if (map.size() == 1)
                 {
                     Enchantment enchantment = Enchantment.enchantmentsList[((Integer)map.keySet().iterator().next()).intValue()];
-                    CreativeTabs[] acreativetabs = CreativeTabs.creativeTabArray;
-                    int k = acreativetabs.length;
+                    DLCGuiTabs[] aDLCGuiTabs = DLCGuiTabs.creativeTabArray;
+                    int k = aDLCGuiTabs.length;
 
                     for (int l = 0; l < k; ++l)
                     {
-                        CreativeTabs creativetabs1 = acreativetabs[l];
+                        DLCGuiTabs DLCGuiTabs1 = aDLCGuiTabs[l];
 
-                        if (creativetabs1.func_111226_a(enchantment.type))
+                        if (DLCGuiTabs1.func_111226_a(enchantment.type))
                         {
-                            creativetabs = creativetabs1;
+                            DLCGuiTabs = DLCGuiTabs1;
                             break;
                         }
                     }
                 }
             }
 
-            if (creativetabs != null)
+            if (DLCGuiTabs != null)
             {
-                list.add(1, "" + EnumChatFormatting.BOLD + EnumChatFormatting.BLUE + I18n.func_135053_a(creativetabs.getTranslatedTabLabel()));
+                list.add(1, "" + EnumChatFormatting.BOLD + EnumChatFormatting.BLUE + I18n.func_135053_a(DLCGuiTabs.getTranslatedTabLabel()));
             }
 
             for (int i1 = 0; i1 < list.size(); ++i1)
@@ -722,37 +605,23 @@ public class DLCShopGUI extends InventoryEffectRenderer
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderHelper.enableGUIStandardItemLighting();
-        CreativeTabs creativetabs = CreativeTabs.creativeTabArray[selectedTabIndex];
-        CreativeTabs[] acreativetabs = CreativeTabs.creativeTabArray;
-        int k = acreativetabs.length;
+        DLCGuiTabs DLCGuiTabs = DLCGuiTabs.creativeTabArray[selectedTabIndex];
+        DLCGuiTabs[] aDLCGuiTabs = DLCGuiTabs.creativeTabArray;
+        int k = aDLCGuiTabs.length;
         int l;
 
         int start = tabPage * 10;
-        k = Math.min(acreativetabs.length, ((tabPage + 1) * 10 + 2));
+        k = Math.min(aDLCGuiTabs.length, ((tabPage + 1) * 10 + 2));
         if (tabPage != 0) start += 2;
 
         for (l = start; l < k; ++l)
         {
-            CreativeTabs creativetabs1 = acreativetabs[l];
+            DLCGuiTabs DLCGuiTabs1 = aDLCGuiTabs[l];
             this.mc.func_110434_K().func_110577_a(field_110424_t);
 
-            if (creativetabs1 != null && creativetabs1.getTabIndex() != selectedTabIndex)
+            if (DLCGuiTabs1 != null && DLCGuiTabs1.getTabIndex() != selectedTabIndex)
             {
-                this.renderCreativeTab(creativetabs1);
-            }
-        }
-
-        if (tabPage != 0)
-        {
-            if (creativetabs != CreativeTabs.tabAllSearch)
-            {
-                this.mc.func_110434_K().func_110577_a(field_110424_t);
-                renderCreativeTab(CreativeTabs.tabAllSearch);
-            }
-            if (creativetabs != CreativeTabs.tabInventory)
-            {
-                this.mc.func_110434_K().func_110577_a(field_110424_t);
-                renderCreativeTab(CreativeTabs.tabInventory);
+                this.renderCreativeTab(DLCGuiTabs1);
             }
         }
 
@@ -765,39 +634,39 @@ public class DLCShopGUI extends InventoryEffectRenderer
         l = k + 112;
         this.mc.func_110434_K().func_110577_a(field_110424_t);
 
-        if (creativetabs.shouldHidePlayerInventory())
+        if (DLCGuiTabs.shouldHidePlayerInventory())
         {
             this.drawTexturedModalRect(i1, k + (int)((float)(l - k - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);
         }
 
-        if (creativetabs == null || creativetabs.getTabPage() != tabPage)
+        if (DLCGuiTabs == null || DLCGuiTabs.getTabPage() != tabPage)
         {
-            if (creativetabs != CreativeTabs.tabAllSearch && creativetabs != CreativeTabs.tabInventory)
+            if (DLCGuiTabs != DLCGuiTabs.tabAllSearch && DLCGuiTabs != DLCGuiTabs.tabInventory)
             {
                 return;
             }
         }
 
-        this.renderCreativeTab(creativetabs);
+        this.renderCreativeTab(DLCGuiTabs);
 
-        if (creativetabs == CreativeTabs.tabInventory)
+        if (DLCGuiTabs == DLCGuiTabs.tabInventory)
         {
             GuiInventory.func_110423_a(this.guiLeft + 43, this.guiTop + 45, 20, (float)(this.guiLeft + 43 - par2), (float)(this.guiTop + 45 - 30 - par3), this.mc.thePlayer);
         }
     }
 
-    protected boolean func_74232_a(CreativeTabs par1CreativeTabs, int par2, int par3)
+    protected boolean func_74232_a(DLCGuiTabs par1DLCGuiTabs, int par2, int par3)
     {
-        if (par1CreativeTabs.getTabPage() != tabPage)
+        if (par1DLCGuiTabs.getTabPage() != tabPage)
         {
-            if (par1CreativeTabs != CreativeTabs.tabAllSearch &&
-                par1CreativeTabs != CreativeTabs.tabInventory)
+            if (par1DLCGuiTabs != DLCGuiTabs.tabAllSearch &&
+                par1DLCGuiTabs != DLCGuiTabs.tabInventory)
             {
                 return false;
             }
         }
 
-        int k = par1CreativeTabs.getTabColumn();
+        int k = par1DLCGuiTabs.getTabColumn();
         int l = 28 * k;
         byte b0 = 0;
 
@@ -812,7 +681,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
         int i1;
 
-        if (par1CreativeTabs.isTabInFirstRow())
+        if (par1DLCGuiTabs.isTabInFirstRow())
         {
             i1 = b0 - 32;
         }
@@ -828,9 +697,9 @@ public class DLCShopGUI extends InventoryEffectRenderer
      * Renders the creative inventory hovering text if mouse is over it. Returns true if did render or false otherwise.
      * Params: current creative tab to be checked, current mouse x position, current mouse y position.
      */
-    protected boolean renderCreativeInventoryHoveringText(CreativeTabs par1CreativeTabs, int par2, int par3)
+    protected boolean renderCreativeInventoryHoveringText(DLCGuiTabs par1DLCGuiTabs, int par2, int par3)
     {
-        int k = par1CreativeTabs.getTabColumn();
+        int k = par1DLCGuiTabs.getTabColumn();
         int l = 28 * k;
         byte b0 = 0;
 
@@ -845,7 +714,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
         int i1;
 
-        if (par1CreativeTabs.isTabInFirstRow())
+        if (par1DLCGuiTabs.isTabInFirstRow())
         {
             i1 = b0 - 32;
         }
@@ -856,7 +725,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
         if (this.isPointInRegion(l + 3, i1 + 3, 23, 27, par2, par3))
         {
-            this.drawCreativeTabHoveringText(I18n.func_135053_a(par1CreativeTabs.getTranslatedTabLabel()), par2, par3);
+            this.drawCreativeTabHoveringText(I18n.func_135053_a(par1DLCGuiTabs.getTranslatedTabLabel()), par2, par3);
             return true;
         }
         else
@@ -868,11 +737,11 @@ public class DLCShopGUI extends InventoryEffectRenderer
     /**
      * Renders passed creative inventory tab into the screen.
      */
-    protected void renderCreativeTab(CreativeTabs par1CreativeTabs)
+    protected void renderCreativeTab(DLCGuiTabs par1DLCGuiTabs)
     {
-        boolean flag = par1CreativeTabs.getTabIndex() == selectedTabIndex;
-        boolean flag1 = par1CreativeTabs.isTabInFirstRow();
-        int i = par1CreativeTabs.getTabColumn();
+        boolean flag = par1DLCGuiTabs.getTabIndex() == selectedTabIndex;
+        boolean flag1 = par1DLCGuiTabs.isTabInFirstRow();
+        int i = par1DLCGuiTabs.getTabColumn();
         int j = i * 28;
         int k = 0;
         int l = this.guiLeft + 28 * i;
@@ -912,7 +781,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
         i1 += 8 + (flag1 ? 1 : -1);
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        ItemStack itemstack = par1CreativeTabs.getIconItemStack();
+        ItemStack itemstack = par1DLCGuiTabs.getIconItemStack();
         itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.func_110434_K(), itemstack, l, i1);
         itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.func_110434_K(), itemstack, l, i1);
         GL11.glDisable(GL11.GL_LIGHTING);
