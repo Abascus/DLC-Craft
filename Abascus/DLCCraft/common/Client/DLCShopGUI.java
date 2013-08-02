@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiErrorScreen;
 import net.minecraft.client.gui.GuiLanguage;
+import net.minecraft.client.gui.GuiSelectWorld;
 import net.minecraft.client.gui.GuiSmallButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.achievement.GuiAchievements;
@@ -68,6 +69,7 @@ public class DLCShopGUI extends GuiContainer
 
 	private int selectedWorld;
 
+	private List buyList;
 	private List dlcList;
 	private GuiDLCSlot dlcSlotContainer;
 
@@ -89,6 +91,7 @@ public class DLCShopGUI extends GuiContainer
 	private static int tabPage = 0;
 	private int maxPages = 0;
 	EntityPlayer ep;
+	public Minecraft mc1;
 	public DLCShopGUI(EntityPlayer par1EntityPlayer)
 	{
 		super(new ContainerDLCShop(par1EntityPlayer));
@@ -97,6 +100,7 @@ public class DLCShopGUI extends GuiContainer
 		this.allowUserInput = true;
 		this.ySize = 136;
 		this.xSize = 195;
+		mc1 = mc;
 	}
 
 	protected void handleMouseClick(Slot par1Slot, int par2, int par3, int par4)
@@ -173,19 +177,33 @@ public class DLCShopGUI extends GuiContainer
 
 		this.localizedWorldText = I18n.func_135053_a("selectWorld.world");
 		this.localizedMustConvertText = I18n.func_135053_a("selectWorld.conversion");
-		this.localizedGameModeText[EnumGameType.SURVIVAL.getID()] = I18n.func_135053_a("gameMode.survival");
-		this.localizedGameModeText[EnumGameType.CREATIVE.getID()] = I18n.func_135053_a("gameMode.creative");
-		this.localizedGameModeText[EnumGameType.ADVENTURE.getID()] = I18n.func_135053_a("gameMode.adventure");
 		this.worldSlotContainer = new GuiDLCSlot(this);
 		this.worldSlotContainer.registerScrollButtons(4, 5);
 		this.initButtons();
 	}
+	
+	static int getSelectedWorld(GuiSelectWorld par0GuiSelectWorld)
+    {
+        return par0GuiSelectWorld.selectedDLC;
+    }
+    static GuiButton getSelectButton(GuiSelectWorld par0GuiSelectWorld)
+    {
+        return par0GuiSelectWorld.buttonSelect;
+    }
 
 	private void loadSaves()
 	{
 		DLCManager dlcManager = DLCCraft.playerTracker.playerStats.get(ep.username).dlcManager;
 		for(int i =0;i<dlcManager.dlcs.length;i++)
 		{
+			if(dlcManager.dlcs[i].state == 1)
+			{
+			buyList.add(dlcManager.dlcs[i]);
+			}
+			else if(dlcManager.dlcs[i].state == 2)
+			{
+			dlcList.add(dlcManager.dlcs[i]);
+			}
 			
 		}
 	}
