@@ -1,41 +1,36 @@
 package Abascus.DLCCraft.common.Client;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiLanguage;
+import net.minecraft.client.gui.GuiSmallButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.gui.inventory.CreativeCrafting;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.client.resources.LanguageManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.AchievementList;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
-
-import Abascus.DLCCraft.common.*;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import Abascus.DLCCraft.common.ContainerDLCShop;
+import Abascus.DLCCraft.common.DLCGuiTabs;
+import Abascus.DLCCraft.common.DLCSloteManager;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -50,7 +45,6 @@ public class DLCShopGUI extends GuiContainer
 
 	/** Amount scrolled in Creative mode inventory (0 = top, 1 = bottom) */
 	private float currentScroll;
-
 	private boolean isScrolling;
 
 	/**
@@ -77,6 +71,7 @@ public class DLCShopGUI extends GuiContainer
 		this.allowUserInput = true;
 		this.ySize = 136;
 		this.xSize = 195;
+		mc1 = mc;
 	}
 
 	protected void handleMouseClick(Slot par1Slot, int par2, int par3, int par4)
@@ -84,36 +79,8 @@ public class DLCShopGUI extends GuiContainer
 		this.field_74234_w = true;
 		boolean flag = par4 == 1;
 		par4 = par2 == -999 && par4 == 0 ? 4 : par4;
-		ItemStack itemstack;
-		InventoryPlayer inventoryplayer;
 
 		if (par1Slot == null && par4 != 5)
-		{
-			inventoryplayer = this.mc.thePlayer.inventory;
-
-			if (inventoryplayer.getItemStack() != null)
-			{
-				if (par3 == 0)
-				{
-					this.mc.thePlayer.dropPlayerItem(inventoryplayer.getItemStack());
-					this.mc.playerController.func_78752_a(inventoryplayer.getItemStack());
-					inventoryplayer.setItemStack((ItemStack)null);
-				}
-
-				if (par3 == 1)
-				{
-					itemstack = inventoryplayer.getItemStack().splitStack(1);
-					this.mc.thePlayer.dropPlayerItem(itemstack);
-					this.mc.playerController.func_78752_a(itemstack);
-
-					if (inventoryplayer.getItemStack().stackSize == 0)
-					{
-						inventoryplayer.setItemStack((ItemStack)null);
-					}
-				}
-			}
-		}
-		else
 		{
 			int l;
 
@@ -126,98 +93,14 @@ public class DLCShopGUI extends GuiContainer
 			}
 			else
 			{              
-				if (par4 != 5 && par1Slot.inventory == inventory)
+
+				this.inventorySlots.slotClick(par1Slot == null ? par2 : par1Slot.slotNumber, par3, par4, this.mc.thePlayer);
+
+				if (Container.func_94532_c(par3) == 2)
 				{
-					inventoryplayer = this.mc.thePlayer.inventory;
-					itemstack = inventoryplayer.getItemStack();
-					ItemStack itemstack2 = par1Slot.getStack();
-					ItemStack itemstack3;
-
-					if (par4 == 2)
+					for (l = 0; l < 9; ++l)
 					{
-						if (itemstack2 != null && par3 >= 0 && par3 < 9)
-						{
-							itemstack3 = itemstack2.copy();
-							itemstack3.stackSize = itemstack3.getMaxStackSize();
-							this.mc.thePlayer.inventory.setInventorySlotContents(par3, itemstack3);
-							this.mc.thePlayer.inventoryContainer.detectAndSendChanges();
-						}
-
-						return;
-					}
-
-					if (par4 == 3)
-					{
-						if (inventoryplayer.getItemStack() == null && par1Slot.getHasStack())
-						{
-							itemstack3 = par1Slot.getStack().copy();
-							itemstack3.stackSize = itemstack3.getMaxStackSize();
-							inventoryplayer.setItemStack(itemstack3);
-						}
-
-						return;
-					}
-
-					if (par4 == 4)
-					{
-						if (itemstack2 != null)
-						{
-							itemstack3 = itemstack2.copy();
-							itemstack3.stackSize = par3 == 0 ? 1 : itemstack3.getMaxStackSize();
-							this.mc.thePlayer.dropPlayerItem(itemstack3);
-							this.mc.playerController.func_78752_a(itemstack3);
-						}
-
-						return;
-					}
-
-					if (itemstack != null && itemstack2 != null && itemstack.isItemEqual(itemstack2) && ItemStack.areItemStackTagsEqual(itemstack, itemstack2)) //Forge: Bugfix, Compare NBT data, allow for deletion of enchanted books, MC-12770
-					{
-						if (par3 == 0)
-						{
-							if (flag)
-							{
-								itemstack.stackSize = itemstack.getMaxStackSize();
-							}
-							else if (itemstack.stackSize < itemstack.getMaxStackSize())
-							{
-								++itemstack.stackSize;
-							}
-						}
-						else if (itemstack.stackSize <= 1)
-						{
-							inventoryplayer.setItemStack((ItemStack)null);
-						}
-						else
-						{
-							--itemstack.stackSize;
-						}
-					}
-					else if (itemstack2 != null && itemstack == null)
-					{
-						inventoryplayer.setItemStack(ItemStack.copyItemStack(itemstack2));
-						itemstack = inventoryplayer.getItemStack();
-
-						if (flag)
-						{
-							itemstack.stackSize = itemstack.getMaxStackSize();
-						}
-					}
-					else
-					{
-						inventoryplayer.setItemStack((ItemStack)null);
-					}
-				}
-				else
-				{
-					this.inventorySlots.slotClick(par1Slot == null ? par2 : par1Slot.slotNumber, par3, par4, this.mc.thePlayer);
-
-					if (Container.func_94532_c(par3) == 2)
-					{
-						for (l = 0; l < 9; ++l)
-						{
-							this.mc.playerController.sendSlotPacket(this.inventorySlots.getSlot(45 + l).getStack(), 36 + l);
-						}
+						this.mc.playerController.sendSlotPacket(this.inventorySlots.getSlot(45 + l).getStack(), 36 + l);
 					}
 				}
 			}
@@ -472,9 +355,9 @@ public class DLCShopGUI extends GuiContainer
 			}
 		}
 
-		
 
-		
+
+
 
 		if (maxPages != 0)
 		{
@@ -494,7 +377,7 @@ public class DLCShopGUI extends GuiContainer
 
 	protected void drawItemStackTooltip(ItemStack par1ItemStack, int par2, int par3)
 	{
-		
+
 	}
 
 	/**
@@ -538,11 +421,11 @@ public class DLCShopGUI extends GuiContainer
 			this.drawTexturedModalRect(i1, k + (int)((float)(l - k - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);
 		}
 
-		
+
 
 		this.renderCreativeTab(dLCGuiTabs);
 
-		
+
 	}
 
 	protected boolean func_74232_a(DLCGuiTabs par1DLCGuiTabs, int par2, int par3)
