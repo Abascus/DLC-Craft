@@ -72,17 +72,18 @@ public class EventManager
 	@ForgeSubscribe
 	public void itemPickup(EntityItemPickupEvent event)
 	{
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
 		
+		if(dlcs.getState("mobDrops") != 2)
+		{
+			event.setCanceled(true);
+		}
 	}
 	
 	@ForgeSubscribe
 	public void entityInteract(EntityInteractEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
-		if(event.entity instanceof EntityVillager)
-		{
-			
-		}
 	}
 	
 	@ForgeSubscribe

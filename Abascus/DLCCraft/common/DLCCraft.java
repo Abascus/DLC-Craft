@@ -7,6 +7,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -23,6 +25,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
@@ -40,8 +43,12 @@ public class DLCCraft
 
 	public String[] Msg = {"Abc", "def"};
 	public String[] Capes;
-	
-    public static PlayerTracker playerTracker;
+
+	public int CoinID = 800;
+	public int DLCID = 801;
+	public Item coin;
+	public Item dlc;
+	public static PlayerTracker playerTracker;
 
 	public DLCCraft()
 	{
@@ -54,18 +61,26 @@ public class DLCCraft
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		startUpInfo = config.get(Configuration.CATEGORY_GENERAL, "Has Startup Info",true).getBoolean(true);
+		CoinID = config.get(Configuration.CATEGORY_ITEM, "Coin Item ID",800).getInt();
+		DLCID = config.get(Configuration.CATEGORY_ITEM, "DLC Item ID",801).getInt();
 
 		config.save();
 		//Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
 		//Capes = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Capes.txt");
-		KeyBinding[] key = {new KeyBinding("DLC Shop", Keyboard.KEY_F)};
-        boolean[] repeat = {false};
-        KeyBindingRegistry.registerKeyBinding(new DLCKeyBinding(key, repeat));
 		
+		coin = (new Item(CoinID)).setUnlocalizedName("coin").setCreativeTab(CreativeTabs.tabMaterials).func_111206_d("bowl");
+		coin = (new Item(DLCID)).setUnlocalizedName("dlc").setCreativeTab(CreativeTabs.tabMaterials).func_111206_d("bowl");
+		
+		LanguageRegistry.instance().addName(coin, "Coin");
+		
+		KeyBinding[] key = {new KeyBinding("DLC Shop", Keyboard.KEY_F)};
+		boolean[] repeat = {false};
+		KeyBindingRegistry.registerKeyBinding(new DLCKeyBinding(key, repeat));
+
 		MinecraftForge.EVENT_BUS.register(new EventManager());
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
-		
+
 
 		playerTracker = new PlayerTracker();
 		GameRegistry.registerPlayerTracker(playerTracker);
@@ -77,7 +92,7 @@ public class DLCCraft
 	@EventHandler
 	public void load(FMLInitializationEvent event) 
 	{
-		
+
 
 	}
 
