@@ -45,7 +45,7 @@ public class HUDRenderer extends Gui
 
 				drawTexturedModelRectFromIcon((int)(width / 1.4), height - 40, DLCCraft.instance.coin.getItemIcon(), 32, 32);
 				GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
-				drawString(mc.fontRenderer, stats.Coins + "", (int)(width / 1.4)+40, height - 20, 9);
+				mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.4)+40, height - 20, 777777, false);
 
 		}
 	}
