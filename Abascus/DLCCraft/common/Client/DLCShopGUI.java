@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.gui.inventory.CreativeCrafting;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.client.renderer.RenderHelper;
@@ -39,9 +40,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class DLCShopGUI extends InventoryEffectRenderer
+public class DLCShopGUI extends GuiContainer
 {
-	private static final ResourceLocation field_110424_t = new ResourceLocation("textures/gui/shop.png");
+	private static final ResourceLocation field_110424_t = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
 	private static InventoryBasic inventory = new InventoryBasic("tmp", true, 45);
 
 	/** Currently selected creative inventory tab index. */
@@ -523,7 +524,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
 			}
 		}
 
-		this.mc.func_110434_K().func_110577_a(new ResourceLocation("/assets/dlccraft/gui/shop.png"));
+		this.mc.func_110434_K().func_110577_a(new ResourceLocation("dlccraft/gui/shop.png"));
 		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 		this.searchField.drawTextBox();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
