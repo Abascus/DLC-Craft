@@ -11,6 +11,11 @@ public class DLCManager
 		names[2] = "eat";
 		names[3] = "air";
 		names[4] = "potions";
+		names[5] = "chest";
+		names[6] = "enchanting";
+		names[7] = "furnace";
+		names[8] = "potions";
+		names[9] = "potions";
 	}
 
 }
