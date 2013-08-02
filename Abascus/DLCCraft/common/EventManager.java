@@ -2,6 +2,8 @@ package Abascus.DLCCraft.common;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -35,20 +37,23 @@ public class EventManager
 	public void rightClickAir(PlayerInteractEvent event)
 	{
 		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
-		
+		if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
+		{
+			
+		}
 	}
 	
 	public void leftClickBlock(PlayerInteractEvent event)
 	{
-		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
-		if(Minecraft.getMinecraft().theWorld.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
+		/*PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
+		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
 		{
 			
 		if(stats.states.get("punchWood").state != 2)
 		{
 			event.setCanceled(true);
 		}
-		}
+		}*/
 	}
 
 }
