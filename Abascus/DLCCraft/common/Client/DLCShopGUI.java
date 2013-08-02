@@ -524,7 +524,7 @@ public class DLCShopGUI extends GuiContainer
 			}
 		}
 
-		this.mc.func_110434_K().func_110577_a(new ResourceLocation("dlccraft/gui/shop.png"));
+		this.mc.func_110434_K().func_110577_a(new ResourceLocation("dlc craft/gui/shop.png"));
 		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 		this.searchField.drawTextBox();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

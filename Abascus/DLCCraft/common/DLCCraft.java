@@ -69,7 +69,7 @@ public class DLCCraft
 		//Capes = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Capes.txt");
 		
 		coin = (new Item(CoinID)).setUnlocalizedName("coin").setCreativeTab(CreativeTabs.tabMaterials);
-		dlc = (new Item(DLCID)).setUnlocalizedName("dlc").setCreativeTab(CreativeTabs.tabMaterials).func_111206_d("bowl");
+		dlc = (new Item(DLCID)).setUnlocalizedName("dlc").setCreativeTab(CreativeTabs.tabMaterials);
 		
 		LanguageRegistry.instance().addName(coin, "Coin");
 		

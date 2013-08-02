@@ -9,8 +9,9 @@ public class DLCCraftItem extends Item
 
 	public DLCCraftItem(int par1)
 	{
-		id = par1;
 		super(par1);
+		id = par1;
+		
 	}
 	
 	
@@ -18,11 +19,11 @@ public class DLCCraftItem extends Item
 	{
 		if(id == DLCCraft.instance.CoinID)
 		{
-		itemIcon = par1IconRegister.registerIcon("DLC Craft:universalCatalyst");
+		itemIcon = par1IconRegister.registerIcon("DLC Craft:coin");
 		}
 		else
 		{
-			
+			itemIcon = par1IconRegister.registerIcon("DLC Craft:dlc");
 		}
 	}
 
