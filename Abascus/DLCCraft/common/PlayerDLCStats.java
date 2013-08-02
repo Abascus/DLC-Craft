@@ -13,6 +13,7 @@ public class PlayerDLCStats
 {
     public WeakReference<EntityPlayer> player;
     public ConcurrentHashMap<String, State> states = new ConcurrentHashMap<String, State>();
+    public int Coins;
     
     public void init()
     {

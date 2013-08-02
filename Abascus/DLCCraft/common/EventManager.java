@@ -1,5 +1,7 @@
 package Abascus.DLCCraft.common;
 
+import java.lang.ref.WeakReference;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -9,6 +11,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class EventManager 
@@ -54,11 +57,19 @@ public class EventManager
 			}
 
 			tags.setTag("DLCCraft", tagList);
-			stats.readFromNBT(tags);
-			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+			stats.init();
+			String u = ep.username;
+			stats.player = new WeakReference<EntityPlayer>(ep);
+			DLCCraft.playerTracker.playerStats.put(u, stats);
 		}
 	}
-
+	
+	@ForgeSubscribe
+	public void pEvent(PlayerEvent event)
+	{
+		
+	}
+	
 	@ForgeSubscribe
 	public void itemEvent(ItemEvent event)
 	{
