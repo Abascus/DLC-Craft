@@ -6,10 +6,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import Abascus.DLCCraft.common.Client.TickHandlerClient;
-
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+
+import org.lwjgl.input.Keyboard;
+
+import Abascus.DLCCraft.common.Client.TickHandlerClient;
+import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -34,7 +38,7 @@ public class DLCCraft
 
 	public boolean startUpInfo = true;
 
-	public String[] Msg;
+	public String[] Msg = {"Abc", "def"};
 	public String[] Capes;
 	
     public static PlayerTracker playerTracker;
@@ -52,7 +56,7 @@ public class DLCCraft
 		startUpInfo = config.get(Configuration.CATEGORY_GENERAL, "Has Startup Info",true).getBoolean(true);
 
 		config.save();
-		Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
+		//Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
 		//Capes = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Capes.txt");
 
 	}
@@ -60,6 +64,10 @@ public class DLCCraft
 	@EventHandler
 	public void load(FMLInitializationEvent event) 
 	{
+		KeyBinding[] key = {new KeyBinding("DLC Shop", Keyboard.KEY_F)};
+        boolean[] repeat = {false};
+        KeyBindingRegistry.registerKeyBinding(new DLCKeyBinding(key, repeat));
+		
 		MinecraftForge.EVENT_BUS.register(new EventManager());
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
