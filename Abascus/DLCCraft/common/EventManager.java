@@ -18,6 +18,7 @@ import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class EventManager 
@@ -66,6 +67,12 @@ public class EventManager
 			stats.init();
 			stats.player = new WeakReference<EntityPlayer>(ep);
 		}
+	}
+	
+	@ForgeSubscribe
+	public void itemPickup(EntityItemPickupEvent event)
+	{
+		
 	}
 	
 	@ForgeSubscribe
