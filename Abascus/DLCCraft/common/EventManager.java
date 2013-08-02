@@ -3,7 +3,10 @@ package Abascus.DLCCraft.common;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -27,6 +30,33 @@ public class EventManager
 		}
 		
 	}
+	@ForgeSubscribe
+	public void entityConstructing(EntityConstructing event)
+	{
+		if(event.entity instanceof EntityPlayer)
+		{
+			NBTTagCompound tags = event.entity.getEntityData();
+			if (!tags.hasKey("DLCCraft"))
+			{
+				tags.setCompoundTag("DLCCraft", new NBTTagCompound());
+				NBTTagList tagList = new NBTTagList();
+				NBTTagCompound dlc;
+
+		        for (int i = 0; i < DLCManager.names.length; ++i)
+		        {
+		            if (DLCManager.names[i] != null)
+		            {
+		                dlc = new NBTTagCompound();
+		                dlc.setInteger(DLCManager.names[i], (byte) 0);
+		                tagList.appendTag(dlc);
+		            }
+		        }
+
+		        tags.setTag("DLCCraft", tagList);
+			}
+		}
+	}
+	
 	
 	@ForgeSubscribe
     public void onLivingDrop (LivingDropsEvent event)
@@ -36,10 +66,10 @@ public class EventManager
 			EntityPlayer ep = (EntityPlayer)event.source.getSourceOfDamage();
 		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
 		State s = stats.states.get("mobDrops");
-		//if(s.state != 2)
-		//{
+		if(s.state != 2)
+		{
 			event.setCanceled(true);
-		//}
+		}
 		}
 		catch(Exception e){}
     }
