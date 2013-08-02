@@ -73,7 +73,7 @@ public class EventManager
 	public void itemPickup(EntityItemPickupEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
-		
+		if(event.item.getEntityItem().itemID == DLCCraft.instance.CoinID)
 		if(dlcs.getState("mobDrops") != 2)
 		{
 			event.setCanceled(true);

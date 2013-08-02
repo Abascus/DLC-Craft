@@ -68,8 +68,8 @@ public class DLCCraft
 		//Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
 		//Capes = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Capes.txt");
 		
-		coin = (new Item(CoinID)).setUnlocalizedName("coin").setCreativeTab(CreativeTabs.tabMaterials).func_111206_d("bowl");
-		coin = (new Item(DLCID)).setUnlocalizedName("dlc").setCreativeTab(CreativeTabs.tabMaterials).func_111206_d("bowl");
+		coin = (new Item(CoinID)).setUnlocalizedName("coin").setCreativeTab(CreativeTabs.tabMaterials);
+		dlc = (new Item(DLCID)).setUnlocalizedName("dlc").setCreativeTab(CreativeTabs.tabMaterials).func_111206_d("bowl");
 		
 		LanguageRegistry.instance().addName(coin, "Coin");
 		
