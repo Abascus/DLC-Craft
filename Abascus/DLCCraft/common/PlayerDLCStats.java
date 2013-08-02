@@ -33,10 +33,9 @@ public class PlayerDLCStats
         tags.setTag("DLCCraft", tagList);
     }
 
-    public void readFromNBT (EntityPlayer entityplayer)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        NBTTagCompound tags = entityplayer.getEntityData();
-        NBTTagList tagList = tags.getTagList("DLCCraft");
+        NBTTagList tagList = (NBTTagList)tags.getTagList("DLCCraft");
         for (int i = 0; i < DLCManager.names.length; ++i)
         {
             if (DLCManager.names[i] != null)

@@ -41,7 +41,7 @@ public class PlayerTracker implements IPlayerTracker
 		}
 		PlayerDLCStats stats = new PlayerDLCStats();
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
-		stats.readFromNBT(entityplayer);
+		stats.readFromNBT(tags);
 
 		playerStats.put(entityplayer.username, stats);
 	}

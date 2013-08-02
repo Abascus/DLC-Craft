@@ -15,27 +15,10 @@ import net.minecraft.item.ItemStack;
 public class ContainerDLCShop extends Container
 {
     /** the list of items in this container */
-    public List itemList = new ArrayList();
+    public List dlcList = new ArrayList();
 
     public ContainerDLCShop(EntityPlayer par1EntityPlayer)
     {
-        InventoryPlayer inventoryplayer = par1EntityPlayer.inventory;
-        int i;
-
-        for (i = 0; i < 5; ++i)
-        {
-            for (int j = 0; j < 9; ++j)
-            {
-                this.addSlotToContainer(new Slot(DLCShopGUI.getInventory(), i * 9 + j, 9 + j * 18, 18 + i * 18));
-            }
-        }
-
-        for (i = 0; i < 9; ++i)
-        {
-            this.addSlotToContainer(new Slot(inventoryplayer, i, 9 + i * 18, 112));
-        }
-
-        this.scrollTo(0.0F);
     }
 
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
@@ -48,7 +31,7 @@ public class ContainerDLCShop extends Container
      */
     public void scrollTo(float par1)
     {
-        int i = this.itemList.size() / 9 - 5 + 1;
+        int i = this.dlcList.size() / 9 - 5 + 1;
         int j = (int)((double)(par1 * (float)i) + 0.5D);
 
         if (j < 0)
@@ -62,9 +45,9 @@ public class ContainerDLCShop extends Container
             {
                 int i1 = l + (k + j) * 9;
 
-                if (i1 >= 0 && i1 < this.itemList.size())
+                if (i1 >= 0 && i1 < this.dlcList.size())
                 {
-                    DLCShopGUI.getInventory().setInventorySlotContents(l + k * 9, (ItemStack)this.itemList.get(i1));
+                    DLCShopGUI.getInventory().setInventorySlotContents(l + k * 9, (ItemStack)this.dlcList.get(i1));
                 }
                 else
                 {
@@ -79,7 +62,7 @@ public class ContainerDLCShop extends Container
      */
     public boolean hasMoreThan1PageOfItemsInList()
     {
-        return this.itemList.size() > 45;
+        return this.dlcList.size() > 45;
     }
 
     protected void retrySlotClick(int par1, int par2, boolean par3, EntityPlayer par4EntityPlayer) {}

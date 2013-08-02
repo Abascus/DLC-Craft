@@ -352,7 +352,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
     private void updateCreativeSearch()
     {
         ContainerDLCShop ContainerDLCShop = (ContainerDLCShop)this.inventorySlots;
-        ContainerDLCShop.itemList.clear();
+        ContainerDLCShop.dlcList.clear();
         Item[] aitem = Item.itemsList;
         int i = aitem.length;
         int j;
@@ -363,7 +363,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
             if (item != null && item.getCreativeTab() != null)
             {
-                item.getSubItems(item.itemID, (CreativeTabs)null, ContainerDLCShop.itemList);
+                item.getSubItems(item.itemID, (CreativeTabs)null, ContainerDLCShop.dlcList);
             }
         }
 
@@ -376,11 +376,11 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
             if (enchantment != null && enchantment.type != null)
             {
-                Item.enchantedBook.func_92113_a(enchantment, ContainerDLCShop.itemList);
+                Item.enchantedBook.func_92113_a(enchantment, ContainerDLCShop.dlcList);
             }
         }
 
-        Iterator iterator = ContainerDLCShop.itemList.iterator();
+        Iterator iterator = ContainerDLCShop.dlcList.iterator();
         String s = this.searchField.getText().toLowerCase();
 
         while (iterator.hasNext())
@@ -503,8 +503,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
         selectedTabIndex = par1CreativeTabs.getTabIndex();
         ContainerDLCShop ContainerDLCShop = (ContainerDLCShop)this.inventorySlots;
         this.field_94077_p.clear();
-        ContainerDLCShop.itemList.clear();
-        par1CreativeTabs.displayAllReleventItems(ContainerDLCShop.itemList);
+        ContainerDLCShop.dlcList.clear();
 
         if (par1CreativeTabs == CreativeTabs.tabInventory)
         {
@@ -559,7 +558,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
         if (i != 0 && this.needsScrollBars())
         {
-            int j = ((ContainerDLCShop)this.inventorySlots).itemList.size() / 9 - 5 + 1;
+            int j = ((ContainerDLCShop)this.inventorySlots).dlcList.size() / 9 - 5 + 1;
 
             if (i > 0)
             {
