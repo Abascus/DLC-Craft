@@ -44,10 +44,6 @@ public class PlayerTracker implements IPlayerTracker
 		stats.readFromNBT(entityplayer);
 
 		playerStats.put(entityplayer.username, stats);
-
-		//TContent.modRecipes();
-		//updatePlayerInventory(entityplayer, stats);
-		//sendSkills(entityplayer, stats);
 	}
 
 	void updatePlayerInventory (EntityPlayer entityplayer, PlayerDLCStats stats)
