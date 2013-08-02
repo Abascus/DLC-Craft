@@ -15,6 +15,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = "Abascus_DLCCraft", name = "DLC Craft", version = "0.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -30,6 +31,8 @@ public class DLCCraft
 
 	public String[] Msg;
 	public String[] Capes;
+	
+    public static PlayerTracker playerTracker;
 
 	public DLCCraft()
 	{
@@ -53,6 +56,12 @@ public class DLCCraft
 	public void load(FMLInitializationEvent event) 
 	{
 		MinecraftForge.EVENT_BUS.register(new EventManager());
+
+		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
+
+		playerTracker = new PlayerTracker();
+		GameRegistry.registerPlayerTracker(playerTracker);
+		MinecraftForge.EVENT_BUS.register(playerTracker);
 
 	}
 
