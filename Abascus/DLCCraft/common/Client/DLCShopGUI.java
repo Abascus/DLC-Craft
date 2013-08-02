@@ -29,12 +29,12 @@ import net.minecraft.stats.AchievementList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 
+import Abascus.DLCCraft.common.*;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
-import Abascus.DLCCraft.common.ContainerDLCShop;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -1012,7 +1012,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
     /**
      * Returns the creative inventory
      */
-    static InventoryBasic getInventory()
+    public static InventoryBasic getInventory()
     {
         return inventory;
     }
