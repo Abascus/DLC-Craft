@@ -58,9 +58,7 @@ public class EventManager
 
 			tags.setTag("DLCCraft", tagList);
 			stats.init();
-			String u = ep.username;
 			stats.player = new WeakReference<EntityPlayer>(ep);
-			DLCCraft.playerTracker.playerStats.put(u, stats);
 		}
 	}
 	
