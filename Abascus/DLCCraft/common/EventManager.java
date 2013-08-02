@@ -71,6 +71,28 @@ public class EventManager
 	public void entityInteract(EntityInteractEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
+		if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
+		{
+			if(dlcs.getState("feedAnimal") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
+		else if(event.entityPlayer.getCurrentEquippedItem().itemID== Item.wheat.itemID)
+		{
+			if(dlcs.getState("feedAnimal") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
+		else if(event.entityPlayer.getCurrentEquippedItem().itemID== Item.seeds.itemID)
+		{
+			if(dlcs.getState("feedAnimal") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
+			
 	}
 
 	@ForgeSubscribe
