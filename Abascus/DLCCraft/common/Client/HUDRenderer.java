@@ -3,13 +3,16 @@ package Abascus.DLCCraft.common.Client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import Abascus.DLCCraft.common.DLCCraft;
+import Abascus.DLCCraft.common.PlayerDLCStats;
 
 public class HUDRenderer extends Gui
 {
@@ -28,13 +31,15 @@ public class HUDRenderer extends Gui
 	private static final int BUFF_ICON_BASE_U_OFFSET = 0;
 	private static final int BUFF_ICON_BASE_V_OFFSET = 198;
 	private static final int BUFF_ICONS_PER_ROW = 8;
-	protected static final ResourceLocation resourceLocation = new ResourceLocation("dlc craft/items/Coin.png");
+	protected static final ResourceLocation resourceLocation = new ResourceLocation("dlc craft/textures/items/Coin.png");
 	
 	@ForgeSubscribe
 	public void postRenderOverlay(RenderGameOverlayEvent.Post event)
 	{
 		if(event.type == RenderGameOverlayEvent.ElementType.HOTBAR)
 		{
+			EntityPlayer ep = Minecraft.getMinecraft().thePlayer;
+			PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
 			ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
 			int width = scaledresolution.getScaledWidth();
 			int height = scaledresolution.getScaledHeight();
@@ -46,15 +51,14 @@ public class HUDRenderer extends Gui
 				this.zLevel = -90.0F;
 
 				GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 				drawTexturedModalRect((int)(width / 1.4), height - 40, 0, 0, 32, 32);
+				drawString(mc.fontRenderer, stats.Coins + "", (int)(width / 1.4)+40, height - 60, height - 40);
 
 
 
 
-				GL11.glDisable(GL11.GL_BLEND);
 
 
 			}
