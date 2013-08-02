@@ -31,6 +31,23 @@ public class DLCManager
 		dlcs[5].setState(1);
 	}
 	
+	public int getState(int id)
+	{
+		return dlcs[id].state;
+	}
+	
+	public int getState(String s)
+	{
+		for(int i = 0; i<names.length; i++)
+		{
+			if(s.equalsIgnoreCase(names[i]))
+			{
+				return dlcs[i].state;
+			}
+		}
+		return 0;
+	}
+	
 	 public void saveToNBT (NBTTagCompound tags)
 	    {
 	        NBTTagList tagList = new NBTTagList();

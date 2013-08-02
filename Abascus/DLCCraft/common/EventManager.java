@@ -78,17 +78,14 @@ public class EventManager
 	@ForgeSubscribe
 	public void onLivingDrop (LivingDropsEvent event)
 	{
-		try
-		{
 			EntityPlayer ep = (EntityPlayer)event.source.getSourceOfDamage();
-			PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
-			State s = stats.states.get("mobDrops");
-			if(s.state != 2)
+			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep.username).dlcManager;
+			
+			if(dlcs.getState("mobDrops") != 2)
 			{
 				event.setCanceled(true);
 			}
 		}
-		catch(Exception e){}
 	}
 
 	public void rightClickBlock(PlayerInteractEvent event)
@@ -99,11 +96,10 @@ public class EventManager
 
 	public void rightClickAir(PlayerInteractEvent event)
 	{
-		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep.username).dlcManager;
 		if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
 		{
-			DLC s = stats.dlcManager.dlcs[2];
-			if(s.state != 2)
+			if(stats.dlcManager.dlcs[2].state != 2)
 			{
 				event.setCanceled(true);
 			}
@@ -112,15 +108,15 @@ public class EventManager
 
 	public void leftClickBlock(PlayerInteractEvent event)
 	{
-		/*PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
 		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
 		{
 
-		if(stats.states.get("punchWood").state != 2)
+		if(stats.dlcManager.dlcs[0].state != 2)
 		{
 			event.setCanceled(true);
 		}
-		}*/
+		}
 	}
 
 }
