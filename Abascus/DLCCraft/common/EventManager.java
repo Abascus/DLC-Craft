@@ -172,6 +172,30 @@ public class EventManager
 				event.setCanceled(true);
 			}
 		}
+		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.stoneButton.blockID)
+		{
+
+			if(dlcs.getState("buttonLever") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
+		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.woodenButton.blockID)
+		{
+
+			if(dlcs.getState("buttonLever") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
+		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.lever.blockID)
+		{
+
+			if(dlcs.getState("buttonLever") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
 	}
 
 	public void rightClickAir(PlayerInteractEvent event)
