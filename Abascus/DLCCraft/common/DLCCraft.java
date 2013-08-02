@@ -58,12 +58,6 @@ public class DLCCraft
 		config.save();
 		//Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
 		//Capes = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Capes.txt");
-
-	}
-
-	@EventHandler
-	public void load(FMLInitializationEvent event) 
-	{
 		KeyBinding[] key = {new KeyBinding("DLC Shop", Keyboard.KEY_F)};
         boolean[] repeat = {false};
         KeyBindingRegistry.registerKeyBinding(new DLCKeyBinding(key, repeat));
@@ -78,6 +72,12 @@ public class DLCCraft
 		MinecraftForge.EVENT_BUS.register(playerTracker);
 		TickRegistry.registerTickHandler(new TickHandlerClient(), Side.CLIENT);
 		TickRegistry.registerTickHandler(new Tickhandler(), Side.SERVER);
+	}
+
+	@EventHandler
+	public void load(FMLInitializationEvent event) 
+	{
+		
 
 	}
 
