@@ -17,6 +17,7 @@ import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -125,23 +126,46 @@ public class EventManager
 			event.extraLife = 9999;
 			event.setCanceled(true);
 		}
-		
+
 	}
-	
-	
+
+
+	@ForgeSubscribe
+	public void livingHurt(LivingHurtEvent event)
+	{
+		if(event.entity instanceof EntityPlayer)
+		{
+			if(event.entityLiving instanceof EntityPlayer)
+			{
+				try
+				{
+					EntityPlayer ep = (EntityPlayer) event.entity;
+					String u = ep.username;
+					DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(u).dlcManager;
+
+					if(dlcs.getState("PvP") != 2)
+					{
+						event.setCanceled(true);
+					}
+				}
+				catch(Exception e){}
+			}
+		}
+	}
+
 	@ForgeSubscribe
 	public void onLivingDrop (LivingDropsEvent event)
 	{
 		try
 		{
-		EntityPlayer ep = (EntityPlayer)event.source.getSourceOfDamage();
-		String u = ep.username;
-		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(u).dlcManager;
+			EntityPlayer ep = (EntityPlayer)event.source.getSourceOfDamage();
+			String u = ep.username;
+			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(u).dlcManager;
 
-		if(dlcs.getState("mobDrops") != 2)
-		{
-			event.setCanceled(true);
-		}
+			if(dlcs.getState("mobDrops") != 2)
+			{
+				event.setCanceled(true);
+			}
 		}
 		catch(Exception e){}
 
@@ -221,41 +245,41 @@ public class EventManager
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
 		if(event.entityPlayer.getCurrentEquippedItem() != null)
 		{
-		if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
-		{
-			if(dlcs.getState("eat") != 2)
+			if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
 			{
-				event.setCanceled(true);
+				if(dlcs.getState("eat") != 2)
+				{
+					event.setCanceled(true);
+				}
 			}
-		}
-		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemPotion)
-		{
-			if(dlcs.getState("potion") != 2)
+			else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemPotion)
 			{
-				event.setCanceled(true);
+				if(dlcs.getState("potion") != 2)
+				{
+					event.setCanceled(true);
+				}
 			}
-		}
-		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemBow)
-		{
-			if(dlcs.getState("bow") != 2)
+			else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemBow)
 			{
-				event.setCanceled(true);
+				if(dlcs.getState("bow") != 2)
+				{
+					event.setCanceled(true);
+				}
 			}
-		}
-		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFishingRod)
-		{
-			if(dlcs.getState("fishing") != 2)
+			else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFishingRod)
 			{
-				event.setCanceled(true);
+				if(dlcs.getState("fishing") != 2)
+				{
+					event.setCanceled(true);
+				}
 			}
-		}
-		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemBlock)
-		{
-			if(dlcs.getState("placeBlocks") != 2)
+			else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemBlock)
 			{
-				event.setCanceled(true);
+				if(dlcs.getState("placeBlocks") != 2)
+				{
+					event.setCanceled(true);
+				}
 			}
-		}
 		}
 	}
 
