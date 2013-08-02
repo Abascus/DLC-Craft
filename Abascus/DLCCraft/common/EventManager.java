@@ -177,6 +177,8 @@ public class EventManager
 	public void rightClickAir(PlayerInteractEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
+		if(event.entityPlayer.getCurrentEquippedItem() != null)
+		{
 		if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
 		{
 			if(dlcs.getState("eat") != 2)
@@ -211,6 +213,7 @@ public class EventManager
 			{
 				event.setCanceled(true);
 			}
+		}
 		}
 	}
 
