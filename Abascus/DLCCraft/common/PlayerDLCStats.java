@@ -46,6 +46,7 @@ public class PlayerDLCStats
         }
 
         tags.setTag("DLCCraft", tagList);
+        dlcManager.saveToNBT(tags);
     }
 
     public void readFromNBT (NBTTagCompound tags)
@@ -62,6 +63,7 @@ public class PlayerDLCStats
             	dlcs.add(i, dlc);
             }
         }
+        dlcManager.readFromNBT(tags);
     }
 
 }

@@ -102,7 +102,7 @@ public class EventManager
 		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
 		if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
 		{
-			DLC s = stats.dlcs.get(2);
+			DLC s = stats.dlcManager.dlcs[2];
 			if(s.state != 2)
 			{
 				event.setCanceled(true);

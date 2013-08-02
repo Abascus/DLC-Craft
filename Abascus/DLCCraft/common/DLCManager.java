@@ -1,5 +1,8 @@
 package Abascus.DLCCraft.common;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
 public class DLCManager 
 {
 	public static String[] names = new String[20];
@@ -22,6 +25,43 @@ public class DLCManager
 		{
 			dlcs[i] = new DLC(i, names[i]);
 		}
+		
+		dlcs[0].setState(1);
+		dlcs[2].setState(1);
+		dlcs[5].setState(1);
 	}
+	
+	 public void saveToNBT (NBTTagCompound tags)
+	    {
+	        NBTTagList tagList = new NBTTagList();
+	        NBTTagCompound dlc;
+
+	        for (int i = 0; i < dlcs.length; ++i)
+	        {
+	            if (dlcs[i] != null)
+	            {
+	                dlc = new NBTTagCompound();
+	                dlc.setInteger(dlcs[i].name, dlcs[i].state);
+	                tagList.appendTag(dlc);
+	            }
+	        }
+
+	        tags.setTag("DLCCraft.DLCManager", tagList);
+	    }
+
+	    public void readFromNBT (NBTTagCompound tags)
+	    {
+	        for (int i = 0; i < DLCManager.names.length; ++i)
+	        {
+	            if (DLCManager.names[i] != null)
+	            {
+	            	NBTTagCompound nbttagcompound = tags.getCompoundTag("DLCCraft.DLCManager");
+	            	int s =  (nbttagcompound.getInteger(DLCManager.names[i]));
+	                DLC dlc = new DLC(i, DLCManager.names[i]);
+	                dlc.setState(s);
+	            	dlcs[i] = dlc;
+	            }
+	        }
+	    }
 
 }
