@@ -35,11 +35,11 @@ public class PlayerDLCStats
     public void readFromNBT (NBTTagCompound tags)
     {
 
+    	NBTTagCompound nbttagcompound = tags.getCompoundTag("DLCCraft");
         for (int i = 0; i < DLCManager.names.length; ++i)
         {
             if (DLCManager.names[i] != null)
             {
-            	NBTTagCompound nbttagcompound = tags.getCompoundTag("DLCCraft");
             	byte s = (byte) (nbttagcompound.getByte(DLCManager.names[i]) & 255);
                 states.put(DLCManager.names[i], new State(s));
             }

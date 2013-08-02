@@ -14,8 +14,8 @@ public class DLCManager
 		names[5] = "chest";
 		names[6] = "enchanting";
 		names[7] = "furnace";
-		names[8] = "potions";
-		names[9] = "potions";
+		names[8] = "brewing";
+		names[9] = "mobDrops";
 	}
 
 }

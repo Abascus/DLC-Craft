@@ -13,6 +13,7 @@ import net.minecraft.entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -38,6 +39,20 @@ public class PlayerTracker implements IPlayerTracker
 		if (!tags.hasKey("DLCCraft"))
 		{
 			tags.setCompoundTag("DLCCraft", new NBTTagCompound());
+			NBTTagList tagList = new NBTTagList();
+			NBTTagCompound dlc;
+
+	        for (int i = 0; i < DLCManager.names.length; ++i)
+	        {
+	            if (DLCManager.names[i] != null)
+	            {
+	                dlc = new NBTTagCompound();
+	                dlc.setByte(DLCManager.names[i], (byte) 0);
+	                tagList.appendTag(dlc);
+	            }
+	        }
+
+	        tags.setTag("DLCCraft", tagList);
 		}
 		PlayerDLCStats stats = new PlayerDLCStats();
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);		
