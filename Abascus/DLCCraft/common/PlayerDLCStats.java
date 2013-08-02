@@ -13,6 +13,7 @@ public class PlayerDLCStats
 {
     public WeakReference<EntityPlayer> player;
     public ConcurrentHashMap<String, State> states = new ConcurrentHashMap<String, State>();
+    public List<DLC> dlcs;
     public int Coins;
     
     public void init()
@@ -22,6 +23,8 @@ public class PlayerDLCStats
             if (DLCManager.names[i] != null)
             {
             	states.put(DLCManager.names[i], new State(0));
+            	DLC dlc = new DLC(i, DLCManager.names[i]);
+            	dlcs.add(i, dlc);
             }
         }
     }
@@ -36,7 +39,7 @@ public class PlayerDLCStats
             if (DLCManager.names[i] != null)
             {
                 dlc = new NBTTagCompound();
-                dlc.setInteger(DLCManager.names[i], states.get(DLCManager.names[i]).state);
+                dlc.setInteger(DLCManager.names[i], dlcs.get(i).state);
                 tagList.appendTag(dlc);
             }
         }
@@ -52,7 +55,10 @@ public class PlayerDLCStats
             {
             	NBTTagCompound nbttagcompound = tags.getCompoundTag("DLCCraft");
             	int s =  (nbttagcompound.getInteger(DLCManager.names[i]));
-                states.put(DLCManager.names[i], new State(1));
+                states.put(DLCManager.names[i], new State(s));
+                DLC dlc = new DLC(i, DLCManager.names[i]);
+                dlc.setState(s);
+            	dlcs.add(i, dlc);
             }
         }
     }
