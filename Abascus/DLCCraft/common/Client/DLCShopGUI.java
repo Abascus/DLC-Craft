@@ -272,14 +272,6 @@ public class DLCShopGUI extends InventoryEffectRenderer
 		Keyboard.enableRepeatEvents(false);
 	}
 
-	/**
-	 * Fired when a key is typed. This is the equivalent of KeyListener.keyTyped(KeyEvent e).
-	 */
-	protected void keyTyped(char par1, int par2)
-	{
-
-	}
-
 	private void updateCreativeSearch()
 	{
 		ContainerDLCShop ContainerDLCShop = (ContainerDLCShop)this.inventorySlots;
@@ -531,7 +523,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
 			}
 		}
 
-		this.mc.func_110434_K().func_110577_a(new ResourceLocation("assets/textures/gui/shop.png"));
+		this.mc.func_110434_K().func_110577_a(new ResourceLocation("/assets/dlccraft/gui/shop.png"));
 		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 		this.searchField.drawTextBox();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
