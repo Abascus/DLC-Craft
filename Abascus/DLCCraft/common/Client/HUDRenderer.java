@@ -53,8 +53,8 @@ public class HUDRenderer extends Gui
 				GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-				drawTexturedModalRect((int)(width / 1.4), height - 40, 0, 0, 32, 32);
-				drawString(mc.fontRenderer, stats.Coins + "", (int)(width / 1.4)+40, height - 60, height - 40);
+				drawTexturedModelRectFromIcon((int)(width / 1.4), height - 40, DLCCraft.instance.coin.getItemIcon(), 32, 32);
+				drawString(mc.fontRenderer, stats.Coins + "", (int)(width / 1.4)+40, height - 20, height - 40);
 
 
 

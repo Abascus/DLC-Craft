@@ -2,6 +2,7 @@ package Abascus.DLCCraft.common;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
+import net.minecraft.util.Icon;
 
 public class DLCCraftItem extends Item
 {
@@ -19,12 +20,19 @@ public class DLCCraftItem extends Item
 	{
 		if(id == DLCCraft.instance.CoinID)
 		{
-		itemIcon = par1IconRegister.registerIcon("DLC Craft:coin");
+			itemIcon = par1IconRegister.registerIcon("DLC Craft:coin");
 		}
 		else
 		{
 			itemIcon = par1IconRegister.registerIcon("DLC Craft:dlc");
 		}
+	}
+	
+
+
+	public Icon getItemIcon()
+	{
+		return this.itemIcon;
 	}
 
 }

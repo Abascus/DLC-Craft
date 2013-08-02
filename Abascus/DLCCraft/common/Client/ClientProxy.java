@@ -17,7 +17,6 @@ public class ClientProxy extends CommonProxy
 	public void registerRenderInformation()
 	{
 		MinecraftForge.EVENT_BUS.register(new HUDRenderer(Minecraft.getMinecraft()));
-		MinecraftForgeClient.registerItemRenderer(DLCCraft.instance.coin.itemID, new CoinRenderer());
 	}
 	
 	@Override

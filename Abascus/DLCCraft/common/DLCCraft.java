@@ -16,7 +16,6 @@ import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.input.Keyboard;
 
-import Abascus.DLCCraft.common.Client.CoinRenderer;
 import Abascus.DLCCraft.common.Client.HUDRenderer;
 import Abascus.DLCCraft.common.Client.TickHandlerClient;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
@@ -50,7 +49,7 @@ public class DLCCraft
 
 	public int CoinID = 800;
 	public int DLCID = 801;
-	public Item coin;
+	public DLCCraftItem coin;
 	public Item dlc;
 	public static PlayerTracker playerTracker;
 
@@ -72,7 +71,7 @@ public class DLCCraft
 		//Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
 		//Capes = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Capes.txt");
 
-		coin = (new DLCCraftItem(CoinID)).setUnlocalizedName("coin").setCreativeTab(CreativeTabs.tabMaterials);
+		coin = (DLCCraftItem) (new DLCCraftItem(CoinID)).setUnlocalizedName("coin").setCreativeTab(CreativeTabs.tabMaterials);
 		dlc = (new DLCCraftItem(DLCID)).setUnlocalizedName("dlc").setCreativeTab(CreativeTabs.tabMaterials);
 
 		LanguageRegistry.instance().addName(coin, "Coin");
@@ -99,8 +98,6 @@ public class DLCCraft
 	@EventHandler
 	public void load(FMLInitializationEvent event) 
 	{
-
-		MinecraftForgeClient.registerItemRenderer(DLCCraft.instance.coin.itemID, new CoinRenderer());
 	}
 
 	public static String[] grab(String location)
