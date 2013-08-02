@@ -34,13 +34,15 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import Abascus.DLCCraft.common.ContainerDLCShop;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class DLCShopGUI extends InventoryEffectRenderer
 {
-    private static final ResourceLocation field_110424_t = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
+    private static final ResourceLocation field_110424_t = new ResourceLocation("textures/gui/shop.png");
     private static InventoryBasic inventory = new InventoryBasic("tmp", true, 45);
 
     /** Currently selected creative inventory tab index. */
@@ -58,7 +60,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
     private GuiTextField searchField;
 
     /**
-     * Used to back up the ContainerCreative's inventory slots before filling it with the player's inventory slots for
+     * Used to back up the ContainerDLCShop's inventory slots before filling it with the player's inventory slots for
      * the inventory tab.
      */
     private List backupContainerSlots;
@@ -70,7 +72,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
     public DLCShopGUI(EntityPlayer par1EntityPlayer)
     {
-        super(new ContainerCreative(par1EntityPlayer));
+        super(new ContainerDLCShop(par1EntityPlayer));
         par1EntityPlayer.openContainer = this.inventorySlots;
         this.allowUserInput = true;
         par1EntityPlayer.addStat(AchievementList.openInventory, 1);
@@ -354,8 +356,8 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
     private void updateCreativeSearch()
     {
-        ContainerCreative containercreative = (ContainerCreative)this.inventorySlots;
-        containercreative.itemList.clear();
+        ContainerDLCShop ContainerDLCShop = (ContainerDLCShop)this.inventorySlots;
+        ContainerDLCShop.itemList.clear();
         Item[] aitem = Item.itemsList;
         int i = aitem.length;
         int j;
@@ -366,7 +368,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
             if (item != null && item.getCreativeTab() != null)
             {
-                item.getSubItems(item.itemID, (CreativeTabs)null, containercreative.itemList);
+                item.getSubItems(item.itemID, (CreativeTabs)null, ContainerDLCShop.itemList);
             }
         }
 
@@ -379,11 +381,11 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
             if (enchantment != null && enchantment.type != null)
             {
-                Item.enchantedBook.func_92113_a(enchantment, containercreative.itemList);
+                Item.enchantedBook.func_92113_a(enchantment, ContainerDLCShop.itemList);
             }
         }
 
-        Iterator iterator = containercreative.itemList.iterator();
+        Iterator iterator = ContainerDLCShop.itemList.iterator();
         String s = this.searchField.getText().toLowerCase();
 
         while (iterator.hasNext())
@@ -416,7 +418,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
         }
 
         this.currentScroll = 0.0F;
-        containercreative.scrollTo(0.0F);
+        ContainerDLCShop.scrollTo(0.0F);
     }
 
     /**
@@ -492,7 +494,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
     private boolean needsScrollBars()
     {
         if (CreativeTabs.creativeTabArray[selectedTabIndex] == null) return false;
-        return selectedTabIndex != CreativeTabs.tabInventory.getTabIndex() && CreativeTabs.creativeTabArray[selectedTabIndex].shouldHidePlayerInventory() && ((ContainerCreative)this.inventorySlots).hasMoreThan1PageOfItemsInList();
+        return selectedTabIndex != CreativeTabs.tabInventory.getTabIndex() && CreativeTabs.creativeTabArray[selectedTabIndex].shouldHidePlayerInventory() && ((ContainerDLCShop)this.inventorySlots).hasMoreThan1PageOfItemsInList();
     }
 
     private void setCurrentCreativeTab(CreativeTabs par1CreativeTabs)
@@ -504,10 +506,10 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
         int i = selectedTabIndex;
         selectedTabIndex = par1CreativeTabs.getTabIndex();
-        ContainerCreative containercreative = (ContainerCreative)this.inventorySlots;
+        ContainerDLCShop ContainerDLCShop = (ContainerDLCShop)this.inventorySlots;
         this.field_94077_p.clear();
-        containercreative.itemList.clear();
-        par1CreativeTabs.displayAllReleventItems(containercreative.itemList);
+        ContainerDLCShop.itemList.clear();
+        par1CreativeTabs.displayAllReleventItems(ContainerDLCShop.itemList);
 
         if (par1CreativeTabs == CreativeTabs.tabInventory)
         {
@@ -515,15 +517,15 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
             if (this.backupContainerSlots == null)
             {
-                this.backupContainerSlots = containercreative.inventorySlots;
+                this.backupContainerSlots = ContainerDLCShop.inventorySlots;
             }
 
-            containercreative.inventorySlots = new ArrayList();
+            ContainerDLCShop.inventorySlots = new ArrayList();
 
             for (int j = 0; j < container.inventorySlots.size(); ++j)
             {
                 SlotCreativeInventory slotcreativeinventory = new SlotCreativeInventory(this, (Slot)container.inventorySlots.get(j), j);
-                containercreative.inventorySlots.add(slotcreativeinventory);
+                ContainerDLCShop.inventorySlots.add(slotcreativeinventory);
                 int k;
                 int l;
                 int i1;
@@ -560,11 +562,11 @@ public class DLCShopGUI extends InventoryEffectRenderer
             }
 
             this.field_74235_v = new Slot(inventory, 0, 173, 112);
-            containercreative.inventorySlots.add(this.field_74235_v);
+            ContainerDLCShop.inventorySlots.add(this.field_74235_v);
         }
         else if (i == CreativeTabs.tabInventory.getTabIndex())
         {
-            containercreative.inventorySlots = this.backupContainerSlots;
+            ContainerDLCShop.inventorySlots = this.backupContainerSlots;
             this.backupContainerSlots = null;
         }
 
@@ -587,7 +589,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
         }
 
         this.currentScroll = 0.0F;
-        containercreative.scrollTo(0.0F);
+        ContainerDLCShop.scrollTo(0.0F);
     }
 
     /**
@@ -600,7 +602,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
 
         if (i != 0 && this.needsScrollBars())
         {
-            int j = ((ContainerCreative)this.inventorySlots).itemList.size() / 9 - 5 + 1;
+            int j = ((ContainerDLCShop)this.inventorySlots).itemList.size() / 9 - 5 + 1;
 
             if (i > 0)
             {
@@ -624,7 +626,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
                 this.currentScroll = 1.0F;
             }
 
-            ((ContainerCreative)this.inventorySlots).scrollTo(this.currentScroll);
+            ((ContainerDLCShop)this.inventorySlots).scrollTo(this.currentScroll);
         }
     }
 
@@ -667,7 +669,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
                 this.currentScroll = 1.0F;
             }
 
-            ((ContainerCreative)this.inventorySlots).scrollTo(this.currentScroll);
+            ((ContainerDLCShop)this.inventorySlots).scrollTo(this.currentScroll);
         }
 
         super.drawScreen(par1, par2, par3);
