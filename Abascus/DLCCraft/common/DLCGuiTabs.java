@@ -12,8 +12,8 @@ import net.minecraft.item.ItemStack;
 public class DLCGuiTabs
 {
     public static DLCGuiTabs[] creativeTabArray = new DLCGuiTabs[2];
-    public static final DLCGuiTabs tabFound = new DLCGuiTabs(0, "found");
-    public static final DLCGuiTabs tabBought = new DLCGuiTabs(1, "bought"); 
+    public static final DLCGuiTabs tabFound = new DLCGuiTabs(0, "Avalible DLC's");
+    public static final DLCGuiTabs tabBought = new DLCGuiTabs(1, "Bought DLC's"); 
     private final int tabIndex;
     private final String tabLabel;
 
@@ -71,7 +71,7 @@ public class DLCGuiTabs
      */
     public String getTranslatedTabLabel()
     {
-        return "itemGroup." + this.getTabLabel();
+        return this.getTabLabel();
     }
 
     @SideOnly(Side.CLIENT)
