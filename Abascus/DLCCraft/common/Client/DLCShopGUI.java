@@ -75,20 +75,8 @@ public class DLCShopGUI extends InventoryEffectRenderer
         super(new ContainerDLCShop(par1EntityPlayer));
         par1EntityPlayer.openContainer = this.inventorySlots;
         this.allowUserInput = true;
-        par1EntityPlayer.addStat(AchievementList.openInventory, 1);
         this.ySize = 136;
         this.xSize = 195;
-    }
-
-    /**
-     * Called from the main game loop to update the screen.
-     */
-    public void updateScreen()
-    {
-        if (!this.mc.playerController.isInCreativeMode())
-        {
-            this.mc.displayGuiScreen(new GuiInventory(this.mc.thePlayer));
-        }
     }
 
     protected void handleMouseClick(Slot par1Slot, int par2, int par3, int par4)
@@ -768,7 +756,7 @@ public class DLCShopGUI extends InventoryEffectRenderer
             }
         }
 
-        this.mc.func_110434_K().func_110577_a(new ResourceLocation("textures/gui/container/creative_inventory/tab_" + creativetabs.getBackgroundImageName()));
+        this.mc.func_110434_K().func_110577_a(new ResourceLocation("textures/gui/shop.png"));
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         this.searchField.drawTextBox();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

@@ -15,6 +15,8 @@ public class Tickhandler implements ITickHandler
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData)
 	{
+		 playerTick((EntityPlayer)tickData[0]);
+
 /*
 		if(type.equals(EnumSet.of(TickType.PLAYER)))
 		{
@@ -35,6 +37,15 @@ public class Tickhandler implements ITickHandler
 		}
 		*/
 	}
+	
+	public static void playerTick(EntityPlayer player)
+	{
+	         if(DLCKeyBinding.keyPressed)
+	         {
+	        	 player.openGui(DLCCraft.instance, 1, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posY);
+	         }
+	}
+
 
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) 
