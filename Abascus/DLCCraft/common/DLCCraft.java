@@ -6,6 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -37,12 +39,20 @@ public class DLCCraft
 	@EventHandler
 	public void pre(FMLPreInitializationEvent event)
 	{
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		config.load();
+		startUpInfo = config.get(Configuration.CATEGORY_GENERAL, "Has Startup Info",true).getBoolean(true);
+
+		config.save();
+		//Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
+		//Capes = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Capes.txt");
 
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) 
 	{
+		MinecraftForge.EVENT_BUS.register(new EventManager());
 
 	}
 
