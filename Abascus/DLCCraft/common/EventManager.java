@@ -110,12 +110,6 @@ public class EventManager
 	@ForgeSubscribe
 	public void itemEvent(ItemEvent event)
 	{
-		if(event.entityItem.getEntityItem().itemID == DLCCraft.instance.coin.itemID)
-		{
-			event.entityItem.boundingBox.maxX = event.entityItem.boundingBox.maxX*3;
-			event.entityItem.boundingBox.maxY = event.entityItem.boundingBox.maxY*3;
-			event.entityItem.boundingBox.maxZ = event.entityItem.boundingBox.maxZ*3;
-		}
 	}
 
 	@ForgeSubscribe
@@ -286,6 +280,7 @@ public class EventManager
 	public void leftClickBlock(PlayerInteractEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
+
 		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
 		{
 
@@ -294,12 +289,15 @@ public class EventManager
 				event.setCanceled(true);
 			}
 		}
-		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemPickaxe && event.entityPlayer.getCurrentEquippedItem().canHarvestBlock(Block.oreDiamond))
+		else if(event.entityPlayer.getCurrentEquippedItem() != null)
 		{
-
-			if(dlcs.getState("useIronPick") != 2)
+			if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemPickaxe && event.entityPlayer.getCurrentEquippedItem().canHarvestBlock(Block.oreDiamond))
 			{
-				event.setCanceled(true);
+
+				if(dlcs.getState("useIronPick") != 2)
+				{
+					event.setCanceled(true);
+				}
 			}
 		}
 	}

@@ -37,13 +37,13 @@ public class HUDRenderer extends Gui
 			int height = scaledresolution.getScaledHeight();
 				
 
-				this.mc.renderEngine.func_110577_a(new ResourceLocation("dlc craft/textures/items/Coin.png"));
+				this.mc.renderEngine.func_110577_a(new ResourceLocation("dlc craft/textures/items/Coinn.png"));
 				this.zLevel = -90.0F;
 
 				GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-				drawTexturedModelRectFromIcon((int)(width / 1.4), height - 40, DLCCraft.instance.coin.getItemIcon(), 32, 32);
+				drawTexturedModalRect((int)(width / 1.4), height - 40, 0,0, 32, 32);
 				GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
 				mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.4)+40, height - 20, 777777, false);
 
