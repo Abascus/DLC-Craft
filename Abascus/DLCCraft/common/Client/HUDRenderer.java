@@ -49,8 +49,7 @@ public class HUDRenderer extends Gui
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-				drawTexturedModalRect(width / 2 - 91 - 15 - 62, height - 22, 0, 0, 31, 22);
-				drawTexturedModalRect(width / 2 - 91 - 15 - 31, height - 22, 151, 0, 31, 22);
+				drawTexturedModalRect((int)(width / 1.4), height - 40, 0, 0, 32, 32);
 
 
 
