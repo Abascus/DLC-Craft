@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ImageBufferDownload;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
@@ -32,7 +33,10 @@ public class TickHandlerClient implements ITickHandler
 				{
 					if(DLCCraft.playerTracker.gePlayerDLCStats(player.username).states.get("air").state != 2)
 					{
-						
+						if(player.isInWater())
+						{
+							player.attackEntityFrom(DamageSource.drown, 2);
+						}
 					}
 				}
 			}

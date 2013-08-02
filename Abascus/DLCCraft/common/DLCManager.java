@@ -9,6 +9,8 @@ public class DLCManager
 		names[0] = "punchWood";
 		names[1] = "sprint";
 		names[2] = "eat";
+		names[3] = "air";
+		names[4] = "potions";
 	}
 
 }
