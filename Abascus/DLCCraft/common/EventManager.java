@@ -2,6 +2,7 @@ package Abascus.DLCCraft.common;
 
 import java.lang.ref.WeakReference;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -85,7 +86,7 @@ public class EventManager
 			{
 				event.setCanceled(true);
 			}
-		}
+		
 	}
 
 	public void rightClickBlock(PlayerInteractEvent event)
@@ -96,10 +97,10 @@ public class EventManager
 
 	public void rightClickAir(PlayerInteractEvent event)
 	{
-		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep.username).dlcManager;
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
 		if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
 		{
-			if(stats.dlcManager.dlcs[2].state != 2)
+			if(dlcs.getState("eat") != 2)
 			{
 				event.setCanceled(true);
 			}
@@ -108,11 +109,11 @@ public class EventManager
 
 	public void leftClickBlock(PlayerInteractEvent event)
 	{
-		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
 		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
 		{
 
-		if(stats.dlcManager.dlcs[0].state != 2)
+		if(dlcs.getState(0) != 2)
 		{
 			event.setCanceled(true);
 		}

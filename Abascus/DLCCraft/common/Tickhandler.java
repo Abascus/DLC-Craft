@@ -17,7 +17,7 @@ public class Tickhandler implements ITickHandler
 	{
 		 playerTick((EntityPlayer)tickData[0]);
 
-/*
+
 		if(type.equals(EnumSet.of(TickType.PLAYER)))
 		{
 			if(Minecraft.getMinecraft().theWorld != null && Minecraft.getMinecraft().theWorld.loadedEntityList.size() > 0)
@@ -35,7 +35,7 @@ public class Tickhandler implements ITickHandler
 				}
 			}
 		}
-		*/
+		
 	}
 	
 	public static void playerTick(EntityPlayer player)
