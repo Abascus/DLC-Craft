@@ -97,11 +97,12 @@ public class DLCManager
 
 	    public void readFromNBT (NBTTagCompound tags)
 	    {
+	    	NBTTagList nbttaglist = tags.getTagList("DLCCraft");
 	        for (int i = 0; i < DLCManager.names.length; ++i)
 	        {
 	            if (DLCManager.names[i] != null)
 	            {
-	            	NBTTagCompound nbttagcompound = tags.getCompoundTag("DLCCraft");
+	            	 NBTTagCompound nbttagcompound = (NBTTagCompound)nbttaglist.tagAt(i);
 	            	int s =  (nbttagcompound.getInteger(DLCManager.names[i]));
 	                DLC dlc = new DLC(i, DLCManager.names[i]);
 	                dlc.setState(s);

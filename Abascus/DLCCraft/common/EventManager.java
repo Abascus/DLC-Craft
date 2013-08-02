@@ -88,13 +88,13 @@ public class EventManager
 	@ForgeSubscribe
 	public void onLivingDrop (LivingDropsEvent event)
 	{
-		EntityPlayer ep = (EntityPlayer)event.source.getSourceOfDamage();
+		/*EntityPlayer ep = (EntityPlayer)event.source.getSourceOfDamage();
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep.username).dlcManager;
 
 		if(dlcs.getState("mobDrops") != 2)
 		{
 			event.setCanceled(true);
-		}
+		}*/
 
 	}
 
