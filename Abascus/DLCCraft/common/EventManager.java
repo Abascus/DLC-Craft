@@ -1,9 +1,6 @@
 package Abascus.DLCCraft.common;
 
-import java.lang.ref.WeakReference;
-
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBow;
@@ -11,8 +8,8 @@ import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemPotion;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.event.EventPriority;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.item.ItemEvent;
@@ -23,6 +20,12 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class EventManager 
 {
+
+	@ForgeSubscribe(priority = EventPriority.NORMAL)
+	public void eventHandler(RenderGameOverlayEvent event)
+	{
+
+	}
 
 	@ForgeSubscribe
 	public void playerInteract(PlayerInteractEvent event)
