@@ -21,7 +21,7 @@ public class CoinRenderer implements IItemRenderer
 	@Override
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,  ItemRendererHelper helper) 
 	{
-		return true;
+		return false;
 	}
 
 	@Override

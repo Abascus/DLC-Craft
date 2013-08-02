@@ -14,7 +14,7 @@ public class ClientProxy extends CommonProxy
 	@SideOnly(Side.CLIENT)
 	public void registerRenderInformation()
 	{
-		MinecraftForgeClient.registerItemRenderer(DLCCraft.instance.CoinID, new CoinRenderer());
+		MinecraftForgeClient.registerItemRenderer(DLCCraft.instance.coin.itemID, new CoinRenderer());
 	}
 	
 	@Override

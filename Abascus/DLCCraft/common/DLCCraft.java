@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.input.Keyboard;
 
+import Abascus.DLCCraft.common.Client.CoinRenderer;
 import Abascus.DLCCraft.common.Client.TickHandlerClient;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.Mod;
@@ -79,7 +81,7 @@ public class DLCCraft
 		KeyBindingRegistry.registerKeyBinding(new DLCKeyBinding(key, repeat));
 
 		MinecraftForge.EVENT_BUS.register(new EventManager());
-
+		
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 		proxy.registerRenderInformation();
 
