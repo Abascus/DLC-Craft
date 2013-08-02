@@ -12,8 +12,8 @@ import net.minecraft.item.ItemStack;
 public class DLCGuiTabs
 {
     public static DLCGuiTabs[] creativeTabArray = new DLCGuiTabs[2];
-    public static final DLCGuiTabs tabBlock = new DLCGuiTabs(0, "found");
-    public static final DLCGuiTabs tabDecorations = new DLCGuiTabs(1, "bought"); 
+    public static final DLCGuiTabs tabFound = new DLCGuiTabs(0, "found");
+    public static final DLCGuiTabs tabBought = new DLCGuiTabs(1, "bought"); 
     private final int tabIndex;
     private final String tabLabel;
 
@@ -203,14 +203,6 @@ public class DLCGuiTabs
             if (item == null)
             {
                 continue;
-            }
-
-            for (DLCGuiTabs tab : item.getCreativeTabs())
-            {
-                if (tab == this)
-                {
-                    item.getSubItems(item.itemID, this, par1List);
-                }
             }
         }
 
