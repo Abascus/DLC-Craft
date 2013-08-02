@@ -1,17 +1,15 @@
 package Abascus.DLCCraft.common.Client;
 
-import java.util.Collection;
-import java.util.Iterator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.event.EventPriority;
 import net.minecraftforge.event.ForgeSubscribe;
+
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 public class HUDRenderer extends Gui
 {
@@ -30,21 +28,42 @@ public class HUDRenderer extends Gui
 	private static final int BUFF_ICON_BASE_U_OFFSET = 0;
 	private static final int BUFF_ICON_BASE_V_OFFSET = 198;
 	private static final int BUFF_ICONS_PER_ROW = 8;
-
-	//
-	// This event is called by GuiIngameForge during each frame by
-	// GuiIngameForge.pre() and GuiIngameForce.post().
-	//
-	@ForgeSubscribe()
-	public void onRenderExperienceBar(RenderGameOverlayEvent event)
+	protected static final ResourceLocation resourceLocation = new ResourceLocation("dlc craft/items/Coin.png");
+	
+	@ForgeSubscribe
+	public void postRenderOverlay(RenderGameOverlayEvent.Post event)
 	{
+		if(event.type == RenderGameOverlayEvent.ElementType.HOTBAR)
+		{
+			ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+			int width = scaledresolution.getScaledWidth();
+			int height = scaledresolution.getScaledHeight();
 
-		// Starting position for the buff bar - 2 pixels from the top left corner.
-		int xPos = 2;
-		int yPos = 2;
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glDisable(GL11.GL_LIGHTING);      
-		this.mc.func_110434_K().func_110577_a(new ResourceLocation("dlc craft/gui/shop.png"));
+			if (!this.mc.playerController.enableEverythingIsScrewedUpMode()) {
+				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
+				this.mc.renderEngine.func_110577_a(resourceLocation);
+				this.zLevel = -90.0F;
+
+				GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+				drawTexturedModalRect(width / 2 - 91 - 15 - 62, height - 22, 0, 0, 31, 22);
+				drawTexturedModalRect(width / 2 - 91 - 15 - 31, height - 22, 151, 0, 31, 22);
+
+
+
+
+				GL11.glDisable(GL11.GL_BLEND);
+
+
+			}
+
+
+
+		}
 	}
+
+
 }
