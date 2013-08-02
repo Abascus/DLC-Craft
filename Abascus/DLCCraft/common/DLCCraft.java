@@ -6,30 +6,46 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
 
+@Mod(modid = "Abascus_DLCCraft", name = "DLC Craft", version = "0.1")
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class DLCCraft 
 {
-	
+	@SidedProxy(clientSide = "Abascus.DLCCraft.common.Client.ClientProxy", serverSide = "Abascus.DLCCraft.common.CommonProxy")
+	public static CommonProxy proxy;
+
+	@Instance("Abascus_DLCCraft")
+	public static DLCCraft instance;
+
+	public boolean startUpInfo = true;
+
+	public String[] Msg;
+	public String[] Capes;
+
 	public DLCCraft()
 	{
-		
+
 	}
-	
+
 	@EventHandler
 	public void pre(FMLPreInitializationEvent event)
 	{
-		
+
 	}
-	
+
 	@EventHandler
 	public void load(FMLInitializationEvent event) 
 	{
-		
+
 	}
-	
+
 	public static String[] grab(String location)
 	{
 		try
