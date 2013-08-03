@@ -14,23 +14,14 @@ public class DLCManager
 	public DLCManager()
 	{
 		names[0] = "punchWood";
-
 		names[1] = "sprint";
-		
 		names[2] = "eat";
-		
 		names[3] = "air";
-		
 		names[4] = "potion";
-		
 		names[5] = "chest";
-		
 		names[6] = "enchanting";
-		
 		names[7] = "furnace";
-		
 		names[8] = "brewing";
-		
 		names[9] = "mobDrops";
 		names[10] = "music";
 		names[11] = "sounds";
@@ -121,13 +112,22 @@ public class DLCManager
 		description[30] = "";		
 		description[31] = "";
 		
+		cost[0] = 5;
+		cost[1] = 10;
+		cost[2] = 10;
+		cost[3] = 5;
+		cost[4] = 5;
+		cost[5] = 5;
+		cost[6] = 5;
+		cost[7] = 5;
+		cost[8] = 5;
+		cost[9] = 5;
+		cost[10] = 5;
+		
 		for(int i = 0; i< dlcs.length; i++)
 		{
 			dlcs[i] = new DLC(i, names[i]);
 		}
-		
-		
-		
 		
 		dlcs[0].setState(1);
 		dlcs[2].setState(1);

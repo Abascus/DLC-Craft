@@ -457,7 +457,7 @@ public class DLCShopGUI extends GuiContainer
 
 		GL11.glColor4f(0.0F, 0.0F, 1.0F, 0.0F);
 		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
-		mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.4)+40, 14, 2222222, false);
+		mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.3)+40, 14, 2222222, false);
 
 
 	}
