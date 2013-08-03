@@ -579,6 +579,8 @@ public class DLCShopGUI extends GuiContainer
 			DLC dlc;
 			if(buy)
 			{
+				if(this.buyList.toArray().length>=selectedDLC+1)
+				{
 				dlc = (DLC)this.buyList.get(selectedDLC);
 
 				if(stats.Coins >= stats.dlcManager.cost[dlc.id])
@@ -601,6 +603,7 @@ public class DLCShopGUI extends GuiContainer
 					this.loadSaves();
 					
 				}
+			}
 			}
 
 		}

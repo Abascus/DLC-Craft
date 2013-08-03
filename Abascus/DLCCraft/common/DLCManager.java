@@ -132,7 +132,7 @@ public class DLCManager
 		
 		for(int i = 0; i< dlcs.length; i++)
 		{
-			dlcs[i] = new DLC(i, names[i]);
+			dlcs[i] = new DLC(i, names[i], Names[i], description[i], dep[i], cost[i]);
 		}
 		
 		dlcs[0].setState(1);
@@ -193,7 +193,7 @@ public class DLCManager
 	            {
 	            	 NBTTagCompound nbttagcompound = (NBTTagCompound)nbttaglist.tagAt(i);
 	            	int s =  (nbttagcompound.getInteger(DLCManager.names[i]));
-	                DLC dlc = new DLC(i, DLCManager.names[i]);
+	                DLC dlc = new DLC(i, DLCManager.names[i], Names[i], description[i], dep[i], cost[i]);
 	                dlc.setState(s);
 	            	dlcs[i] = dlc;
 	            }

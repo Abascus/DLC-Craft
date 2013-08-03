@@ -10,10 +10,14 @@ public class DLC
 	public int state;
 	public int cost;
 	
-	public DLC(int i, String s)
+	public DLC(int i, String n, String N, String d, int dep, int c)
 	{
 		id = i;
-		name = s;
+		name = n;
+		Name = N;
+		desciption = d;
+		depend = dep;
+		cost = c;
 		state = 0;
 	}
 	
