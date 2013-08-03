@@ -8,6 +8,7 @@ public class DLC
 	public String desciption;
 	public int depend = -1;
 	public int state;
+	public int cost;
 	
 	public DLC(int i, String s)
 	{

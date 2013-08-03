@@ -7,11 +7,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.achievement.GuiAchievements;
-import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.gui.inventory.CreativeCrafting;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -33,6 +30,7 @@ import Abascus.DLCCraft.common.DLCCraft;
 import Abascus.DLCCraft.common.DLCGuiTabs;
 import Abascus.DLCCraft.common.DLCManager;
 import Abascus.DLCCraft.common.GuiDLCSlot;
+import Abascus.DLCCraft.common.PlayerDLCStats;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -169,7 +167,7 @@ public class DLCShopGUI extends GuiContainer
 		
 		this.buttonList.add(this.buttonAvalible = new GuiButton(3, this.width / 2 - 100,  10, 72, 20, I18n.func_135053_a("Avalible DLC's")));
 		this.buttonList.add(this.buttonBought = new GuiButton(4, this.width / 2 + 30, 10, 72, 20, I18n.func_135053_a("Bought DLC's")));
-		this.buttonBought.enabled = false;
+		this.buttonAvalible.enabled = false;
 	}
 
 	public void selectDLC(int par1)
@@ -213,7 +211,6 @@ public class DLCShopGUI extends GuiContainer
 		{
 			dlc = (DLC)this.dlcList.get(par1);
 			return DLCManager.description[dlc.id];
-			
 		}
 	}
 
@@ -422,7 +419,7 @@ public class DLCShopGUI extends GuiContainer
         this.buttonAvalible.drawButton(mc, par1, par2);
         this.buttonBought.drawButton = true;
         this.buttonBought.drawButton(mc, par1, par2);
-        super.drawScreen(par1, par2, par3);
+        //super.drawScreen(par1, par2, par3);
 	}
 	
 	protected void keyTyped(char par1, int par2)
@@ -438,47 +435,6 @@ public class DLCShopGUI extends GuiContainer
 	 */
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
 	{
-		/*GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderHelper.enableGUIStandardItemLighting();
-		DLCGuiTabs dLCGuiTabs = DLCGuiTabs.creativeTabArray[selectedTabIndex];
-		DLCGuiTabs[] aDLCGuiTabs = DLCGuiTabs.creativeTabArray;
-		int k = aDLCGuiTabs.length;
-		int l;
-
-		int start = tabPage * 10;
-		k = Math.min(aDLCGuiTabs.length, ((tabPage + 1) * 10 + 2));
-		if (tabPage != 0) start += 2;
-
-		for (l = start; l < k; ++l)
-		{
-			DLCGuiTabs DLCGuiTabs1 = aDLCGuiTabs[l];
-			this.mc.func_110434_K().func_110577_a(field_110424_t);
-
-			if (DLCGuiTabs1 != null && DLCGuiTabs1.getTabIndex() != selectedTabIndex)
-			{
-				this.renderCreativeTab(DLCGuiTabs1);
-			}
-		}
-
-		this.mc.func_110434_K().func_110577_a(new ResourceLocation("dlc craft/gui/shop.png"));
-		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-		this.searchField.drawTextBox();
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		int i1 = this.guiLeft + 175;
-		k = this.guiTop + 18;
-		l = k + 112;
-		this.mc.func_110434_K().func_110577_a(field_110424_t);
-
-		if (dLCGuiTabs.shouldHidePlayerInventory())
-		{
-			this.drawTexturedModalRect(i1, k + (int)((float)(l - k - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);
-		}
-
-
-
-		this.renderCreativeTab(dLCGuiTabs);*/
-
-
 	}
 
 	protected boolean func_74232_a(DLCGuiTabs par1DLCGuiTabs, int par2, int par3)
@@ -608,9 +564,22 @@ public class DLCShopGUI extends GuiContainer
 	}
 	protected void actionPerformed(GuiButton par1GuiButton)
 	{
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
 		if (par1GuiButton.id == 1)
 		{
-			this.mc.displayGuiScreen(new GuiAchievements(this.mc.statFileWriter));
+			int slot;
+			DLC dlc;
+			if(buy)
+			{
+				dlc = (DLC)this.buyList.get(slot);
+				
+				if(stats.Coins >= stats.dlcManager.cost[dlc.id])
+				{
+					stats.Coins-=stats.dlcManager.cost[dlc.id];
+					stats.dlcManager.dlcs[dlc.id].state=2;
+				}
+			}
+			
 		}
 		else if (par1GuiButton.id == 2)
 		{

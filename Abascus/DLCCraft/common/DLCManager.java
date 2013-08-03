@@ -8,6 +8,7 @@ public class DLCManager
 	public static String[] names = new String[32];
 	public static String[] Names = new String[32];
 	public static String[] description = new String[32];
+	public static int[] cost = new int[32];
 	public DLC[] dlcs = new DLC[32];
 	
 	public DLCManager()
