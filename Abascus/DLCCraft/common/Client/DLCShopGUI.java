@@ -84,6 +84,8 @@ public class DLCShopGUI extends GuiContainer
 	private int maxPages = 0;
 	public EntityPlayer ep;
 	public Minecraft mc1;
+	
+	
 	public DLCShopGUI(EntityPlayer par1EntityPlayer)
 	{
 		super(new ContainerDLCShop(par1EntityPlayer));
@@ -274,6 +276,9 @@ public class DLCShopGUI extends GuiContainer
 
 	private void loadSaves()
 	{
+		buyList.clear();
+		dlcList.clear();
+		
 		DLCManager dlcManager = DLCCraft.playerTracker.playerStats.get(ep.username).dlcManager;
 		for(int i =0;i<dlcManager.dlcs.length;i++)
 		{
@@ -552,17 +557,17 @@ public class DLCShopGUI extends GuiContainer
 		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
 		if (par1GuiButton.id == 1)
 		{
-			int slot;
 			DLC dlc;
 			if(buy)
 			{
-				dlc = (DLC)this.buyList.get(1);
+				dlc = (DLC)this.buyList.get(selectedDLC);
 
 				if(stats.Coins >= stats.dlcManager.cost[dlc.id])
 				{
 					stats.Coins-=stats.dlcManager.cost[dlc.id];
 					stats.dlcManager.dlcs[dlc.id].state=2;
 					DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+					this.loadSaves();
 				}
 			}
 
