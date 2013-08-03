@@ -164,13 +164,8 @@ public class DLCShopGUI extends GuiContainer
 
 	public void initButtons()
 	{
-		this.buttonList.add(this.buttonSelect = new GuiButton(1, this.width / 2 - 154, this.height - 52, 150, 20, I18n.func_135053_a("selectWorld.select")));
-		this.buttonList.add(this.buttonBuy = new GuiButton(2, this.width / 2 - 76, this.height - 28, 72, 20, I18n.func_135053_a("Buy")));
-		this.buttonList.add(this.buttonDone = new GuiButton(7, this.width / 2 + 4, this.height - 28, 72, 20, I18n.func_135053_a("gui.done")));
-		this.buttonList.add(new GuiButton(0, this.width / 2 + 82, this.height - 28, 72, 20, I18n.func_135053_a("gui.cancel")));
-
-		this.buttonBuy.enabled = false;
-		this.buttonDone.enabled = false;
+		this.buttonList.add(this.buttonBuy = new GuiButton(1, this.width / 2 - 76, this.height - 28, 72, 20, I18n.func_135053_a("Buy")));
+		this.buttonList.add(this.buttonDone = new GuiButton(2, this.width / 2 + 4, this.height - 28, 72, 20, I18n.func_135053_a("gui.done")));
 	}
 
 	public void selectDLC(int par1)
@@ -435,6 +430,7 @@ public class DLCShopGUI extends GuiContainer
 	 */
 	public void drawScreen(int par1, int par2, float par3)
 	{
+		/*this.dlcSlotContainer.drawScreen(par1, par2, par3);
 		boolean flag = Mouse.isButtonDown(0);
 		int k = this.guiLeft;
 		int l = this.guiTop;
@@ -507,12 +503,10 @@ public class DLCShopGUI extends GuiContainer
 		}
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glDisable(GL11.GL_LIGHTING);
-	}
-
-	protected void drawItemStackTooltip(ItemStack par1ItemStack, int par2, int par3)
-	{
-
+		GL11.glDisable(GL11.GL_LIGHTING);*/
+		this.dlcSlotContainer.drawScreen(par1, par2, par3);
+        this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);
+        super.drawScreen(par1, par2, par3);
 	}
 
 	/**
@@ -688,29 +682,20 @@ public class DLCShopGUI extends GuiContainer
 		itemRenderer.zLevel = 0.0F;
 		this.zLevel = 0.0F;
 	}
-
-	/**
-	 * Fired when a control is clicked. This is the equivalent of ActionListener.actionPerformed(ActionEvent e).
-	 */
 	protected void actionPerformed(GuiButton par1GuiButton)
 	{
-		if (par1GuiButton.id == 0)
+		if (par1GuiButton.id == 1)
 		{
 			this.mc.displayGuiScreen(new GuiAchievements(this.mc.statFileWriter));
 		}
-
-		if (par1GuiButton.id == 1)
+		else if (par1GuiButton.id == 2)
 		{
-			this.mc.displayGuiScreen(new GuiStats(this, this.mc.statFileWriter));
+			this.mc.displayGuiScreen((GuiScreen)null);
+			this.mc.setIngameFocus();
 		}
-
-		if (par1GuiButton.id == 101)
+		else
 		{
-			tabPage = Math.max(tabPage - 1, 0);
-		}
-		else if (par1GuiButton.id == 102)
-		{
-			tabPage = Math.min(tabPage + 1, maxPages);
+			this.dlcSlotContainer.actionPerformed(par1GuiButton);
 		}
 	}
 
