@@ -75,8 +75,8 @@ public class DLCShopGUI extends GuiContainer
 
 	private int selectedDLC;
 
-	private List<DLC> buyList = new List<DLC>;
-	private List<DLC> dlcList = new List<DLC>;
+	private List<DLC> buyList;
+	private List<DLC> dlcList;
 	private GuiDLCSlot dlcSlotContainer;
 	public boolean buy = true;
 
