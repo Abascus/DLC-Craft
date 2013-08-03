@@ -70,7 +70,8 @@ public class DLCShopGUI extends GuiContainer
 
 	private GuiButton buttonBuy;
 	private GuiButton buttonDone;
-	private GuiButton buttonSelect;
+	private GuiButton buttonAvalible;
+	private GuiButton buttonBought;
 
 	/**
 	 * Used to back up the ContainerDLCShop's inventory slots before filling it with the player's inventory slots for
@@ -154,7 +155,6 @@ public class DLCShopGUI extends GuiContainer
 			buttonList.add(new GuiButton(102, guiLeft + xSize - 20, guiTop - 50, 20, 20, ">"));
 			maxPages = ((tabCount - 12) / 10) + 1;
 		}
-		this.screenTitle = I18n.func_135053_a("selectWorld.title");
 
 		this.loadSaves();
 		this.dlcSlotContainer = new GuiDLCSlot(this);
@@ -166,6 +166,9 @@ public class DLCShopGUI extends GuiContainer
 	{
 		this.buttonList.add(this.buttonBuy = new GuiButton(1, this.width / 2 - 76, this.height - 28, 72, 20, I18n.func_135053_a("Buy")));
 		this.buttonList.add(this.buttonDone = new GuiButton(2, this.width / 2 + 4, this.height - 28, 72, 20, I18n.func_135053_a("gui.done")));
+		
+		this.buttonList.add(this.buttonAvalible = new GuiButton(3, this.width / 2 - 100,  10, 72, 20, I18n.func_135053_a("Avalible DLC's")));
+		this.buttonList.add(this.buttonAvalible = new GuiButton(4, this.width / 2 + 20, 10, 72, 20, I18n.func_135053_a("Bought DLC's")));
 	}
 
 	public void selectDLC(int par1)
@@ -293,19 +296,6 @@ public class DLCShopGUI extends GuiContainer
 
 		this.currentScroll = 0.0F;
 		ContainerDLCShop.scrollTo(0.0F);
-	}
-
-	/**
-	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
-	 */
-	protected void drawGuiContainerForegroundLayer(int par1, int par2)
-	{
-		DLCGuiTabs dLCGuiTabs = DLCGuiTabs.creativeTabArray[selectedTabIndex];
-
-		if (dLCGuiTabs != null && dLCGuiTabs.drawInForegroundOfTab())
-		{
-			this.fontRenderer.drawString(I18n.func_135053_a(dLCGuiTabs.getTranslatedTabLabel()), 8, 6, 4210752);
-		}
 	}
 
 	/**
@@ -448,7 +438,7 @@ public class DLCShopGUI extends GuiContainer
 	 */
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
 	{
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		/*GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderHelper.enableGUIStandardItemLighting();
 		DLCGuiTabs dLCGuiTabs = DLCGuiTabs.creativeTabArray[selectedTabIndex];
 		DLCGuiTabs[] aDLCGuiTabs = DLCGuiTabs.creativeTabArray;
@@ -486,7 +476,7 @@ public class DLCShopGUI extends GuiContainer
 
 
 
-		this.renderCreativeTab(dLCGuiTabs);
+		this.renderCreativeTab(dLCGuiTabs);*/
 
 
 	}
