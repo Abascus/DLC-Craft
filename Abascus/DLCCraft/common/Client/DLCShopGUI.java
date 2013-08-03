@@ -177,8 +177,8 @@ public class DLCShopGUI extends GuiContainer
 
 		this.localizedWorldText = I18n.func_135053_a("selectWorld.world");
 		this.localizedMustConvertText = I18n.func_135053_a("selectWorld.conversion");
-		this.worldSlotContainer = new GuiDLCSlot(this);
-		this.worldSlotContainer.registerScrollButtons(4, 5);
+		this.dlcSlotContainer = new GuiDLCSlot(this);
+		this.dlcSlotContainer.registerScrollButtons(4, 5);
 		this.initButtons();
 	}
 	
