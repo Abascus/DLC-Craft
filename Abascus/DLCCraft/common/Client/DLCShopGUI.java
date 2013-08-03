@@ -168,7 +168,7 @@ public class DLCShopGUI extends GuiContainer
 		this.buttonList.add(this.buttonDone = new GuiButton(2, this.width / 2 + 4, this.height - 28, 72, 20, I18n.func_135053_a("gui.done")));
 		
 		this.buttonList.add(this.buttonAvalible = new GuiButton(3, this.width / 2 - 100,  10, 72, 20, I18n.func_135053_a("Avalible DLC's")));
-		this.buttonList.add(this.buttonAvalible = new GuiButton(4, this.width / 2 + 20, 10, 72, 20, I18n.func_135053_a("Bought DLC's")));
+		this.buttonList.add(this.buttonAvalible = new GuiButton(4, this.width / 2 + 30, 10, 72, 20, I18n.func_135053_a("Bought DLC's")));
 	}
 
 	public void selectDLC(int par1)
@@ -274,9 +274,7 @@ public class DLCShopGUI extends GuiContainer
 		}
 	}
 
-	/**
-	 * Called when the screen is unloaded. Used to disable keyboard repeat events
-	 */
+	
 	public void onGuiClosed()
 	{
 		super.onGuiClosed();
@@ -287,15 +285,6 @@ public class DLCShopGUI extends GuiContainer
 		}
 
 		Keyboard.enableRepeatEvents(false);
-	}
-
-	private void updateCreativeSearch()
-	{
-		ContainerDLCShop ContainerDLCShop = (ContainerDLCShop)this.inventorySlots;
-		ContainerDLCShop.dlcList.clear();
-
-		this.currentScroll = 0.0F;
-		ContainerDLCShop.scrollTo(0.0F);
 	}
 
 	/**
