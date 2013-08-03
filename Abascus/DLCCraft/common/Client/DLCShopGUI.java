@@ -232,6 +232,21 @@ public class DLCShopGUI extends GuiContainer
 		}
 	}
 	
+	public int getDepend(int par1)
+	{
+		DLC dlc;
+		if(buy)
+		{
+			dlc = (DLC)this.buyList.get(par1);
+			return DLCManager.dep[dlc.id];
+		}
+		else
+		{
+			dlc = (DLC)this.dlcList.get(par1);
+			return DLCManager.dep[dlc.id];
+		}
+	}
+	
 	public int getCost(int par1)
 	{
 		DLC dlc;

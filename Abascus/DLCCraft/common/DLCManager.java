@@ -7,6 +7,7 @@ public class DLCManager
 {
 	public static String[] names = new String[32];
 	public static String[] Names = new String[32];
+	public static int[] dep = new int[32];
 	public static String[] description = new String[32];
 	public static int[] cost = new int[32];
 	public DLC[] dlcs = new DLC[32];
@@ -140,7 +141,7 @@ public class DLCManager
 		dlcs[21].setState(1);
 		dlcs[22].setState(1);
 		
-		dlcs[4].depend = 8;
+		dep[4] = 8;
 	}
 	
 	public int getState(int id)
