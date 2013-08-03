@@ -87,10 +87,10 @@ public class DLCManager
 		Names[30] = "Brewing Potions";
 		Names[31] = "Brewing Potions";
 		
-		description[0] = "Do you wanna be able to get Wood? Then you should buy this!";		
+		description[0] = "Wood is THE basic material, so get it, fast!!";		
 		description[1] = "You wanna run faster? You need to Sprint";		
 		description[2] = "You're getting Hungry?";		
-		description[3] = "";		
+		description[3] = "Swimming is fun, drowning isn't";		
 		description[4] = "";		
 		description[5] = "";		
 		description[6] = "";		
