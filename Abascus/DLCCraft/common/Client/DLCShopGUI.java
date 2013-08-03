@@ -71,6 +71,8 @@ public class DLCShopGUI extends GuiContainer
 	private GuiButton buttonDone;
 	private GuiButton buttonAvalible;
 	private GuiButton buttonBought;
+	
+	private GuiButton buttonReset;
 
 	/**
 	 * Used to back up the ContainerDLCShop's inventory slots before filling it with the player's inventory slots for
@@ -170,6 +172,7 @@ public class DLCShopGUI extends GuiContainer
 
 		this.buttonList.add(this.buttonAvalible = new GuiButton(3, this.width / 2 - 100,  10, 72, 20, I18n.func_135053_a("Avalible DLC's")));
 		this.buttonList.add(this.buttonBought = new GuiButton(4, this.width / 2 + 30, 10, 72, 20, I18n.func_135053_a("Bought DLC's")));
+		this.buttonList.add(this.buttonReset = new GuiButton(5, (int)(this.width/1.3), this.height/2-20, 72, 20, I18n.func_135053_a("Reset")));
 		this.buttonAvalible.enabled = false;
 	}
 
@@ -298,7 +301,7 @@ public class DLCShopGUI extends GuiContainer
 		for(int i =0;i<dlcManager.dlcs.length;i++)
 		{
 			DLC dlc = dlcManager.dlcs[i];
-			if(dlcManager.dlcs[i].state == 1)
+			if(dlcManager.dlcs[i].state == 0)
 			{
 				buyList.add(dlc);
 			}
@@ -454,6 +457,7 @@ public class DLCShopGUI extends GuiContainer
 		this.buttonAvalible.drawButton(mc, par1, par2);
 		this.buttonBought.drawButton = true;
 		this.buttonBought.drawButton(mc, par1, par2);
+		this.buttonReset.drawButton(mc, par1, par2);
 		this.zLevel = -90.0F;
 
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -616,6 +620,12 @@ public class DLCShopGUI extends GuiContainer
 			buy = false;
 			this.buttonAvalible.enabled = true;
 			this.buttonBought.enabled = false;
+		}
+		else if (par1GuiButton.id == 5)
+		{
+			stats.init();
+			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+			
 		}
 		else
 		{
