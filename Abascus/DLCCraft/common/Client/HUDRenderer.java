@@ -50,7 +50,7 @@ public class HUDRenderer extends Gui
 			
 
 			GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
-			mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.4)+40, height - 20, 777777, false);
+			mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.4)+20, height - 20, 11421504, false);
 
 		}
 	}
