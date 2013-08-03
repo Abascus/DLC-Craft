@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -164,7 +165,7 @@ public class DLCShopGUI extends GuiContainer
 	{
 		this.buttonList.add(this.buttonBuy = new GuiButton(1, this.width / 2 - 76, this.height - 28, 72, 20, I18n.func_135053_a("Buy")));
 		this.buttonList.add(this.buttonDone = new GuiButton(2, this.width / 2 + 4, this.height - 28, 72, 20, I18n.func_135053_a("gui.done")));
-		
+
 		this.buttonList.add(this.buttonAvalible = new GuiButton(3, this.width / 2 - 100,  10, 72, 20, I18n.func_135053_a("Avalible DLC's")));
 		this.buttonList.add(this.buttonBought = new GuiButton(4, this.width / 2 + 30, 10, 72, 20, I18n.func_135053_a("Bought DLC's")));
 		this.buttonAvalible.enabled = false;
@@ -273,7 +274,7 @@ public class DLCShopGUI extends GuiContainer
 		}
 	}
 
-	
+
 	public void onGuiClosed()
 	{
 		super.onGuiClosed();
@@ -403,32 +404,56 @@ public class DLCShopGUI extends GuiContainer
 		}
 	}
 
-	/**
-	 * Draws the screen and all the components in it.
-	 */
+	public ItemStack is = new ItemStack(DLCCraft.instance.coin, 1);
 	public void drawScreen(int par1, int par2, float par3)
 	{
-		
+
 		dlcSlotContainer.drawScreen(par1, par2, par3);
-        this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);
-        this.buttonBuy.drawButton = true;
-        this.buttonBuy.drawButton(mc, par1, par2);
-        this.buttonDone.drawButton = true;
-        this.buttonDone.drawButton(mc, par1, par2);
-        this.buttonAvalible.drawButton = true;
-        this.buttonAvalible.drawButton(mc, par1, par2);
-        this.buttonBought.drawButton = true;
-        this.buttonBought.drawButton(mc, par1, par2);
-        //super.drawScreen(par1, par2, par3);
+		this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);
+		this.buttonBuy.drawButton = true;
+		this.buttonBuy.drawButton(mc, par1, par2);
+		this.buttonDone.drawButton = true;
+		this.buttonDone.drawButton(mc, par1, par2);
+		this.buttonAvalible.drawButton = true;
+		this.buttonAvalible.drawButton(mc, par1, par2);
+		this.buttonBought.drawButton = true;
+		this.buttonBought.drawButton(mc, par1, par2);
+		this.zLevel = -90.0F;
+
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+		GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+		this.zLevel = 200.0F;
+		itemRenderer.zLevel = 200.0F;
+		FontRenderer font = null;
+		if (is != null)
+		{
+			font = is.getItem().getFontRenderer(is);
+		}
+		if (font == null)
+		{
+			font = fontRenderer;
+		}
+		itemRenderer.renderItemAndEffectIntoGUI(font, this.mc.func_110434_K(), is, par2, par3);
+		itemRenderer.renderItemOverlayIntoGUI(font, this.mc.func_110434_K(), is, par2, par3 - (this.draggedStack == null ? 0 : 8), par4Str);
+		this.zLevel = 0.0F;
+		itemRenderer.zLevel = 0.0F;
+
+		GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
+		mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.4)+40, height - 20, 777777, false);
+
+
 	}
-	
+
 	protected void keyTyped(char par1, int par2)
-    {
-        if (par2 == 1 || par2 == DLCCraft.instance.key[0].keyCode)
-        {
-            this.mc.thePlayer.closeScreen();
-        }
-    }
+	{
+		if (par2 == 1 || par2 == DLCCraft.instance.key[0].keyCode)
+		{
+			this.mc.thePlayer.closeScreen();
+		}
+	}
 
 	/**
 	 * Draw the background layer for the GuiContainer (everything behind the items)
@@ -571,15 +596,15 @@ public class DLCShopGUI extends GuiContainer
 			DLC dlc;
 			if(buy)
 			{
-				dlc = (DLC)this.buyList.get(slot);
-				
+				dlc = (DLC)this.buyList.get(1);
+
 				if(stats.Coins >= stats.dlcManager.cost[dlc.id])
 				{
 					stats.Coins-=stats.dlcManager.cost[dlc.id];
 					stats.dlcManager.dlcs[dlc.id].state=2;
 				}
 			}
-			
+
 		}
 		else if (par1GuiButton.id == 2)
 		{
