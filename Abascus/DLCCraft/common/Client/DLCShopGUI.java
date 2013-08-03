@@ -67,11 +67,12 @@ public class DLCShopGUI extends GuiContainer
 
 	private boolean selected;
 
-	private int selectedWorld;
+	private int selectedDLC;
 
 	private List buyList;
 	private List dlcList;
 	private GuiDLCSlot dlcSlotContainer;
+	public boolean buy = true;
 
 	/** E.g. World, Welt, Monde, Mundo */
 	private String localizedWorldText;
@@ -79,6 +80,7 @@ public class DLCShopGUI extends GuiContainer
 
 	private GuiButton buttonBuy;
 	private GuiButton buttonDone;
+	private GuiButton buttonSelect;
 
 	/**
 	 * Used to back up the ContainerDLCShop's inventory slots before filling it with the player's inventory slots for
@@ -164,16 +166,7 @@ public class DLCShopGUI extends GuiContainer
 		}
 		this.screenTitle = I18n.func_135053_a("selectWorld.title");
 
-		try
-		{
-			this.loadSaves();
-		}
-		catch (AnvilConverterException anvilconverterexception)
-		{
-			anvilconverterexception.printStackTrace();
-			this.mc.displayGuiScreen(new GuiErrorScreen("Unable to load words", anvilconverterexception.getMessage()));
-			return;
-		}
+		this.loadSaves();
 
 		this.localizedWorldText = I18n.func_135053_a("selectWorld.world");
 		this.localizedMustConvertText = I18n.func_135053_a("selectWorld.conversion");
@@ -181,15 +174,43 @@ public class DLCShopGUI extends GuiContainer
 		this.dlcSlotContainer.registerScrollButtons(4, 5);
 		this.initButtons();
 	}
+
+	public void initButtons()
+	{
+		this.buttonList.add(this.buttonSelect = new GuiButton(1, this.width / 2 - 154, this.height - 52, 150, 20, I18n.func_135053_a("selectWorld.select")));
+		this.buttonList.add(this.buttonBuy = new GuiButton(2, this.width / 2 - 76, this.height - 28, 72, 20, I18n.func_135053_a("Buy")));
+		this.buttonList.add(this.buttonDone = new GuiButton(7, this.width / 2 + 4, this.height - 28, 72, 20, I18n.func_135053_a("gui.done")));
+		this.buttonList.add(new GuiButton(0, this.width / 2 + 82, this.height - 28, 72, 20, I18n.func_135053_a("gui.cancel")));
+
+		this.buttonBuy.enabled = false;
+		this.buttonDone.enabled = false;
+	}
+
+	public static List getSize(DLCShopGUI gui)
+	{
+		if(gui.buy)
+		{
+			return gui.buyList;
+		}
+		else
+		{
+			return gui.dlcList;
+		}
+	}
 	
-	static int getSelectedWorld(GuiSelectWorld par0GuiSelectWorld)
+	public static int onElementSelected(DLCShopGUI gui, int par1)
     {
-        return par0GuiSelectWorld.selectedDLC;
+        return gui.selectedDLC = par1;
     }
-    static GuiButton getSelectButton(GuiSelectWorld par0GuiSelectWorld)
-    {
-        return par0GuiSelectWorld.buttonSelect;
-    }
+
+	public static int getSelectedWorld(DLCShopGUI gui)
+	{
+		return gui.selectedDLC;
+	}
+	public static GuiButton getSelectButton(DLCShopGUI gui)
+	{
+		return gui.buttonSelect;
+	}
 
 	private void loadSaves()
 	{
@@ -198,13 +219,13 @@ public class DLCShopGUI extends GuiContainer
 		{
 			if(dlcManager.dlcs[i].state == 1)
 			{
-			buyList.add(dlcManager.dlcs[i]);
+				buyList.add(dlcManager.dlcs[i]);
 			}
 			else if(dlcManager.dlcs[i].state == 2)
 			{
-			dlcList.add(dlcManager.dlcs[i]);
+				dlcList.add(dlcManager.dlcs[i]);
 			}
-			
+
 		}
 	}
 
