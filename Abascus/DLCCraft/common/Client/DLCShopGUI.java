@@ -44,7 +44,7 @@ import Abascus.DLCCraft.common.DLC;
 import Abascus.DLCCraft.common.DLCCraft;
 import Abascus.DLCCraft.common.DLCGuiTabs;
 import Abascus.DLCCraft.common.DLCManager;
-import Abascus.DLCCraft.common.DLCSloteManager;
+import Abascus.DLCCraft.common.DLCSlotManager;
 import Abascus.DLCCraft.common.GuiDLCSlot;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -206,7 +206,7 @@ public class DLCShopGUI extends GuiContainer
 				s = "World" + par1;
 			}
 
-			String s1 = this.getSaveName(par1);
+			String s1 = this.getDesciption(par1);
 
 			if (s1 == null)
 			{
@@ -221,7 +221,7 @@ public class DLCShopGUI extends GuiContainer
 		}
 	}
 
-	protected String getSaveFileName(int par1)
+	public String getSaveFileName(int par1)
 	{
 		DLC dlc;
 		if(buy)
@@ -231,20 +231,24 @@ public class DLCShopGUI extends GuiContainer
 		}
 		else
 		{
-		return ((SaveFormatComparator)this.dlcList.get(par1)).getFileName();
+			dlc = (DLC)this.dlcList.get(par1);
+			return dlc.name;
 		}
 	}
 
-	protected String getSaveName(int par1)
+	public String getDesciption(int par1)
 	{
-		String s = ((SaveFormatComparator)this.saveList.get(par1)).getDisplayName();
-
-		if (s == null || MathHelper.stringNullOrLengthZero(s))
+		DLC dlc;
+		if(buy)
 		{
-			s = I18n.func_135053_a("selectWorld.world") + " " + (par1 + 1);
+			dlc = (DLC)this.buyList.get(par1);
+			return dlc.desciption;
 		}
-
-		return s;
+		else
+		{
+			dlc = (DLC)this.dlcList.get(par1);
+			return dlc.desciption;
+		}
 	}
 
 	public static List getSize(DLCShopGUI gui)

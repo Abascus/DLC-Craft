@@ -75,39 +75,13 @@ public class GuiDLCSlot extends GuiSlot
     protected void drawSlot(int par1, int par2, int par3, int par4, Tessellator par5Tessellator)
     {
         SaveFormatComparator saveformatcomparator = (SaveFormatComparator)DLCShopGUI.getSize(this.parentDLCGui).get(par1);
-        String s = saveformatcomparator.getDisplayName();
+        String s = parentDLCGui.getDesciption(par1);
 
-        if (s == null || MathHelper.stringNullOrLengthZero(s))
-        {
-            s = DLCShopGUI.func_82313_g(this.parentDLCGui) + " " + (par1 + 1);
-        }
+        
 
-        String s1 = saveformatcomparator.getFileName();
-        s1 = s1 + " (" + DLCShopGUI.func_82315_h(this.parentDLCGui).format(new Date(saveformatcomparator.getLastTimePlayed()));
-        s1 = s1 + ")";
-        String s2 = "";
-
-        if (saveformatcomparator.requiresConversion())
-        {
-            s2 = DLCShopGUI.func_82311_i(this.parentDLCGui) + " " + s2;
-        }
-        else
-        {
-            s2 = DLCShopGUI.func_82314_j(this.parentDLCGui)[saveformatcomparator.getEnumGameType().getID()];
-
-            if (saveformatcomparator.isHardcoreModeEnabled())
-            {
-                s2 = EnumChatFormatting.DARK_RED + I18n.func_135053_a("gameMode.hardcore") + EnumChatFormatting.RESET;
-            }
-
-            if (saveformatcomparator.getCheatsEnabled())
-            {
-                s2 = s2 + ", " + I18n.func_135053_a("selectWorld.cheats");
-            }
-        }
+        String s1 = parentDLCGui.getSaveFileName(par1);
 
         this.parentDLCGui.drawString(this.parentDLCGui.mc1.fontRenderer, s, par2 + 2, par3 + 1, 16777215);
         this.parentDLCGui.drawString(this.parentDLCGui.mc1.fontRenderer, s1, par2 + 2, par3 + 12, 8421504);
-        this.parentDLCGui.drawString(this.parentDLCGui.mc1.fontRenderer, s2, par2 + 2, par3 + 12 + 10, 8421504);
     }
 }

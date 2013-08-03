@@ -4,6 +4,8 @@ public class DLC
 {
 	public int id;
 	public String name;
+	public String Name;
+	public String desciption;
 	public int depend;
 	public int state;
 	

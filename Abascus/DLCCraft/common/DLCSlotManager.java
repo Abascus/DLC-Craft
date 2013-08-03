@@ -27,18 +27,18 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class DLCSloteManager implements ResourceManagerReloadListener
+public class DLCSlotManager implements ResourceManagerReloadListener
 {
     private final MetadataSerializer field_135047_b;
     private String field_135048_c;
     protected static final Locale field_135049_a = new Locale();
     private Map field_135046_d = Maps.newHashMap();
 
-    public DLCSloteManager(MetadataSerializer par1MetadataSerializer, String par2Str)
+    public DLCSlotManager(MetadataSerializer par1MetadataSerializer, String par2Str)
     {
         this.field_135047_b = par1MetadataSerializer;
         this.field_135048_c = par2Str;
-        I18n.func_135051_a(field_135049_a);
+       // I18n.func_135051_a(field_135049_a);
     }
 
     public void func_135043_a(List par1List)
@@ -90,8 +90,8 @@ public class DLCSloteManager implements ResourceManagerReloadListener
         }
 
         field_135049_a.func_135022_a(par1ResourceManager, arraylist);
-        LanguageRegistry.instance().loadLanguageTable(field_135049_a.field_135032_a, this.field_135048_c);
-        StringTranslate.func_135063_a(field_135049_a.field_135032_a);
+       // LanguageRegistry.instance().loadLanguageTable(field_135049_a.field_135032_a, this.field_135048_c);
+       // StringTranslate.func_135063_a(field_135049_a.field_135032_a);
     }
 
     public boolean func_135042_a()
