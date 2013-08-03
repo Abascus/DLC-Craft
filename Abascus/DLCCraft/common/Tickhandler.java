@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.util.DamageSource;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
@@ -51,7 +52,10 @@ public class Tickhandler implements ITickHandler
 		{
 			if(b>2)
 			{
+				if(player.openContainer instanceof ContainerPlayer)
+				{
 				player.openGui(DLCCraft.instance, 1, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posY);
+				}
 				b=0;
 			}
 			else
