@@ -579,10 +579,23 @@ public class DLCShopGUI extends GuiContainer
 
 				if(stats.Coins >= stats.dlcManager.cost[dlc.id])
 				{
+					if(getDepend(selectedDLC) != -1)
+					{
+						if(dlcList.contains(stats.dlcManager.Names[getDepend(selectedDLC)]))
+						{
+							stats.Coins-=stats.dlcManager.cost[dlc.id];
+							stats.dlcManager.dlcs[dlc.id].state=2;
+							DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+						}						
+					}
+					else
+					{
 					stats.Coins-=stats.dlcManager.cost[dlc.id];
 					stats.dlcManager.dlcs[dlc.id].state=2;
 					DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+					}
 					this.loadSaves();
+					
 				}
 			}
 
