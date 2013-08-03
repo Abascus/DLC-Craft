@@ -2,11 +2,14 @@ package Abascus.DLCCraft.common;
 
 import java.util.Date;
 
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlot;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.WorldSettings;
 import net.minecraft.world.storage.SaveFormatComparator;
 import Abascus.DLCCraft.common.Client.DLCShopGUI;
 import cpw.mods.fml.relauncher.Side;
@@ -42,9 +45,11 @@ public class GuiDLCSlot extends GuiSlot
 
         if (par2 && flag1)
         {
-            this.parentDLCGui.selectDLC(par1);
+           this.parentDLCGui.selectDLC(par1);
         }
     }
+    
+    
 
     /**
      * returns true if the element passed in is currently selected

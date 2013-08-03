@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiErrorScreen;
 import net.minecraft.client.gui.GuiLanguage;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSelectWorld;
 import net.minecraft.client.gui.GuiSmallButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -25,9 +26,13 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.EnumGameType;
+import net.minecraft.world.WorldSettings;
 import net.minecraft.world.storage.ISaveFormat;
+import net.minecraft.world.storage.SaveFormatComparator;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -35,6 +40,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import Abascus.DLCCraft.common.ContainerDLCShop;
+import Abascus.DLCCraft.common.DLC;
 import Abascus.DLCCraft.common.DLCCraft;
 import Abascus.DLCCraft.common.DLCGuiTabs;
 import Abascus.DLCCraft.common.DLCManager;
@@ -186,6 +192,61 @@ public class DLCShopGUI extends GuiContainer
 		this.buttonDone.enabled = false;
 	}
 
+	public void selectDLC(int par1)
+	{
+		this.mc.displayGuiScreen((GuiScreen)null);
+
+		if (!this.selected)
+		{
+			this.selected = true;
+			String s = this.getSaveFileName(par1);
+
+			if (s == null)
+			{
+				s = "World" + par1;
+			}
+
+			String s1 = this.getSaveName(par1);
+
+			if (s1 == null)
+			{
+				s1 = "World" + par1;
+			}
+
+			if (this.mc.getSaveLoader().canLoadWorld(s))
+			{
+				this.mc.launchIntegratedServer(s, s1, (WorldSettings)null);
+				this.mc.statFileWriter.readStat(StatList.loadWorldStat, 1);
+			}
+		}
+	}
+
+	protected String getSaveFileName(int par1)
+	{
+		DLC dlc;
+		if(buy)
+		{
+			dlc = (DLC)this.buyList.get(par1);
+			return dlc.name;
+		}
+		else
+		{
+		return ((SaveFormatComparator)this.dlcList.get(par1)).getFileName();
+		}
+	}
+
+	protected String getSaveName(int par1)
+	{
+		String s = ((SaveFormatComparator)this.saveList.get(par1)).getDisplayName();
+
+		if (s == null || MathHelper.stringNullOrLengthZero(s))
+		{
+			s = I18n.func_135053_a("selectWorld.world") + " " + (par1 + 1);
+		}
+
+		return s;
+	}
+
 	public static List getSize(DLCShopGUI gui)
 	{
 		if(gui.buy)
@@ -197,11 +258,11 @@ public class DLCShopGUI extends GuiContainer
 			return gui.dlcList;
 		}
 	}
-	
+
 	public static int onElementSelected(DLCShopGUI gui, int par1)
-    {
-        return gui.selectedDLC = par1;
-    }
+	{
+		return gui.selectedDLC = par1;
+	}
 
 	public static int getSelectedWorld(DLCShopGUI gui)
 	{
