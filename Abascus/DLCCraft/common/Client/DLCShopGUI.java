@@ -586,6 +586,18 @@ public class DLCShopGUI extends GuiContainer
 			this.mc.displayGuiScreen((GuiScreen)null);
 			this.mc.setIngameFocus();
 		}
+		else if (par1GuiButton.id == 3)
+		{
+			buy=true;
+			this.buttonAvalible.enabled = false;
+			this.buttonBought.enabled = true;
+		}
+		else if (par1GuiButton.id == 4)
+		{
+			buy = false;
+			this.buttonAvalible.enabled = true;
+			this.buttonBought.enabled = false;
+		}
 		else
 		{
 			this.dlcSlotContainer.actionPerformed(par1GuiButton);
