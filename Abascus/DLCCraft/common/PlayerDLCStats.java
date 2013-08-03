@@ -19,14 +19,7 @@ public class PlayerDLCStats
 
 	public void init()
 	{
-		for (int i = 0; i < DLCManager.names.length; ++i)
-		{
-			if (DLCManager.names[i] != null)
-			{
-				states.put(DLCManager.names[i], new State(0));
-				DLC dlc = new DLC(i, DLCManager.names[i]);
-			}
-		}
+		dlcManager = new DLCManager();
 	}
 
 	public void saveToNBT (NBTTagCompound tags)

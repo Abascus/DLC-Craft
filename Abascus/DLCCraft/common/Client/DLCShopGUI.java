@@ -172,7 +172,7 @@ public class DLCShopGUI extends GuiContainer
 
 		this.buttonList.add(this.buttonAvalible = new GuiButton(3, this.width / 2 - 100,  10, 72, 20, I18n.func_135053_a("Avalible DLC's")));
 		this.buttonList.add(this.buttonBought = new GuiButton(4, this.width / 2 + 30, 10, 72, 20, I18n.func_135053_a("Bought DLC's")));
-		this.buttonList.add(this.buttonReset = new GuiButton(5, (int)(this.width/1.3), this.height/2-20, 72, 20, I18n.func_135053_a("Reset")));
+		this.buttonList.add(this.buttonReset = new GuiButton(5, (int)(this.width/1.2), this.height/2-20, 72, 20, I18n.func_135053_a("Reset")));
 		this.buttonAvalible.enabled = false;
 	}
 
@@ -301,7 +301,7 @@ public class DLCShopGUI extends GuiContainer
 		for(int i =0;i<dlcManager.dlcs.length;i++)
 		{
 			DLC dlc = dlcManager.dlcs[i];
-			if(dlcManager.dlcs[i].state == 0)
+			if(dlcManager.dlcs[i].state == 1)
 			{
 				buyList.add(dlc);
 			}
@@ -625,6 +625,7 @@ public class DLCShopGUI extends GuiContainer
 		{
 			stats.init();
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+			this.loadSaves();
 			
 		}
 		else
