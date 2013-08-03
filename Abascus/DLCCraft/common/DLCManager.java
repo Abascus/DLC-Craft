@@ -6,6 +6,8 @@ import net.minecraft.nbt.NBTTagList;
 public class DLCManager 
 {
 	public static String[] names = new String[32];
+	public static String[] Names = new String[32];
+	public static String[] description = new String[32];
 	public DLC[] dlcs = new DLC[32];
 	
 	public DLCManager()
@@ -52,74 +54,78 @@ public class DLCManager
 		names[30] = "fishing";
 		names[31] = "fishing";
 		
+		Names[0] = "Breaking Wood";
+		Names[1] = "Sprinting";
+		Names[2] = "Eating";
+		Names[3] = "Breathing";
+		Names[4] = "Drinking Potions";
+		Names[5] = "Using Chests";
+		Names[6] = "Enchanting";
+		Names[7] = "Using a Furnace";
+		Names[8] = "Brewing Potions";
+		Names[9] = "Mob Drops";
+		Names[10] = "Music";
+		Names[11] = "Sounds";
+		Names[12] = "Bow";
+		Names[13] = "Sword Damage";
+		Names[14] = "Collect Drops";
+		Names[15] = "Jump";
+		Names[16] = "Playe Blocks";
+		Names[17] = "Iron Pickaxe";
+		Names[18] = "Fishing";
+		Names[19] = "Feed Animals";
+		Names[20] = "Trade with Villagers";
+		Names[21] = "PvP";
+		Names[22] = "Inventory";
+		Names[23] = "Buttons and Levers";
+		Names[24] = "Coins from Mobs";
+		Names[25] = "Hopper";
+		Names[26] = "Brewing Potions";
+		Names[27] = "Brewing Potions";
+		Names[28] = "Brewing Potions";
+		Names[29] = "Brewing Potions";
+		Names[30] = "Brewing Potions";
+		Names[31] = "Brewing Potions";
+		
+		description[0] = "Do you wanna be able to get Wood? Then you should buy this!";		
+		description[1] = "You wanna run faster? You need to Sprint";		
+		description[2] = "You're getting Hungry?";		
+		description[3] = "";		
+		description[4] = "";		
+		description[5] = "";		
+		description[6] = "";		
+		description[7] = "";		
+		description[8] = "";		
+		description[9] = "";		
+		description[10] = "";		
+		description[11] = "";		
+		description[12] = "";		
+		description[13] = "";		
+		description[14] = "";		
+		description[15] = "";		
+		description[16] = "";		
+		description[17] = "";		
+		description[18] = "";		
+		description[19] = "";		
+		description[20] = "";		
+		description[21] = "";		
+		description[22] = "";		
+		description[23] = "";		
+		description[24] = "";		
+		description[25] = "";		
+		description[26] = "";		
+		description[27] = "";		
+		description[28] = "";		
+		description[29] = "";		
+		description[30] = "";		
+		description[31] = "";
+		
 		for(int i = 0; i< dlcs.length; i++)
 		{
 			dlcs[i] = new DLC(i, names[i]);
 		}
-		dlcs[0].Name = "Breaking Wood";
-		dlcs[0].desciption = "Do you wanna be able to get Wood? Then you should buy this!";
-		dlcs[1].Name = "Sprinting";
-		dlcs[1].desciption = "You wanna run faster? You need to Sprint";
-		dlcs[2].Name = "Eating";
-		dlcs[2].desciption = "You're getting Hungry?";
-		dlcs[3].Name = "Breathing";
-		dlcs[3].desciption = "";
-		dlcs[4].Name = "Drinking Potions";
-		dlcs[4].desciption = "";
-		dlcs[5].Name = "Using Chests";
-		dlcs[5].desciption = "";
-		dlcs[6].Name = "Enchanting";
-		dlcs[6].desciption = "";
-		dlcs[7].Name = "Using a Furnace";
-		dlcs[7].desciption = "";
-		dlcs[8].Name = "Brewing Potions";
-		dlcs[8].desciption = "";
-		dlcs[9].Name = "Mob Drops";
-		dlcs[9].desciption = "";
-		dlcs[10].Name = "Music";
-		dlcs[10].desciption = "";
-		dlcs[11].Name = "Sounds";
-		dlcs[11].desciption = "";
-		dlcs[12].Name = "Bow";
-		dlcs[12].desciption = "";
-		dlcs[13].Name = "Sword Damage";
-		dlcs[13].desciption = "";
-		dlcs[14].Name = "Collect Drops";
-		dlcs[14].desciption = "";
-		dlcs[15].Name = "Jump";
-		dlcs[15].desciption = "";
-		dlcs[16].Name = "Playe Blocks";
-		dlcs[16].desciption = "";
-		dlcs[17].Name = "Iron Pickaxe";
-		dlcs[17].desciption = "";
-		dlcs[18].Name = "Fishing";
-		dlcs[18].desciption = "";
-		dlcs[19].Name = "Feed Animals";
-		dlcs[19].desciption = "";
-		dlcs[20].Name = "Trade with Villagers";
-		dlcs[20].desciption = "";
-		dlcs[21].Name = "PvP";
-		dlcs[21].desciption = "";
-		dlcs[22].Name = "Inventory";
-		dlcs[22].desciption = "";
-		dlcs[23].Name = "Buttons and Levers";
-		dlcs[23].desciption = "";
-		dlcs[24].Name = "Coins from Mobs";
-		dlcs[24].desciption = "";
-		dlcs[25].Name = "Hopper";
-		dlcs[25].desciption = "";
-		dlcs[26].Name = "Brewing Potions";
-		dlcs[26].desciption = "";
-		dlcs[27].Name = "Brewing Potions";
-		dlcs[27].desciption = "";
-		dlcs[28].Name = "Brewing Potions";
-		dlcs[28].desciption = "";
-		dlcs[29].Name = "Brewing Potions";
-		dlcs[29].desciption = "";
-		dlcs[30].Name = "Brewing Potions";
-		dlcs[30].desciption = "";
-		dlcs[31].Name = "Brewing Potions";
-		dlcs[31].desciption = "";
+		
+		
 		
 		
 		dlcs[0].setState(1);

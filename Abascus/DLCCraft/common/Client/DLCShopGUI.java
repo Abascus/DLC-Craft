@@ -206,12 +206,12 @@ public class DLCShopGUI extends GuiContainer
 		if(buy)
 		{
 			dlc = (DLC)this.buyList.get(par1);
-			return dlc.Name;
+			return DLCManager.Names[dlc.id];
 		}
 		else
 		{
 			dlc = (DLC)this.dlcList.get(par1);
-			return dlc.Name;
+			return DLCManager.Names[dlc.id];
 		}
 	}
 
@@ -221,12 +221,12 @@ public class DLCShopGUI extends GuiContainer
 		if(buy)
 		{
 			dlc = (DLC)this.buyList.get(par1);
-			return dlc.desciption;
+			return DLCManager.description[dlc.id];
 		}
 		else
 		{
 			dlc = (DLC)this.dlcList.get(par1);
-			return dlc.desciption;
+			return DLCManager.description[dlc.id];
 		}
 	}
 
