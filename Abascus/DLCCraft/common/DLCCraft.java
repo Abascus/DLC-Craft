@@ -5,18 +5,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.input.Keyboard;
 
-import Abascus.DLCCraft.common.Client.HUDRenderer;
 import Abascus.DLCCraft.common.Client.TickHandlerClient;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.Mod;
@@ -82,6 +83,15 @@ public class DLCCraft
 		LanguageRegistry.instance().addName(dlc, "DLC");
 		
 		
+		WeightedRandomChestContent dlc1 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 4, 2);
+		WeightedRandomChestContent dlc2 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 3, 0);
+		
+		ChestGenHooks.addItem(ChestGenHooks.BONUS_CHEST, dlc1);
+		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, dlc2);
+		ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, dlc2);
+		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, dlc2);
+		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, dlc2);
+		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, dlc2);
 		
 		KeyBindingRegistry.registerKeyBinding(new DLCKeyBinding(key, repeat));
 

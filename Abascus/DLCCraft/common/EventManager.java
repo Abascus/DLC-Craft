@@ -3,6 +3,7 @@ package Abascus.DLCCraft.common;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -11,6 +12,7 @@ import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemPotion;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.EventPriority;
@@ -186,6 +188,10 @@ public class EventManager
 			}
 		}
 		catch(Exception e){}
+		if(new Random().nextInt(50) == 0)
+		{
+			event.drops.add(new EntityItem(event.entityLiving.worldObj, event.entityLiving.posY, event.entityLiving.posZ, event.entityLiving.posX,new ItemStack(DLCCraft.instance.dlc, 1)));
+		}
 
 	}
 
