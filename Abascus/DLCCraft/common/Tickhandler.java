@@ -11,12 +11,12 @@ import cpw.mods.fml.common.TickType;
 
 public class Tickhandler implements ITickHandler
 {
-	
+
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData)
 	{
-		
-		 playerTick((EntityPlayer)tickData[0]);
+
+		playerTick((EntityPlayer)tickData[0]);
 		if(type.equals(EnumSet.of(TickType.PLAYER)))
 		{
 			if(Minecraft.getMinecraft().theWorld != null && Minecraft.getMinecraft().theWorld.loadedEntityList.size() > 0)
@@ -42,22 +42,30 @@ public class Tickhandler implements ITickHandler
 				}
 			}
 		}
-		
+
 	}
-	
+	static int b = 80;
 	public static void playerTick(EntityPlayer player)
 	{
-	         if(DLCKeyBinding.keyPressed)
-	         {
-	        	 player.openGui(DLCCraft.instance, 1, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posY);
-	         }
+		if(DLCKeyBinding.keyPressed)
+		{
+			if(b>4)
+			{
+				player.openGui(DLCCraft.instance, 1, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posY);
+				b=0;
+			}
+			else
+			{
+				b++;
+			}
+		}
 	}
 
 
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) 
 	{
-		
+
 	}
 
 	@Override
