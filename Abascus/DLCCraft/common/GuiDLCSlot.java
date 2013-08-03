@@ -110,6 +110,9 @@ public class GuiDLCSlot extends GuiSlot
         {
         	 this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s2, par2 + 2, par3 + 24, 21421504);
         }
+        if(parentDLCGui.getDepend(par1) != -1)
+        {
         this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s3, par2 + 2, par3 + 36, 8421504);
+        }
     }
 }

@@ -14,6 +14,11 @@ public class DLCManager
 	
 	public DLCManager()
 	{
+		
+		for(int i = 0;i<dep.length;i++)
+		{
+			dep[i] = -1;
+		}
 		names[0] = "punchWood";
 		names[1] = "sprint";
 		names[2] = "eat";
