@@ -301,6 +301,7 @@ public class DLCShopGUI extends GuiContainer
 		for(int i =0;i<dlcManager.dlcs.length;i++)
 		{
 			DLC dlc = dlcManager.dlcs[i];
+			
 			if(dlcManager.dlcs[i].state == 1)
 			{
 				buyList.add(dlc);
@@ -583,14 +584,17 @@ public class DLCShopGUI extends GuiContainer
 				{
 				dlc = (DLC)this.buyList.get(selectedDLC);
 
-				if(stats.Coins >= stats.dlcManager.cost[dlc.id])
+				if(stats.Coins >= stats.dlcManager.cost[dlc.id] || ep.capabilities.isCreativeMode)
 				{
 					if(getDepend(selectedDLC) != -1)
 					{
 						if(dlcList.contains(stats.dlcManager.Names[getDepend(selectedDLC)]))
 						{
 							stats.Coins-=stats.dlcManager.cost[dlc.id];
+							if(!ep.capabilities.isCreativeMode)
+							{
 							stats.dlcManager.dlcs[dlc.id].state=2;
+							}
 							DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 						}						
 					}
