@@ -282,13 +282,14 @@ public class DLCShopGUI extends GuiContainer
 		DLCManager dlcManager = DLCCraft.playerTracker.playerStats.get(ep.username).dlcManager;
 		for(int i =0;i<dlcManager.dlcs.length;i++)
 		{
+			DLC dlc = dlcManager.dlcs[i];
 			if(dlcManager.dlcs[i].state == 1)
 			{
-				buyList.add(dlcManager.dlcs[i]);
+				buyList.add(dlc);
 			}
 			else if(dlcManager.dlcs[i].state == 2)
 			{
-				dlcList.add(dlcManager.dlcs[i]);
+				dlcList.add(dlc);
 			}
 
 		}

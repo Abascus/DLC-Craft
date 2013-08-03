@@ -11,14 +11,23 @@ public class DLCManager
 	public DLCManager()
 	{
 		names[0] = "punchWood";
+		dlcs[0].Name = "Breaking Wood";
 		names[1] = "sprint";
+		dlcs[1].Name = "Sprinting";
 		names[2] = "eat";
+		dlcs[2].Name = "Eating";
 		names[3] = "air";
+		dlcs[3].Name = "Breathing";
 		names[4] = "potion";
+		dlcs[4].Name = "Drinking Potions";
 		names[5] = "chest";
+		dlcs[5].Name = "Using Chests";
 		names[6] = "enchanting";
+		dlcs[6].Name = "Enchanting";
 		names[7] = "furnace";
+		dlcs[7].Name = "Smelting in a Furnace";
 		names[8] = "brewing";
+		dlcs[8].Name = "Brewing Potions";
 		names[9] = "mobDrops";
 		names[10] = "music";
 		names[11] = "sounds";

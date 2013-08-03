@@ -6,7 +6,7 @@ public class DLC
 	public String name;
 	public String Name;
 	public String desciption;
-	public int depend;
+	public int depend = -1;
 	public int state;
 	
 	public DLC(int i, String s)
