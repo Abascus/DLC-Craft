@@ -4,6 +4,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.util.DamageSource;
@@ -52,7 +53,7 @@ public class Tickhandler implements ITickHandler
 		{
 			if(b>2)
 			{
-				if(player.openContainer instanceof ContainerPlayer)
+				if(player.openContainer instanceof ContainerPlayer &&  Minecraft.getMinecraft().ingameGUI.getChatGUI().getChatOpen())
 				{
 				player.openGui(DLCCraft.instance, 1, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posY);
 				}
