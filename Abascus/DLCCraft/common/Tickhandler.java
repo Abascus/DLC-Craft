@@ -49,7 +49,7 @@ public class Tickhandler implements ITickHandler
 	{
 		if(DLCKeyBinding.keyPressed)
 		{
-			if(b>4)
+			if(b>2)
 			{
 				player.openGui(DLCCraft.instance, 1, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posY);
 				b=0;

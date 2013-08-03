@@ -158,7 +158,7 @@ public class DLCShopGUI extends GuiContainer
 
 		this.loadSaves();
 		this.dlcSlotContainer = new GuiDLCSlot(this);
-		//this.dlcSlotContainer.registerScrollButtons(4, 5);
+		this.dlcSlotContainer.registerScrollButtons(4, 5);
 		this.initButtons();
 	}
 
