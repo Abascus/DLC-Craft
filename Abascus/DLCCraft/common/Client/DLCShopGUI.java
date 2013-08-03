@@ -1,38 +1,26 @@
 package Abascus.DLCCraft.common.Client;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiErrorScreen;
-import net.minecraft.client.gui.GuiLanguage;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiSelectWorld;
-import net.minecraft.client.gui.GuiSmallButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.gui.inventory.CreativeCrafting;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.resources.LanguageManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.EnumGameType;
 import net.minecraft.world.WorldSettings;
-import net.minecraft.world.storage.ISaveFormat;
-import net.minecraft.world.storage.SaveFormatComparator;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -44,7 +32,6 @@ import Abascus.DLCCraft.common.DLC;
 import Abascus.DLCCraft.common.DLCCraft;
 import Abascus.DLCCraft.common.DLCGuiTabs;
 import Abascus.DLCCraft.common.DLCManager;
-import Abascus.DLCCraft.common.DLCSlotManager;
 import Abascus.DLCCraft.common.GuiDLCSlot;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -75,14 +62,11 @@ public class DLCShopGUI extends GuiContainer
 
 	private int selectedDLC;
 
-	private List<DLC> buyList;
-	private List<DLC> dlcList;
+	private List<DLC> buyList = new ArrayList<DLC>();
+	private List<DLC> dlcList = new ArrayList<DLC>();
 	private GuiDLCSlot dlcSlotContainer;
 	public boolean buy = true;
 
-	/** E.g. World, Welt, Monde, Mundo */
-	private String localizedWorldText;
-	private String localizedMustConvertText;
 
 	private GuiButton buttonBuy;
 	private GuiButton buttonDone;
@@ -173,9 +157,6 @@ public class DLCShopGUI extends GuiContainer
 		this.screenTitle = I18n.func_135053_a("selectWorld.title");
 
 		this.loadSaves();
-
-		this.localizedWorldText = I18n.func_135053_a("selectWorld.world");
-		this.localizedMustConvertText = I18n.func_135053_a("selectWorld.conversion");
 		this.dlcSlotContainer = new GuiDLCSlot(this);
 		this.dlcSlotContainer.registerScrollButtons(4, 5);
 		this.initButtons();
