@@ -1,5 +1,7 @@
 package Abascus.DLCCraft.common;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -71,7 +73,7 @@ public class EventManager
 		else if(event.item.getEntityItem().itemID == DLCCraft.instance.dlc.itemID)
 		{
 			event.setCanceled(true);
-			
+
 			int i;
 			for(i=0; i<stats.dlcManager.dlcs.length;i++)
 			{
@@ -81,12 +83,11 @@ public class EventManager
 			{
 				if(stats.dlcManager.dlcs[i].state == 0)
 				{
-					
+					ids[i]=stats.dlcManager.dlcs[i].id;
 				}
 			}
-			
-			
-
+			int r = new Random().nextInt(i-1);
+			stats.dlcManager.dlcs[r].state = 1;
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
 			float f = (float)Math.pow(2.0D, (double)(5) / 12.0D);
 			event.item.worldObj.playSoundEffect((double)event.item.posX + 0.5D, (double)event.item.posY + 0.5D, (double)event.item.posZ + 0.5D, "note.harp", 3.0F, f);

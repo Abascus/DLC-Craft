@@ -461,7 +461,10 @@ public class DLCShopGUI extends GuiContainer
 		this.buttonAvalible.drawButton(mc, par1, par2);
 		this.buttonBought.drawButton = true;
 		this.buttonBought.drawButton(mc, par1, par2);
+		if(ep.capabilities.isCreativeMode)
+		{
 		this.buttonReset.drawButton(mc, par1, par2);
+		}
 		this.zLevel = -90.0F;
 
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -593,11 +596,11 @@ public class DLCShopGUI extends GuiContainer
 					{
 						if(dlcList.contains(stats.dlcManager.Names[getDepend(selectedDLC)]))
 						{
-							stats.Coins-=stats.dlcManager.cost[dlc.id];
 							if(!ep.capabilities.isCreativeMode)
 							{
-							stats.dlcManager.dlcs[dlc.id].state=2;
+							stats.Coins-=stats.dlcManager.cost[dlc.id];
 							}
+							stats.dlcManager.dlcs[dlc.id].state=2;
 							DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 						}						
 					}
