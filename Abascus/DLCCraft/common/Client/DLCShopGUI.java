@@ -82,7 +82,7 @@ public class DLCShopGUI extends GuiContainer
 	private CreativeCrafting field_82324_x;
 	private static int tabPage = 0;
 	private int maxPages = 0;
-	EntityPlayer ep;
+	public EntityPlayer ep;
 	public Minecraft mc1;
 	public DLCShopGUI(EntityPlayer par1EntityPlayer)
 	{
@@ -229,6 +229,22 @@ public class DLCShopGUI extends GuiContainer
 			return DLCManager.Names[dlc.id];
 		}
 	}
+	
+	public int getCost(int par1)
+	{
+		DLC dlc;
+		if(buy)
+		{
+			dlc = (DLC)this.buyList.get(par1);
+			return DLCManager.cost[dlc.id];
+		}
+		else
+		{
+			dlc = (DLC)this.dlcList.get(par1);
+			return DLCManager.cost[dlc.id];
+		}
+	}
+
 
 	public static List getSize(DLCShopGUI gui)
 	{
@@ -546,6 +562,7 @@ public class DLCShopGUI extends GuiContainer
 				{
 					stats.Coins-=stats.dlcManager.cost[dlc.id];
 					stats.dlcManager.dlcs[dlc.id].state=2;
+					DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 				}
 			}
 

@@ -77,12 +77,36 @@ public class GuiDLCSlot extends GuiSlot
     {
         DLC dlc = (DLC)DLCShopGUI.getSize(this.parentDLCGui).get(par1);
         String s = parentDLCGui.getDesciption(par1);
-
-        
-
         String s1 = parentDLCGui.getSaveFileName(par1);
+        String s2 = "Cost: " + parentDLCGui.getCost(par1);
+        
+        PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(parentDLCGui.ep.username);
+			int slot;
+			boolean c = false;
+			if(parentDLCGui.buy)
+			{
+				if(stats.Coins >= stats.dlcManager.cost[dlc.id])
+				{
+					c = true;
+				}
+			}
 
         this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s, par2 + 2, par3 + 1, 16777215);
         this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s1, par2 + 2, par3 + 12, 8421504);
+        if(parentDLCGui.buy)
+        {
+        if(c)
+        {
+        	 this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s2, par2 + 2, par3 + 24, 2421504);
+        }
+        else
+        {
+        this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s2, par2 + 2, par3 + 24, 11421504);
+        }
+        }
+        else
+        {
+        	 this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s2, par2 + 2, par3 + 24, 21421504);
+        }
     }
 }
