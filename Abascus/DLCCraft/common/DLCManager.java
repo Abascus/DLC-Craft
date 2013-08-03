@@ -61,7 +61,7 @@ public class DLCManager
 		dlcs[1].Name = "Sprinting";
 		dlcs[1].desciption = "You wanna run faster? You need to Sprint";
 		dlcs[2].Name = "Eating";
-		dlcs[2].desciption = "";
+		dlcs[2].desciption = "You're getting Hungry?";
 		dlcs[3].Name = "Breathing";
 		dlcs[3].desciption = "";
 		dlcs[4].Name = "Drinking Potions";

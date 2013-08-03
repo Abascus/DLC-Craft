@@ -206,12 +206,12 @@ public class DLCShopGUI extends GuiContainer
 		if(buy)
 		{
 			dlc = (DLC)this.buyList.get(par1);
-			return dlc.name;
+			return dlc.Name;
 		}
 		else
 		{
 			dlc = (DLC)this.dlcList.get(par1);
-			return dlc.name;
+			return dlc.Name;
 		}
 	}
 
