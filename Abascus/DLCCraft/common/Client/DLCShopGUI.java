@@ -471,7 +471,7 @@ public class DLCShopGUI extends GuiContainer
 	{
 		if (par2 == 1 || par2 == DLCCraft.instance.key[0].keyCode)
 		{
-			this.mc.thePlayer.closeScreen();
+			//this.mc.thePlayer.closeScreen();
 		}
 	}
 
