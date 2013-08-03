@@ -168,7 +168,8 @@ public class DLCShopGUI extends GuiContainer
 		this.buttonList.add(this.buttonDone = new GuiButton(2, this.width / 2 + 4, this.height - 28, 72, 20, I18n.func_135053_a("gui.done")));
 		
 		this.buttonList.add(this.buttonAvalible = new GuiButton(3, this.width / 2 - 100,  10, 72, 20, I18n.func_135053_a("Avalible DLC's")));
-		this.buttonList.add(this.buttonAvalible = new GuiButton(4, this.width / 2 + 30, 10, 72, 20, I18n.func_135053_a("Bought DLC's")));
+		this.buttonList.add(this.buttonBought = new GuiButton(4, this.width / 2 + 30, 10, 72, 20, I18n.func_135053_a("Bought DLC's")));
+		this.buttonBought.enabled = false;
 	}
 
 	public void selectDLC(int par1)
@@ -410,8 +411,17 @@ public class DLCShopGUI extends GuiContainer
 	 */
 	public void drawScreen(int par1, int par2, float par3)
 	{
+		
 		dlcSlotContainer.drawScreen(par1, par2, par3);
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);
+        this.buttonBuy.drawButton = true;
+        this.buttonBuy.drawButton(mc, par1, par2);
+        this.buttonDone.drawButton = true;
+        this.buttonDone.drawButton(mc, par1, par2);
+        this.buttonAvalible.drawButton = true;
+        this.buttonAvalible.drawButton(mc, par1, par2);
+        this.buttonBought.drawButton = true;
+        this.buttonBought.drawButton(mc, par1, par2);
         super.drawScreen(par1, par2, par3);
 	}
 	

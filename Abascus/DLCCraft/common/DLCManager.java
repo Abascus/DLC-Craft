@@ -70,7 +70,7 @@ public class DLCManager
 		Names[13] = "Sword Damage";
 		Names[14] = "Collect Drops";
 		Names[15] = "Jump";
-		Names[16] = "Playe Blocks";
+		Names[16] = "Place Blocks";
 		Names[17] = "Iron Pickaxe";
 		Names[18] = "Fishing";
 		Names[19] = "Feed Animals";
@@ -91,14 +91,14 @@ public class DLCManager
 		description[1] = "You wanna run faster? You need to Sprint";		
 		description[2] = "You're getting Hungry?";		
 		description[3] = "Swimming is fun, drowning isn't";		
-		description[4] = "";		
-		description[5] = "";		
-		description[6] = "";		
+		description[4] = "Time to drink something?";		
+		description[5] = "Wanna sort your Items?";		
+		description[6] = "Do you wanna do some Magic?";		
 		description[7] = "";		
 		description[8] = "";		
 		description[9] = "";		
 		description[10] = "";		
-		description[11] = "";		
+		description[11] = "Why it's so Quiet?";		
 		description[12] = "";		
 		description[13] = "";		
 		description[14] = "";		
