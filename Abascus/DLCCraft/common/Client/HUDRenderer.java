@@ -35,7 +35,7 @@ public class HUDRenderer extends Gui
 	@ForgeSubscribe
 	public void postRenderOverlay(RenderGameOverlayEvent.Post event)
 	{
-		if(event.type == RenderGameOverlayEvent.ElementType.JUMPBAR)
+		if(event.type == RenderGameOverlayEvent.ElementType.EXPERIENCE)
 		{
 			EntityPlayer ep = Minecraft.getMinecraft().thePlayer;
 			PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
