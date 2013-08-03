@@ -56,7 +56,7 @@ public class DLCShopGUI extends GuiContainer
 	private GuiTextField searchField;
 
 
-	protected String screenTitle = "Select world";
+	protected String screenTitle = "DLC Shop";
 
 	private boolean selected;
 
@@ -158,7 +158,7 @@ public class DLCShopGUI extends GuiContainer
 
 		this.loadSaves();
 		this.dlcSlotContainer = new GuiDLCSlot(this);
-		this.dlcSlotContainer.registerScrollButtons(4, 5);
+		//this.dlcSlotContainer.registerScrollButtons(4, 5);
 		this.initButtons();
 	}
 
@@ -250,7 +250,7 @@ public class DLCShopGUI extends GuiContainer
 	}
 	public static GuiButton getSelectButton(DLCShopGUI gui)
 	{
-		return gui.buttonSelect;
+		return gui.buttonBuy;
 	}
 
 	private void loadSaves()
@@ -430,81 +430,7 @@ public class DLCShopGUI extends GuiContainer
 	 */
 	public void drawScreen(int par1, int par2, float par3)
 	{
-		/*this.dlcSlotContainer.drawScreen(par1, par2, par3);
-		boolean flag = Mouse.isButtonDown(0);
-		int k = this.guiLeft;
-		int l = this.guiTop;
-		int i1 = k + 175;
-		int j1 = l + 18;
-		int k1 = i1 + 14;
-		int l1 = j1 + 112;
-
-		if (!this.wasClicking && flag && par1 >= i1 && par2 >= j1 && par1 < k1 && par2 < l1)
-		{
-			this.isScrolling = this.needsScrollBars();
-		}
-
-		if (!flag)
-		{
-			this.isScrolling = false;
-		}
-
-		this.wasClicking = flag;
-
-		if (this.isScrolling)
-		{
-			this.currentScroll = ((float)(par2 - j1) - 7.5F) / ((float)(l1 - j1) - 15.0F);
-
-			if (this.currentScroll < 0.0F)
-			{
-				this.currentScroll = 0.0F;
-			}
-
-			if (this.currentScroll > 1.0F)
-			{
-				this.currentScroll = 1.0F;
-			}
-
-			((ContainerDLCShop)this.inventorySlots).scrollTo(this.currentScroll);
-		}
-
-		super.drawScreen(par1, par2, par3);
-		DLCGuiTabs[] aDLCGuiTabs = DLCGuiTabs.creativeTabArray;
-		int start = tabPage * 10;
-		int i2 = Math.min(aDLCGuiTabs.length, ((tabPage + 1) * 10) + 2);
-		if (tabPage != 0) start += 2;
-		boolean rendered = false;
-
-		for (int j2 = start; j2 < i2; ++j2)
-		{
-			DLCGuiTabs DLCGuiTabs = aDLCGuiTabs[j2];
-
-			if (DLCGuiTabs != null && this.renderCreativeInventoryHoveringText(DLCGuiTabs, par1, par2))
-			{
-				rendered = true;
-				break;
-			}
-		}
-
-
-
-
-
-		if (maxPages != 0)
-		{
-			String page = String.format("%d / %d", tabPage + 1, maxPages + 1);
-			int width = fontRenderer.getStringWidth(page);
-			GL11.glDisable(GL11.GL_LIGHTING);
-			this.zLevel = 300.0F;
-			itemRenderer.zLevel = 300.0F;
-			fontRenderer.drawString(page, guiLeft + (xSize / 2) - (width / 2), guiTop - 44, -1);
-			this.zLevel = 0.0F;
-			itemRenderer.zLevel = 0.0F;
-		}
-
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glDisable(GL11.GL_LIGHTING);*/
-		//dlcSlotContainer.drawScreen(par1, par2, par3);
+		dlcSlotContainer.drawScreen(par1, par2, par3);
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);
         super.drawScreen(par1, par2, par3);
 	}

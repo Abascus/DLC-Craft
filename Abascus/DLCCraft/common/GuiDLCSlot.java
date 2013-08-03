@@ -2,6 +2,7 @@ package Abascus.DLCCraft.common;
 
 import java.util.Date;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlot;
 import net.minecraft.client.renderer.Tessellator;
@@ -22,7 +23,7 @@ public class GuiDLCSlot extends GuiSlot
 
     public GuiDLCSlot(DLCShopGUI par1DLCShopGUI)
     {
-        super(par1DLCShopGUI.mc1, par1DLCShopGUI.width, par1DLCShopGUI.height, 32, par1DLCShopGUI.height - 64, 36);
+        super(Minecraft.getMinecraft(), par1DLCShopGUI.width, par1DLCShopGUI.height, 32, par1DLCShopGUI.height - 64, 36);
         this.parentDLCGui = par1DLCShopGUI;
     }
 
@@ -69,19 +70,19 @@ public class GuiDLCSlot extends GuiSlot
 
     protected void drawBackground()
     {
-        this.parentDLCGui.drawDefaultBackground();
+      //  this.parentDLCGui.drawDefaultBackground();
     }
 
     protected void drawSlot(int par1, int par2, int par3, int par4, Tessellator par5Tessellator)
     {
-        SaveFormatComparator saveformatcomparator = (SaveFormatComparator)DLCShopGUI.getSize(this.parentDLCGui).get(par1);
+        DLC dlc = (DLC)DLCShopGUI.getSize(this.parentDLCGui).get(par1);
         String s = parentDLCGui.getDesciption(par1);
 
         
 
         String s1 = parentDLCGui.getSaveFileName(par1);
 
-        this.parentDLCGui.drawString(this.parentDLCGui.mc1.fontRenderer, s, par2 + 2, par3 + 1, 16777215);
-        this.parentDLCGui.drawString(this.parentDLCGui.mc1.fontRenderer, s1, par2 + 2, par3 + 12, 8421504);
+        this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s, par2 + 2, par3 + 1, 16777215);
+        this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s1, par2 + 2, par3 + 12, 8421504);
     }
 }
