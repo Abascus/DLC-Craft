@@ -65,6 +65,29 @@ public class DLCManager
 		dlcs[6].Name = "Enchanting";
 		dlcs[7].Name = "Using a Furnace";
 		dlcs[8].Name = "Brewing Potions";
+		dlcs[9].Name = "Mob Drops";
+		dlcs[10].Name = "Music";
+		dlcs[11].Name = "Sounds";
+		dlcs[12].Name = "Brewing Potions";
+		dlcs[13].Name = "Brewing Potions";
+		dlcs[14].Name = "Brewing Potions";
+		dlcs[15].Name = "Brewing Potions";
+		dlcs[16].Name = "Brewing Potions";
+		dlcs[17].Name = "Brewing Potions";
+		dlcs[18].Name = "Brewing Potions";
+		dlcs[19].Name = "Brewing Potions";
+		dlcs[20].Name = "Brewing Potions";
+		dlcs[21].Name = "Brewing Potions";
+		dlcs[23].Name = "Brewing Potions";
+		dlcs[24].Name = "Brewing Potions";
+		dlcs[25].Name = "Brewing Potions";
+		dlcs[26].Name = "Brewing Potions";
+		dlcs[27].Name = "Brewing Potions";
+		dlcs[28].Name = "Brewing Potions";
+		dlcs[29].Name = "Brewing Potions";
+		dlcs[30].Name = "Brewing Potions";
+		dlcs[31].Name = "Brewing Potions";
+		
 		
 		dlcs[0].setState(1);
 		dlcs[2].setState(1);
