@@ -98,9 +98,9 @@ public class DLCManager
 		description[10] = "La la la";		
 		description[11] = "Why it's so Quiet?";		
 		description[12] = "Bang bang";		
-		description[13] = "Wepon upgrades?";		
-		description[14] = "";		
-		description[15] = "";		
+		description[13] = "Poke them with your Sword, poke them hard!";		
+		description[14] = "Wait, why are you unable to collect Items?";		
+		description[15] = "Higher, higher";		
 		description[16] = "";		
 		description[17] = "";		
 		description[18] = "";		

@@ -234,6 +234,13 @@ public class EventManager
 				event.setCanceled(true);
 			}
 		}
+		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemBlock)
+		{
+			if(dlcs.getState("placeBlocks") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
 	}
 
 	public void rightClickAir(PlayerInteractEvent event)
