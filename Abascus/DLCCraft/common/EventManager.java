@@ -57,10 +57,10 @@ public class EventManager
 	public void itemPickup(EntityItemPickupEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
 		if(event.item.getEntityItem().itemID == DLCCraft.instance.coin.itemID)
 		{
 			event.setCanceled(true);
-			PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
 			stats.Coins+= event.item.getEntityItem().stackSize;
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
 			float f = (float)Math.pow(2.0D, (double)(5) / 12.0D);
@@ -70,7 +70,28 @@ public class EventManager
 		}
 		else if(event.item.getEntityItem().itemID == DLCCraft.instance.dlc.itemID)
 		{
+			event.setCanceled(true);
+			
+			int i;
+			for(i=0; i<stats.dlcManager.dlcs.length;i++)
+			{
+			}
+			int[] ids = new int[i];
+			for(i=0; i<stats.dlcManager.dlcs.length;i++)
+			{
+				if(stats.dlcManager.dlcs[i].state == 0)
+				{
+					
+				}
+			}
+			
+			
 
+			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
+			float f = (float)Math.pow(2.0D, (double)(5) / 12.0D);
+			event.item.worldObj.playSoundEffect((double)event.item.posX + 0.5D, (double)event.item.posY + 0.5D, (double)event.item.posZ + 0.5D, "note.harp", 3.0F, f);
+			event.item.setDead();
+			event.item.attackEntityFrom(DamageSource.inFire, 10000);
 		}
 		else
 		{

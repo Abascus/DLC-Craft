@@ -172,7 +172,10 @@ public class DLCShopGUI extends GuiContainer
 
 		this.buttonList.add(this.buttonAvalible = new GuiButton(3, this.width / 2 - 100,  10, 72, 20, I18n.func_135053_a("Avalible DLC's")));
 		this.buttonList.add(this.buttonBought = new GuiButton(4, this.width / 2 + 30, 10, 72, 20, I18n.func_135053_a("Bought DLC's")));
+		if(ep.capabilities.isCreativeMode)
+		{
 		this.buttonList.add(this.buttonReset = new GuiButton(5, (int)(this.width/1.2), this.height/2-20, 72, 20, I18n.func_135053_a("Reset")));
+		}
 		this.buttonAvalible.enabled = false;
 	}
 

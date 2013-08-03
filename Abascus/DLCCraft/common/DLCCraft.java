@@ -80,7 +80,7 @@ public class DLCCraft
 
 		LanguageRegistry.instance().addName(coin, "Coin");
 		LanguageRegistry.instance().addName(dlc, "DLC");
-
+		
 		
 		
 		KeyBindingRegistry.registerKeyBinding(new DLCKeyBinding(key, repeat));
