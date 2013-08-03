@@ -11,23 +11,23 @@ public class DLCManager
 	public DLCManager()
 	{
 		names[0] = "punchWood";
-		dlcs[0].Name = "Breaking Wood";
+
 		names[1] = "sprint";
-		dlcs[1].Name = "Sprinting";
+		
 		names[2] = "eat";
-		dlcs[2].Name = "Eating";
+		
 		names[3] = "air";
-		dlcs[3].Name = "Breathing";
+		
 		names[4] = "potion";
-		dlcs[4].Name = "Drinking Potions";
+		
 		names[5] = "chest";
-		dlcs[5].Name = "Using Chests";
+		
 		names[6] = "enchanting";
-		dlcs[6].Name = "Enchanting";
+		
 		names[7] = "furnace";
-		dlcs[7].Name = "Smelting in a Furnace";
+		
 		names[8] = "brewing";
-		dlcs[8].Name = "Brewing Potions";
+		
 		names[9] = "mobDrops";
 		names[10] = "music";
 		names[11] = "sounds";
@@ -56,6 +56,15 @@ public class DLCManager
 		{
 			dlcs[i] = new DLC(i, names[i]);
 		}
+		dlcs[0].Name = "Breaking Wood";
+		dlcs[1].Name = "Sprinting";
+		dlcs[2].Name = "Eating";
+		dlcs[3].Name = "Breathing";
+		dlcs[4].Name = "Drinking Potions";
+		dlcs[5].Name = "Using Chests";
+		dlcs[6].Name = "Enchanting";
+		dlcs[7].Name = "Using a Furnace";
+		dlcs[8].Name = "Brewing Potions";
 		
 		dlcs[0].setState(1);
 		dlcs[2].setState(1);
@@ -67,6 +76,8 @@ public class DLCManager
 		dlcs[16].setState(1);
 		dlcs[21].setState(1);
 		dlcs[22].setState(1);
+		
+		dlcs[4].depend = 8;
 	}
 	
 	public int getState(int id)
