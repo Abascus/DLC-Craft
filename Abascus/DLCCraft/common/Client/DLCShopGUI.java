@@ -435,13 +435,13 @@ public class DLCShopGUI extends GuiContainer
 		{
 			font = fontRenderer;
 		}
-		itemRenderer.renderItemAndEffectIntoGUI(font, this.mc.func_110434_K(), is, (int)(width / 1.4), 20);
+		itemRenderer.renderItemAndEffectIntoGUI(font, this.mc.func_110434_K(), is, (int)(width / 1.3), 10);
 		this.zLevel = 0.0F;
 		itemRenderer.zLevel = 0.0F;
 
-		GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
+		GL11.glColor4f(0.0F, 0.0F, 1.0F, 0.0F);
 		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
-		mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.4)+40, height - 20, 777777, false);
+		mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.4)+40, 14, 2222222, false);
 
 
 	}
