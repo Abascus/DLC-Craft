@@ -424,8 +424,8 @@ public class DLCShopGUI extends GuiContainer
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		GL11.glTranslatef(0.0F, 0.0F, 32.0F);
-		this.zLevel = 200.0F;
-		itemRenderer.zLevel = 200.0F;
+		this.zLevel = 500.0F;
+		itemRenderer.zLevel = 500.0F;
 		FontRenderer font = null;
 		if (is != null)
 		{
@@ -435,8 +435,7 @@ public class DLCShopGUI extends GuiContainer
 		{
 			font = fontRenderer;
 		}
-		itemRenderer.renderItemAndEffectIntoGUI(font, this.mc.func_110434_K(), is, par2, par3);
-		itemRenderer.renderItemOverlayIntoGUI(font, this.mc.func_110434_K(), is, par2, par3 - (this.draggedStack == null ? 0 : 8), par4Str);
+		itemRenderer.renderItemAndEffectIntoGUI(font, this.mc.func_110434_K(), is, (int)(width / 1.4), 20);
 		this.zLevel = 0.0F;
 		itemRenderer.zLevel = 0.0F;
 
@@ -531,61 +530,6 @@ public class DLCShopGUI extends GuiContainer
 		{
 			return false;
 		}
-	}
-
-	/**
-	 * Renders passed creative inventory tab into the screen.
-	 */
-	protected void renderCreativeTab(DLCGuiTabs par1DLCGuiTabs)
-	{
-		boolean flag = par1DLCGuiTabs.getTabIndex() == selectedTabIndex;
-		boolean flag1 = par1DLCGuiTabs.isTabInFirstRow();
-		int i = par1DLCGuiTabs.getTabColumn();
-		int j = i * 28;
-		int k = 0;
-		int l = this.guiLeft + 28 * i;
-		int i1 = this.guiTop;
-		byte b0 = 32;
-
-		if (flag)
-		{
-			k += 32;
-		}
-
-		if (i == 5)
-		{
-			l = this.guiLeft + this.xSize - 28;
-		}
-		else if (i > 0)
-		{
-			l += i;
-		}
-
-		if (flag1)
-		{
-			i1 -= 28;
-		}
-		else
-		{
-			k += 64;
-			i1 += this.ySize - 4;
-		}
-
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glColor3f(1F, 1F, 1F); //Forge: Reset color in case Items change it.
-		this.drawTexturedModalRect(l, i1, j, k, 28, b0);
-		this.zLevel = 100.0F;
-		itemRenderer.zLevel = 100.0F;
-		l += 6;
-		i1 += 8 + (flag1 ? 1 : -1);
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		ItemStack itemstack = par1DLCGuiTabs.getIconItemStack();
-		itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.func_110434_K(), itemstack, l, i1);
-		itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.func_110434_K(), itemstack, l, i1);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		itemRenderer.zLevel = 0.0F;
-		this.zLevel = 0.0F;
 	}
 	protected void actionPerformed(GuiButton par1GuiButton)
 	{
