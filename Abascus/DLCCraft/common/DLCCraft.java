@@ -53,6 +53,10 @@ public class DLCCraft
 	public Item dlc;
 	public static PlayerTracker playerTracker;
 
+	
+	public KeyBinding[] key = {new KeyBinding("DLC Shop", Keyboard.KEY_F)};
+	boolean[] repeat = {false};
+	
 	public DLCCraft()
 	{
 
@@ -77,8 +81,8 @@ public class DLCCraft
 		LanguageRegistry.instance().addName(coin, "Coin");
 		LanguageRegistry.instance().addName(dlc, "DLC");
 
-		KeyBinding[] key = {new KeyBinding("DLC Shop", Keyboard.KEY_F)};
-		boolean[] repeat = {false};
+		
+		
 		KeyBindingRegistry.registerKeyBinding(new DLCKeyBinding(key, repeat));
 
 		MinecraftForge.EVENT_BUS.register(new EventManager());

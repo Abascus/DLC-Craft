@@ -504,7 +504,7 @@ public class DLCShopGUI extends GuiContainer
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glDisable(GL11.GL_LIGHTING);*/
-		this.dlcSlotContainer.drawScreen(par1, par2, par3);
+		//dlcSlotContainer.drawScreen(par1, par2, par3);
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);
         super.drawScreen(par1, par2, par3);
 	}
