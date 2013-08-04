@@ -27,6 +27,7 @@ public class PacketHandler implements IPacketHandler
     {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
 
+        System.out.println("Packet");
         if (packet.channel.equals("DLCCraft"))
         {
             if (side == Side.SERVER)
@@ -46,9 +47,6 @@ public class PacketHandler implements IPacketHandler
 
         try
         {
-            packetID = inputStream.readByte();
-            if (packetID == 1)
-            {
                 PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(player.username);
                 stats.dlcManager.dlcs = new DLC[DLCManager.names.length];
                 stats.Coins = inputStream.readInt();
@@ -62,7 +60,6 @@ public class PacketHandler implements IPacketHandler
     				}
                 }
                 DLCCraft.playerTracker.playerStats.put(player.username, stats);
-            }
         }
         catch (Exception e)
         {
@@ -80,11 +77,6 @@ public class PacketHandler implements IPacketHandler
 
         try
         {
-            packetID = inputStream.readByte();
-
-           
-            if (packetID == 1)
-            {
                 PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(player.username);
                 stats.dlcManager.dlcs = new DLC[DLCManager.names.length];
                 stats.Coins = inputStream.readInt();
@@ -98,7 +90,6 @@ public class PacketHandler implements IPacketHandler
     				}
                 }
                 DLCCraft.playerTracker.playerStats.put(player.username, stats);
-            }
         }
         catch (Exception e)
         {

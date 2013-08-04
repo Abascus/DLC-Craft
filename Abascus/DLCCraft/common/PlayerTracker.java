@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumEntitySize;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -62,7 +63,7 @@ public class PlayerTracker implements IPlayerTracker
 		try
 		{
 			outputStream.writeByte(2);
-			updateClientPlayer(bos, entityplayer);
+			updateClientPlayer(bos, (EntityPlayerMP)entityplayer);
 		}
 
 		catch (Exception ex)
@@ -73,12 +74,13 @@ public class PlayerTracker implements IPlayerTracker
 
 	public void sendDLCs (EntityPlayer entityplayer, PlayerDLCStats stats)
 	{
+		System.out.println("send");
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
 
 		try
 		{
-			outputStream.writeByte(1);
+			//outputStream.writeByte(1);
 			outputStream.writeInt(stats.Coins);
 			for (int i = 0; i < DLCManager.names.length; ++i)
 			{
@@ -93,13 +95,13 @@ public class PlayerTracker implements IPlayerTracker
 		{
 			ex.printStackTrace();
 		}
-		System.out.println("send");
+		
 
 
-		updateClientPlayer(bos, entityplayer);
+		updateClientPlayer(bos, (EntityPlayerMP) entityplayer);
 	}
 
-	void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
+	void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayerMP player)
 	{
 		Packet250CustomPayload packet = new Packet250CustomPayload();
 		packet.channel = "DLCCraft";
