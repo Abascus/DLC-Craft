@@ -34,10 +34,10 @@ public class PlayerTracker implements IPlayerTracker
 		PlayerDLCStats stats = new PlayerDLCStats();
 		NBTTagCompound tags = entityplayer.getEntityData();
 		boolean b = false;
-		
+
 		if (!tags.hasKey("DLCCraft"))
 		{
-			
+
 			b = true;
 			tags.setCompoundTag("DLCCraft", new NBTTagCompound());
 			NBTTagList tagList = new NBTTagList();
@@ -178,7 +178,7 @@ public class PlayerTracker implements IPlayerTracker
 	@Override
 	public void onPlayerLogout (EntityPlayer entityplayer)
 	{
-		
+
 		savePlayerStats(entityplayer, true);
 	}
 
@@ -234,10 +234,10 @@ public class PlayerTracker implements IPlayerTracker
 			stats = new PlayerDLCStats();
 			NBTTagCompound tags = ep.getEntityData();
 			boolean b = false;
-			
+
 			if (!tags.hasKey("DLCCraft"))
 			{
-				
+
 				b = true;
 				tags.setCompoundTag("DLCCraft", new NBTTagCompound());
 				NBTTagList tagList = new NBTTagList();

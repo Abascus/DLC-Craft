@@ -98,7 +98,6 @@ public class DLCCraft
 		GameRegistry.registerPlayerTracker(playerTracker);
 		MinecraftForge.EVENT_BUS.register(playerTracker);
 		 
-		
 		TickRegistry.registerTickHandler(new Tickhandler(), Side.SERVER);
 		
 	}
