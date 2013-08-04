@@ -56,22 +56,6 @@ public class PlayerTracker implements IPlayerTracker
 		playerStats.put(entityplayer.username, stats);
 	}
 
-	void updatePlayerInventory (EntityPlayer entityplayer, PlayerDLCStats stats)
-	{
-		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-		DataOutputStream outputStream = new DataOutputStream(bos);
-		try
-		{
-			outputStream.writeByte(2);
-			updateClientPlayer(bos, (EntityPlayerMP)entityplayer);
-		}
-
-		catch (Exception ex)
-		{
-
-		}
-	}
-
 	public void sendDLCs (EntityPlayer entityplayer, PlayerDLCStats stats)
 	{
 		System.out.println("send");
@@ -98,10 +82,10 @@ public class PlayerTracker implements IPlayerTracker
 		
 
 
-		updateClientPlayer(bos, (EntityPlayerMP) entityplayer);
+		updateClientPlayer(bos, entityplayer);
 	}
 
-	void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayerMP player)
+	void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
 	{
 		Packet250CustomPayload packet = new Packet250CustomPayload();
 		packet.channel = "DLCCraft";
@@ -128,14 +112,13 @@ public class PlayerTracker implements IPlayerTracker
 		if (player != null)
 		{
 			PlayerDLCStats stats = getPlayerDLCStats(player.username);
-			if (stats != null && stats.states != null)
+			if (stats != null)
 			{
 				stats.saveToNBT(player.getEntityData());
 				if (clean)
 					playerStats.remove(player.username);
 			}
 			else
-				//Revalidate all players
 			{
 
 			}
