@@ -46,7 +46,7 @@ public class DLCManager
 		names[23] = "buttonLever";
 		names[24] = "mobCoins";
 		names[25] = "hopper";
-		names[26] = "fishing";
+		names[26] = "inGameCoins";
 		names[27] = "fishing";
 		names[28] = "fishing";
 		names[29] = "fishing";
@@ -79,7 +79,7 @@ public class DLCManager
 		Names[23] = "Buttons and Levers";
 		Names[24] = "Coins from Mobs";
 		Names[25] = "Hopper";
-		Names[26] = "Brewing Potions";
+		Names[26] = "InGame Coin HUD";
 		Names[27] = "Brewing Potions";
 		Names[28] = "Brewing Potions";
 		Names[29] = "Brewing Potions";
@@ -112,7 +112,7 @@ public class DLCManager
 		description[23] = "Now sart Bbuilding whith Redstone!";		
 		description[24] = "What? you haven't got enought Coins?";		
 		description[25] = "Hop, hop, Hoppers!";		
-		description[26] = "";		
+		description[26] = "Do you wanna see, how many Coins you have?";		
 		description[27] = "";		
 		description[28] = "";		
 		description[29] = "";		
@@ -167,6 +167,7 @@ public class DLCManager
 		dlcs[16].setState(1);
 		dlcs[21].setState(1);
 		dlcs[22].setState(1);
+		dlcs[26].setState(1);
 		
 		dep[4] = 8;
 	}
