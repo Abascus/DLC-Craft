@@ -105,7 +105,7 @@ public class PlayerTracker implements IPlayerTracker
 		{
 			ex.printStackTrace();
 		}
-		updateClientPlayer(bos, entityplayer);
+		updateServer(bos, entityplayer);
 	}
 
 	void updateServer (ByteArrayOutputStream bos, EntityPlayer player)

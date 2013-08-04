@@ -73,7 +73,7 @@ public class EventManager
 		            {
 		            	DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
 		            }
-			DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
+			
 			float f = (float)Math.pow(2.0D, (double)(5) / 12.0D);
 			event.item.worldObj.playSoundEffect((double)event.item.posX + 0.5D, (double)event.item.posY + 0.5D, (double)event.item.posZ + 0.5D, "note.harp", 3.0F, f);
 			event.item.setDead();
