@@ -29,6 +29,11 @@ public class PlayerTracker implements IPlayerTracker
 	@Override
 	public void onPlayerLogin (EntityPlayer entityplayer)
 	{
+		System.out.println("5342344643w5");
+		System.out.println("5342344643w5");
+		System.out.println("5342344643w5");
+		System.out.println("5342344643w5");
+		System.out.println("5342344643w5");
 		PlayerDLCStats stats = new PlayerDLCStats();
 		NBTTagCompound tags = entityplayer.getEntityData();
 		boolean b = false;
@@ -67,7 +72,7 @@ public class PlayerTracker implements IPlayerTracker
 		playerStats.put(entityplayer.username, stats);
 		add(entityplayer.username);
 	}
-	
+
 	public void add(String name)
 	{
 		boolean b = false;
@@ -75,11 +80,11 @@ public class PlayerTracker implements IPlayerTracker
 		{
 			if(names[i] != null)
 			{
-			if(names[i].equals(name))
-			{
-				b = true;
-				break;
-			}
+				if(names[i].equals(name))
+				{
+					b = true;
+					break;
+				}
 			}
 			else
 			{
@@ -88,16 +93,16 @@ public class PlayerTracker implements IPlayerTracker
 		}
 		if(!b)
 		{
-		for(int i = 0;i< names.length;i++)
-		{
-			if(names[i] == null)
+			for(int i = 0;i< names.length;i++)
 			{
-				names[i] = name;
-				break;
+				if(names[i] == null)
+				{
+					names[i] = name;
+					break;
+				}
 			}
 		}
-		}
-		
+
 	}
 
 	public void sendDLCs (EntityPlayer entityplayer, PlayerDLCStats stats)
@@ -175,16 +180,13 @@ public class PlayerTracker implements IPlayerTracker
 	@Override
 	public void onPlayerLogout (EntityPlayer entityplayer)
 	{
+		System.out.println("frvgbfdgfcdgvfs");
+		System.out.println("frvgbfdgfcdgvfs");
+		System.out.println("frvgbfdgfcdgvfs");
+		System.out.println("frvgbfdgfcdgvfs");
+		System.out.println("frvgbfdgfcdgvfs");
 		savePlayerStats(entityplayer, true);
-		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if (side == Side.SERVER)
-		{
-			System.out.println("frvgbfdgfcdgvfs");
-			System.out.println("frvgbfdgfcdgvfs");
-			System.out.println("frvgbfdgfcdgvfs");
-			System.out.println("frvgbfdgfcdgvfs");
-			System.out.println("frvgbfdgfcdgvfs");
-		}
+		
 	}
 
 	@Override
