@@ -3,21 +3,18 @@ package Abascus.DLCCraft.common;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumEntitySize;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+import net.minecraftforge.common.FakePlayer;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IPlayerTracker;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -41,20 +38,20 @@ public class PlayerTracker implements IPlayerTracker
 			NBTTagList tagList = new NBTTagList();
 			NBTTagCompound dlc;
 
-	        for (int i = 0; i < DLCManager.names.length; ++i)
-	        {
-	            if (DLCManager.names[i] != null)
-	            {
-	                dlc = new NBTTagCompound();
-	                dlc.setInteger(DLCManager.names[i], (byte) 0);
-	                tagList.appendTag(dlc);
-	            }
-	        }
+			for (int i = 0; i < DLCManager.names.length; ++i)
+			{
+				if (DLCManager.names[i] != null)
+				{
+					dlc = new NBTTagCompound();
+					dlc.setInteger(DLCManager.names[i], (byte) 0);
+					tagList.appendTag(dlc);
+				}
+			}
 
-	        tags.setTag("DLCCraft", tagList);
-	        stats.init();
+			tags.setTag("DLCCraft", tagList);
+			stats.init();
 		}
-		
+
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);		
 		stats.readFromNBT(tags);
 		playerStats.put(entityplayer.username, stats);
@@ -156,7 +153,23 @@ public class PlayerTracker implements IPlayerTracker
 		NBTTagCompound tTag = new NBTTagCompound();
 		tags.setCompoundTag("DLCraft", tTag);
 
+		ItemStack diary = new ItemStack(DLCCraft.instance.shop);
+		if (!entityplayer.inventory.addItemStackToInventory(diary))
+		{
+			spawnItemAtPlayer(entityplayer, diary);
+		}
+
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
+	}
+
+	public static void spawnItemAtPlayer (EntityPlayer player, ItemStack stack)
+	{
+		EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
+		player.worldObj.spawnEntityInWorld(entityitem);
+		if (!(player instanceof FakePlayer))
+		{
+			entityitem.onCollideWithPlayer(player);
+		}
 	}
 
 

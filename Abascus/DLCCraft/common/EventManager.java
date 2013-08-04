@@ -29,16 +29,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class EventManager 
 {
-
-	@ForgeSubscribe
-	public void playerDrop(PlayerDestroyItemEvent event)
-	{
-		if(event.original.itemID == DLCCraft.instance.shop.itemID)
-		{
-			event.setCanceled(true);
-		}
-		
-	}
 	
 	@ForgeSubscribe
 	public void playerInteract(PlayerInteractEvent event)
