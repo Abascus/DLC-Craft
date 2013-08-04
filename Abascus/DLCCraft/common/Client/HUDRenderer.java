@@ -37,7 +37,8 @@ public class HUDRenderer extends Gui
 	{
 		if(event.type == RenderGameOverlayEvent.ElementType.ALL)
 		{
-			  GL11.glPushMatrix();
+			GL11.glPopMatrix();
+			GL11.glPushMatrix();
 			EntityPlayer ep = Minecraft.getMinecraft().thePlayer;
 			PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
 			ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
@@ -48,11 +49,12 @@ public class HUDRenderer extends Gui
 
 			GL11.glTranslatef(0.0F, 0.0F, 32.0F);
 			itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, this.mc.func_110434_K(), is, (int)(width / 1.4), height - 20);
-			
+
 
 			GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
 			mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.4)+20, height - 20, 11421504, false);
-			  GL11.glPopMatrix();
+			GL11.glPopMatrix();
+			GL11.glPushMatrix();
 
 		}
 	}

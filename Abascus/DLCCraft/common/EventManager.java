@@ -24,11 +24,22 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class EventManager 
 {
 
+	@ForgeSubscribe
+	public void playerDrop(PlayerDestroyItemEvent event)
+	{
+		if(event.original.itemID == DLCCraft.instance.shop.itemID)
+		{
+			event.setCanceled(true);
+		}
+		
+	}
+	
 	@ForgeSubscribe
 	public void playerInteract(PlayerInteractEvent event)
 	{

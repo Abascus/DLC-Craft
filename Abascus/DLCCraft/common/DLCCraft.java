@@ -81,6 +81,7 @@ public class DLCCraft
 
 		LanguageRegistry.instance().addName(coin, "Coin");
 		LanguageRegistry.instance().addName(dlc, "DLC");
+		LanguageRegistry.instance().addName(shop, "DLC Shop");
 		
 		
 		WeightedRandomChestContent dlc1 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 4, 2);

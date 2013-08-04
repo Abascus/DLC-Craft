@@ -31,7 +31,7 @@ public class DLCCraftItem extends Item
 		}
 		else
 		{
-			itemIcon = par1IconRegister.registerIcon("DLC Craft:shop");
+			itemIcon = par1IconRegister.registerIcon("DLC Craft:Shop");
 		}
 	}
 	
@@ -39,7 +39,7 @@ public class DLCCraftItem extends Item
     {
 		if(par1ItemStack.itemID == DLCCraft.instance.shop.itemID)
 		{
-			player.openGui(DLCCraft.instance, 0, world, player.posX, player.posY, player.posZ);
+			player.openGui(DLCCraft.instance, 0, world, (int)player.posX, (int)player.posY, (int)player.posZ);
 		}
 		return par1ItemStack;
     }

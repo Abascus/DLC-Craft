@@ -499,14 +499,6 @@ public class DLCShopGUI extends GuiContainer
 
 	}
 
-	protected void keyTyped(char par1, int par2)
-	{
-		if (par2 == 1 || par2 == ClientProxy.key[0].keyCode)
-		{
-			this.mc.thePlayer.closeScreen();
-		}
-	}
-
 	/**
 	 * Draw the background layer for the GuiContainer (everything behind the items)
 	 */
