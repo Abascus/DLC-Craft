@@ -31,8 +31,10 @@ public class PlayerTracker implements IPlayerTracker
 	{
 		PlayerDLCStats stats = new PlayerDLCStats();
 		NBTTagCompound tags = entityplayer.getEntityData();
+		boolean b = false;
 		if (!tags.hasKey("DLCCraft"))
 		{
+			b = true;
 			tags.setCompoundTag("DLCCraft", new NBTTagCompound());
 			NBTTagList tagList = new NBTTagList();
 			NBTTagCompound dlc;
@@ -53,6 +55,10 @@ public class PlayerTracker implements IPlayerTracker
 
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);		
 		stats.readFromNBT(tags);
+		if(b)
+		{
+			stats.Coins = 20;
+		}
 		playerStats.put(entityplayer.username, stats);
 	}
 

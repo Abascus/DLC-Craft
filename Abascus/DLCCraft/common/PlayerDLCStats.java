@@ -36,7 +36,7 @@ public class PlayerDLCStats
 	public void readFromNBT (NBTTagCompound tags)
 	{
 		NBTTagList tagList = tags.getTagList("DLCCraft");
-		 NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(1);
+		 NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(0);
 		 Coins = tag.getInteger("Coins");
 		 System.out.println("Coins load: " + Coins);
 		 
