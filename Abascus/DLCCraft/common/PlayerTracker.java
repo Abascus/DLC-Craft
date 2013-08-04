@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.Side;
 public class PlayerTracker implements IPlayerTracker
 {
 	public ConcurrentHashMap<String, PlayerDLCStats> playerStats = new ConcurrentHashMap<String, PlayerDLCStats>();
-
+	public String[] names = new String[1000];
 	@Override
 	public void onPlayerLogin (EntityPlayer entityplayer)
 	{
@@ -52,9 +52,9 @@ public class PlayerTracker implements IPlayerTracker
 			dlc = new NBTTagCompound();
 			dlc.setInteger("Coins", 20);
 			tagList.appendTag(dlc);
-			
+
 			tags.setTag("DLCCraft", tagList);
-			
+
 		}
 
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);		
@@ -65,6 +65,39 @@ public class PlayerTracker implements IPlayerTracker
 			stats.init();
 		}
 		playerStats.put(entityplayer.username, stats);
+		add(entityplayer.username);
+	}
+	
+	public void add(String name)
+	{
+		boolean b = false;
+		for(int i = 0;i< names.length;i++)
+		{
+			if(names[i] != null)
+			{
+			if(names[i].equals(name))
+			{
+				b = true;
+				break;
+			}
+			}
+			else
+			{
+				break;
+			}
+		}
+		if(!b)
+		{
+		for(int i = 0;i< names.length;i++)
+		{
+			if(names[i] == null)
+			{
+				names[i] = name;
+				break;
+			}
+		}
+		}
+		
 	}
 
 	public void sendDLCs (EntityPlayer entityplayer, PlayerDLCStats stats)
@@ -92,7 +125,7 @@ public class PlayerTracker implements IPlayerTracker
 		}
 		updateClientPlayer(bos, entityplayer);
 	}
-	
+
 	public void sendDLCs2 (EntityPlayer entityplayer, PlayerDLCStats stats)
 	{
 		System.out.println("send");
@@ -128,7 +161,7 @@ public class PlayerTracker implements IPlayerTracker
 
 		PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
 	}
-	
+
 	void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
 	{
 		Packet250CustomPayload packet = new Packet250CustomPayload();
@@ -143,6 +176,15 @@ public class PlayerTracker implements IPlayerTracker
 	public void onPlayerLogout (EntityPlayer entityplayer)
 	{
 		savePlayerStats(entityplayer, true);
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		if (side == Side.SERVER)
+		{
+			System.out.println("frvgbfdgfcdgvfs");
+			System.out.println("frvgbfdgfcdgvfs");
+			System.out.println("frvgbfdgfcdgvfs");
+			System.out.println("frvgbfdgfcdgvfs");
+			System.out.println("frvgbfdgfcdgvfs");
+		}
 	}
 
 	@Override

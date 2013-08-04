@@ -26,11 +26,47 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
 public class EventManager 
 {
+	@ForgeSubscribe
+	public void save(WorldEvent.Save event)
+	{
+		//save();
+	}
+	
+	@ForgeSubscribe
+	public void unload(WorldEvent.Unload event)
+	{
+		//save();
+	}
+	
+	public void save()
+	{
+		
+		for(int i = 0;i< DLCCraft.playerTracker.names.length;i++)
+		{
+			if(DLCCraft.playerTracker.names[i] != null)
+			{
+				 DLCCraft.playerTracker.playerStats.get(DLCCraft.playerTracker.names[i]);
+			}
+			else
+			{
+				break;
+			}
+		}
+		
+	}
+	
+	@ForgeSubscribe
+	public void load(WorldEvent.Load event)
+	{
+		
+	}
+	
 
 	@ForgeSubscribe
 	public void playerInteract(PlayerInteractEvent event)

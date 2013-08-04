@@ -36,12 +36,16 @@ public class RenderTickHandler implements ITickHandler
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData)
 	{
+		
 		try
 		{
 			if(Minecraft.getMinecraft().currentScreen == null)
 			{
 				EntityPlayer ep = Minecraft.getMinecraft().thePlayer;
 				PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
+				
+				if(stats.dlcManager.getState("inGameCoins") == 2)
+				{				
 				ScaledResolution scaledresolution = new ScaledResolution(Minecraft.getMinecraft().gameSettings, Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
 				int width = scaledresolution.getScaledWidth();
 				int height = scaledresolution.getScaledHeight();
@@ -53,7 +57,8 @@ public class RenderTickHandler implements ITickHandler
 
 
 				Minecraft.getMinecraft().fontRenderer.drawString(stats.dlcManager.Coins + "", (int)(width / 1.4)+20, height - 20, 11421504, false);
-			}
+				}
+				}
 		}
 		catch(Exception e){}
 	}
