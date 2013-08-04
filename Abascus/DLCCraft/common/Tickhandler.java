@@ -36,17 +36,7 @@ public class Tickhandler implements ITickHandler
 					}
 					else if(dlcs.getState("sprint") != 2)
 					{
-						if(player.isInWater())
-						{
 							player.setSprinting(false);
-						}
-					}
-					else if(dlcs.getState("sprint") != 2)
-					{
-						if(player.isInWater())
-						{
-							player.setSprinting(false);
-						}
 					}
 				}
 			}
