@@ -75,8 +75,8 @@ public class EventManager
 	@ForgeSubscribe
 	public void itemPickup(EntityItemPickupEvent event)
 	{
-		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
-		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username);
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer).dlcManager;
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer);
 		if(event.item.getEntityItem().itemID == DLCCraft.instance.coin.itemID)
 		{
 			event.setCanceled(true);
@@ -147,7 +147,7 @@ public class EventManager
 	public void entityInteract(EntityInteractEvent event)
 	{
 		
-		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer).dlcManager;
 		if(event.entityPlayer.getCurrentEquippedItem() != null)
 		{
 			if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
@@ -209,8 +209,7 @@ public class EventManager
 			try
 			{
 				EntityPlayer ep = (EntityPlayer) event.source.getSourceOfDamage();
-				String u = ep.username;
-				DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(u).dlcManager;
+				DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep).dlcManager;
 
 				if(dlcs.getState("PvP") != 2)
 				{
@@ -227,8 +226,7 @@ public class EventManager
 		try
 		{
 			EntityPlayer ep = (EntityPlayer)event.source.getSourceOfDamage();
-			String u = ep.username;
-			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(u).dlcManager;
+			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep).dlcManager;
 
 			if(dlcs.getState("mobDrops") != 2)
 			{
@@ -245,7 +243,7 @@ public class EventManager
 
 	public void rightClickBlock(PlayerInteractEvent event)
 	{
-		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer).dlcManager;
 		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.chest.blockID)
 		{
 
@@ -333,7 +331,7 @@ public class EventManager
 			}
 		}
 		
-		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer).dlcManager;
 		if(event.entityPlayer.getCurrentEquippedItem() != null)
 		{
 			if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
@@ -376,7 +374,7 @@ public class EventManager
 
 	public void leftClickBlock(PlayerInteractEvent event)
 	{
-		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
+		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer).dlcManager;
 
 		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
 		{

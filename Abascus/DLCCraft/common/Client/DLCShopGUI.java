@@ -1,5 +1,6 @@
 package Abascus.DLCCraft.common.Client;
 
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,6 @@ import Abascus.DLCCraft.common.DLC;
 import Abascus.DLCCraft.common.DLCCraft;
 import Abascus.DLCCraft.common.DLCGuiTabs;
 import Abascus.DLCCraft.common.DLCManager;
-import Abascus.DLCCraft.common.GuiDLCSlot;
 import Abascus.DLCCraft.common.PlayerDLCStats;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -493,7 +493,7 @@ public class DLCShopGUI extends GuiContainer
 		itemRenderer.zLevel = 0.0F;
 
 		GL11.glColor4f(0.0F, 0.0F, 1.0F, 0.0F);
-		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep);
 		mc.fontRenderer.drawString(stats.dlcManager.Coins + "", (int)(width / 1.3)+40, 14, 2222222, false);
 
 
@@ -578,7 +578,7 @@ public class DLCShopGUI extends GuiContainer
 	}
 	protected void actionPerformed(GuiButton par1GuiButton)
 	{
-		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep);
 		if (par1GuiButton.id == 1)
 		{
 			DLC dlc;
@@ -652,6 +652,7 @@ public class DLCShopGUI extends GuiContainer
 			{
 			stats.dlcManager.dlcs[i].state=1;
 			}
+			
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 			DLCCraft.playerTracker.sendDLCs(ep, stats);
 			this.loadSaves();

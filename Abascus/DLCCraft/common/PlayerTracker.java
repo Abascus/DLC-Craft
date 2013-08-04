@@ -30,10 +30,10 @@ public class PlayerTracker implements IPlayerTracker
 	@Override
 	public void onPlayerLogin (EntityPlayer entityplayer)
 	{
+		System.out.println("login");
 		PlayerDLCStats stats = new PlayerDLCStats();
 		NBTTagCompound tags = entityplayer.getEntityData();
 		boolean b = false;
-		Toolkit.getDefaultToolkit().beep();
 		
 		if (!tags.hasKey("DLCCraft"))
 		{
@@ -61,9 +61,8 @@ public class PlayerTracker implements IPlayerTracker
 
 		}
 
-			
+		stats.player = new WeakReference<EntityPlayer>(entityplayer);		
 		stats.readFromNBT(tags);
-		stats.player = new WeakReference<EntityPlayer>(entityplayer);	
 		if(b)
 		{
 			stats.dlcManager.Coins = 20;
@@ -193,7 +192,7 @@ public class PlayerTracker implements IPlayerTracker
 	{
 		if (player != null)
 		{
-			PlayerDLCStats stats = getPlayerDLCStats(player.username);
+			PlayerDLCStats stats = getPlayerDLCStats(player);
 			if (stats != null)
 			{
 				stats.saveToNBT(player.getEntityData());
@@ -213,25 +212,63 @@ public class PlayerTracker implements IPlayerTracker
 	public void onPlayerRespawn (EntityPlayer entityplayer)
 	{
 		//Boom!
-		PlayerDLCStats stats = getPlayerDLCStats(entityplayer.username);
+		PlayerDLCStats stats = getPlayerDLCStats(entityplayer);
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
 
-		//NBTTagCompound tags = entityplayer.getEntityData();
-		//NBTTagCompound tTag = new NBTTagCompound();
-		//tags.setCompoundTag("DLCraft", tTag);
+		NBTTagCompound tags = entityplayer.getEntityData();
+		NBTTagCompound tTag = new NBTTagCompound();
+		tags.setCompoundTag("DLCraft", tTag);
 
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 	}
 
 
 	/* Find the right player */
-	public PlayerDLCStats getPlayerDLCStats (String username)
+	public PlayerDLCStats getPlayerDLCStats (EntityPlayer ep)
 	{
-		PlayerDLCStats stats = playerStats.get(username);
+		PlayerDLCStats stats = playerStats.get(ep.username);
+		//System.out.println("Stats: "+stats);
 		if (stats == null)
 		{
 			stats = new PlayerDLCStats();
-			playerStats.put(username, stats);
+			stats = new PlayerDLCStats();
+			NBTTagCompound tags = ep.getEntityData();
+			boolean b = false;
+			
+			if (!tags.hasKey("DLCCraft"))
+			{
+				
+				b = true;
+				tags.setCompoundTag("DLCCraft", new NBTTagCompound());
+				NBTTagList tagList = new NBTTagList();
+				NBTTagCompound dlc;
+
+				for (int i = 0; i < DLCManager.names.length; ++i)
+				{
+					if (DLCManager.names[i] != null)
+					{
+						dlc = new NBTTagCompound();
+						dlc.setInteger(DLCManager.names[i], (byte) 0);
+						tagList.appendTag(dlc);
+					}
+				}
+
+				dlc = new NBTTagCompound();
+				dlc.setInteger("Coins", 20);
+				tagList.appendTag(dlc);
+
+				tags.setTag("DLCCraft", tagList);
+
+			}
+
+			stats.player = new WeakReference<EntityPlayer>(ep);		
+			stats.readFromNBT(tags);
+			if(b)
+			{
+				stats.dlcManager.Coins = 20;
+				stats.init();
+			}
+			playerStats.put(ep.username, stats);
 		}
 		return stats;
 	}

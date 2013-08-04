@@ -1,4 +1,4 @@
-package Abascus.DLCCraft.common;
+package Abascus.DLCCraft.common.Client;
 
 import java.util.Date;
 
@@ -12,7 +12,9 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.storage.SaveFormatComparator;
-import Abascus.DLCCraft.common.Client.DLCShopGUI;
+import Abascus.DLCCraft.common.DLC;
+import Abascus.DLCCraft.common.DLCCraft;
+import Abascus.DLCCraft.common.PlayerDLCStats;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -75,7 +77,7 @@ public class GuiDLCSlot extends GuiSlot
 
 	protected void drawSlot(int par1, int par2, int par3, int par4, Tessellator par5Tessellator)
 	{
-		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(parentDLCGui.ep.username);
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(parentDLCGui.ep);
 		DLC dlc = (DLC)DLCShopGUI.getSize(this.parentDLCGui).get(par1);
 		String s = parentDLCGui.getDesciption(par1);
 		String s1 = parentDLCGui.getSaveFileName(par1);

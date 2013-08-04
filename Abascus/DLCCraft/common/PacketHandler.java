@@ -47,7 +47,7 @@ public class PacketHandler implements IPacketHandler
 
         try
         {
-                PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(player.username);
+                PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(player);
                 stats.dlcManager.dlcs = new DLC[DLCManager.names.length];
                 stats.dlcManager.Coins = inputStream.readInt();
                 for (int i = 0; i < DLCManager.names.length; ++i)
@@ -77,7 +77,7 @@ public class PacketHandler implements IPacketHandler
 
         try
         {
-                PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(player.username);
+                PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(player);
                 stats.dlcManager.dlcs = new DLC[DLCManager.names.length];
                 stats.dlcManager.Coins = inputStream.readInt();
                 for (int i = 0; i < DLCManager.names.length; ++i)

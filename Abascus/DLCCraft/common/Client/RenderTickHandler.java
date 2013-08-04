@@ -42,7 +42,7 @@ public class RenderTickHandler implements ITickHandler
 			if(Minecraft.getMinecraft().currentScreen == null)
 			{
 				EntityPlayer ep = Minecraft.getMinecraft().thePlayer;
-				PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
+				PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep);
 				
 				if(stats.dlcManager.getState("inGameCoins") == 2)
 				{				

@@ -20,7 +20,7 @@ public class Tickhandler implements ITickHandler
 		EntityPlayer player = (EntityPlayer)tickData[0];
 		if(type.equals(EnumSet.of(TickType.PLAYER)))
 		{
-			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(player.username).dlcManager;
+			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(player).dlcManager;
 			if(dlcs.getState("air") != 2)
 			{
 				if(player.isInWater())
