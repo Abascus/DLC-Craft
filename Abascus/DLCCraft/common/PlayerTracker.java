@@ -49,6 +49,10 @@ public class PlayerTracker implements IPlayerTracker
 				}
 			}
 
+			dlc = new NBTTagCompound();
+			dlc.setInteger("Coins", 20);
+			tagList.appendTag(dlc);
+			
 			tags.setTag("DLCCraft", tagList);
 			
 		}
@@ -57,7 +61,7 @@ public class PlayerTracker implements IPlayerTracker
 		stats.readFromNBT(tags);
 		if(b)
 		{
-			stats.Coins = 20;
+			stats.dlcManager.Coins = 20;
 			stats.init();
 		}
 		playerStats.put(entityplayer.username, stats);
@@ -72,7 +76,7 @@ public class PlayerTracker implements IPlayerTracker
 		try
 		{
 			//outputStream.writeByte(1);
-			outputStream.writeInt(stats.Coins);
+			outputStream.writeInt(stats.dlcManager.Coins);
 			for (int i = 0; i < DLCManager.names.length; ++i)
 			{
 				if (DLCManager.names[i] != null)
@@ -98,7 +102,7 @@ public class PlayerTracker implements IPlayerTracker
 		try
 		{
 			//outputStream.writeByte(1);
-			outputStream.writeInt(stats.Coins);
+			outputStream.writeInt(stats.dlcManager.Coins);
 			for (int i = 0; i < DLCManager.names.length; ++i)
 			{
 				if (DLCManager.names[i] != null)
@@ -176,23 +180,7 @@ public class PlayerTracker implements IPlayerTracker
 		NBTTagCompound tTag = new NBTTagCompound();
 		tags.setCompoundTag("DLCraft", tTag);
 
-		ItemStack diary = new ItemStack(DLCCraft.instance.shop);
-		if (!entityplayer.inventory.addItemStackToInventory(diary))
-		{
-			spawnItemAtPlayer(entityplayer, diary);
-		}
-
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
-	}
-
-	public static void spawnItemAtPlayer (EntityPlayer player, ItemStack stack)
-	{
-		EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
-		player.worldObj.spawnEntityInWorld(entityitem);
-		if (!(player instanceof FakePlayer))
-		{
-			entityitem.onCollideWithPlayer(player);
-		}
 	}
 
 

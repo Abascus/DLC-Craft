@@ -87,7 +87,7 @@ public class GuiDLCSlot extends GuiSlot
 		boolean c = false;
 		if(parentDLCGui.buy)
 		{
-			if(stats.Coins >= stats.dlcManager.cost[dlc.id])
+			if(stats.dlcManager.Coins >= stats.dlcManager.cost[dlc.id])
 			{
 				c = true;
 			}

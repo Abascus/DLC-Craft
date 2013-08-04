@@ -494,7 +494,7 @@ public class DLCShopGUI extends GuiContainer
 
 		GL11.glColor4f(0.0F, 0.0F, 1.0F, 0.0F);
 		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
-		mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.3)+40, 14, 2222222, false);
+		mc.fontRenderer.drawString(stats.dlcManager.Coins + "", (int)(width / 1.3)+40, 14, 2222222, false);
 
 
 	}
@@ -588,7 +588,7 @@ public class DLCShopGUI extends GuiContainer
 				{
 				dlc = (DLC)this.buyList.get(selectedDLC);
 
-				if(stats.Coins >= stats.dlcManager.cost[dlc.id] || ep.capabilities.isCreativeMode)
+				if(stats.dlcManager.Coins >= stats.dlcManager.cost[dlc.id] || ep.capabilities.isCreativeMode)
 				{
 					if(getDepend(selectedDLC) != -1)
 					{
@@ -596,7 +596,7 @@ public class DLCShopGUI extends GuiContainer
 						{
 							if(!ep.capabilities.isCreativeMode)
 							{
-							stats.Coins-=stats.dlcManager.cost[dlc.id];
+							stats.dlcManager.Coins-=stats.dlcManager.cost[dlc.id];
 							}
 							stats.dlcManager.dlcs[dlc.id].state=2;
 							DLCCraft.playerTracker.playerStats.put(ep.username, stats);
@@ -605,7 +605,10 @@ public class DLCShopGUI extends GuiContainer
 					}
 					else
 					{
-					stats.Coins-=stats.dlcManager.cost[dlc.id];
+						if(!ep.capabilities.isCreativeMode)
+						{
+						stats.dlcManager.Coins-=stats.dlcManager.cost[dlc.id];
+						}
 					stats.dlcManager.dlcs[dlc.id].state=2;
 					DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 					DLCCraft.playerTracker.sendDLCs(ep, stats);
@@ -637,6 +640,7 @@ public class DLCShopGUI extends GuiContainer
 		else if (par1GuiButton.id == 5)
 		{
 			stats.init();
+			stats.dlcManager.Coins = 20;
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 			DLCCraft.playerTracker.sendDLCs(ep, stats);
 			this.loadSaves();

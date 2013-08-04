@@ -78,7 +78,7 @@ public class EventManager
 		if(event.item.getEntityItem().itemID == DLCCraft.instance.coin.itemID)
 		{
 			event.setCanceled(true);
-			stats.Coins+= event.item.getEntityItem().stackSize;
+			stats.dlcManager.Coins+= event.item.getEntityItem().stackSize;
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
 			Side side = FMLCommonHandler.instance().getEffectiveSide();
 			if (side == Side.SERVER)
@@ -127,6 +127,10 @@ public class EventManager
 			event.item.worldObj.playSoundEffect((double)event.item.posX + 0.5D, (double)event.item.posY + 0.5D, (double)event.item.posZ + 0.5D, "note.harp", 3.0F, f);
 			event.item.setDead();
 			event.item.attackEntityFrom(DamageSource.inFire, 10000);
+		}
+		else if(event.item.getEntityItem().itemID == DLCCraft.instance.shop.itemID)
+		{
+			
 		}
 		else
 		{
@@ -321,7 +325,10 @@ public class EventManager
 		ItemStack diary = new ItemStack(DLCCraft.instance.shop);
 		if(!event.entityPlayer.inventory.hasItemStack(diary))
 		{
+			if (!event.entityPlayer.inventory.addItemStackToInventory(diary))
+			{
 			spawnItemAtPlayer(event.entityPlayer, diary);
+			}
 		}
 		
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;

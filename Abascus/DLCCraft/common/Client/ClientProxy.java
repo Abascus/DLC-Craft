@@ -17,7 +17,6 @@ public class ClientProxy extends CommonProxy
 	{
 		TickRegistry.registerTickHandler(new TickHandlerClient(), Side.CLIENT);
 		TickRegistry.registerTickHandler(new RenderTickHandler(), Side.CLIENT);
-		MinecraftForge.EVENT_BUS.register(new HUDRenderer(Minecraft.getMinecraft()));
 	}
 	
 	@Override

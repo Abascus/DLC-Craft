@@ -52,7 +52,7 @@ public class RenderTickHandler implements ITickHandler
 				itemRenderer.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().func_110434_K(), is, (int)(width / 1.4), height - 20);
 
 
-				Minecraft.getMinecraft().fontRenderer.drawString(stats.Coins + "", (int)(width / 1.4)+20, height - 20, 11421504, false);
+				Minecraft.getMinecraft().fontRenderer.drawString(stats.dlcManager.Coins + "", (int)(width / 1.4)+20, height - 20, 11421504, false);
 			}
 		}
 		catch(Exception e){}
