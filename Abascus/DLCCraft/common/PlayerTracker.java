@@ -79,12 +79,45 @@ public class PlayerTracker implements IPlayerTracker
 		{
 			ex.printStackTrace();
 		}
-		
+		updateClientPlayer(bos, entityplayer);
+	}
+	
+	public void sendDLCs2 (EntityPlayer entityplayer, PlayerDLCStats stats)
+	{
+		System.out.println("send");
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
 
-
+		try
+		{
+			//outputStream.writeByte(1);
+			outputStream.writeInt(stats.Coins);
+			for (int i = 0; i < DLCManager.names.length; ++i)
+			{
+				if (DLCManager.names[i] != null)
+				{
+					//outputStream.writeByte(i);
+					outputStream.writeByte(stats.dlcManager.dlcs[i].state);
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 		updateClientPlayer(bos, entityplayer);
 	}
 
+	void updateServer (ByteArrayOutputStream bos, EntityPlayer player)
+	{
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "DLCCraft";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+
+		PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
+	}
+	
 	void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
 	{
 		Packet250CustomPayload packet = new Packet250CustomPayload();

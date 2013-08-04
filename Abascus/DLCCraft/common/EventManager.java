@@ -2,10 +2,14 @@ package Abascus.DLCCraft.common;
 
 import java.util.Random;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBow;
@@ -60,6 +64,15 @@ public class EventManager
 			event.setCanceled(true);
 			stats.Coins+= event.item.getEntityItem().stackSize;
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
+			Side side = FMLCommonHandler.instance().getEffectiveSide();
+		            if (side == Side.SERVER)
+		            {
+		            	DLCCraft.playerTracker.sendDLCs2(event.entityPlayer, stats);
+		            }
+		            else
+		            {
+		            	DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
+		            }
 			DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
 			float f = (float)Math.pow(2.0D, (double)(5) / 12.0D);
 			event.item.worldObj.playSoundEffect((double)event.item.posX + 0.5D, (double)event.item.posY + 0.5D, (double)event.item.posZ + 0.5D, "note.harp", 3.0F, f);
@@ -85,7 +98,15 @@ public class EventManager
 			int r = new Random().nextInt(i-1);
 			stats.dlcManager.dlcs[r].state = 1;
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
-			DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
+			Side side = FMLCommonHandler.instance().getEffectiveSide();
+            if (side == Side.SERVER)
+            {
+            	DLCCraft.playerTracker.sendDLCs2(event.entityPlayer, stats);
+            }
+            else
+            {
+            	DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
+            }
 			float f = (float)Math.pow(2.0D, (double)(5) / 12.0D);
 			event.item.worldObj.playSoundEffect((double)event.item.posX + 0.5D, (double)event.item.posY + 0.5D, (double)event.item.posZ + 0.5D, "note.harp", 3.0F, f);
 			event.item.setDead();

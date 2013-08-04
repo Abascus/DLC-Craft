@@ -93,7 +93,7 @@ public class PacketHandler implements IPacketHandler
         }
         catch (Exception e)
         {
-            System.out.println("Failed at reading client packet for DLCCraft.");
+            System.out.println("Failed at reading server packet for DLCCraft.");
             e.printStackTrace();
             return;
         }
