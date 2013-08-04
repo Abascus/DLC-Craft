@@ -178,7 +178,7 @@ public class DLCShopGUI extends GuiContainer
 		{
 		this.buttonList.add(this.buttonReset = new GuiButton(5, (int)(this.width/1.2), this.height/2-20, 72, 20, I18n.func_135053_a("Reset")));
 		this.buttonList.add(this.buttonUnlock = new GuiButton(6, (int)(this.width/1.2), this.height/2, 72, 20, I18n.func_135053_a("Unlock all")));
-		this.buttonList.add(this.buttonUnlock = new GuiButton(7, (int)(this.width/1.2), this.height/2+20, 72, 20, I18n.func_135053_a("Buy all")));
+		this.buttonList.add(this.buttonAllBuy = new GuiButton(7, (int)(this.width/1.2), this.height/2+20, 72, 20, I18n.func_135053_a("Buy all")));
 		}
 		this.buttonAvalible.enabled = false;
 	}
@@ -654,6 +654,7 @@ public class DLCShopGUI extends GuiContainer
 			stats.dlcManager.dlcs[i].state=1;
 			}
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+			this.loadSaves();
 			
 		}
 		else if (par1GuiButton.id == 7)
@@ -663,6 +664,7 @@ public class DLCShopGUI extends GuiContainer
 			stats.dlcManager.dlcs[i].state=2;
 			}
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+			this.loadSaves();
 			
 		}
 		else
