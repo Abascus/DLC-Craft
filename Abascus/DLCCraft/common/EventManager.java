@@ -31,7 +31,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class EventManager 
 {
-	
+
 	@ForgeSubscribe
 	public void playerInteract(PlayerInteractEvent event)
 	{
@@ -50,8 +50,12 @@ public class EventManager
 
 	}
 	@ForgeSubscribe
-	public void entityConstructing(EntityConstructing event)
+	public void onEntityConstructing(EntityConstructing event)
 	{
+		if (event.entity instanceof EntityPlayer)
+		{
+			event.entity.registerExtendedProperties(ExtendedProp.identifier, new ExtendedProp());
+		}
 	}
 
 	@ForgeSubscribe
@@ -65,15 +69,15 @@ public class EventManager
 			stats.Coins+= event.item.getEntityItem().stackSize;
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
 			Side side = FMLCommonHandler.instance().getEffectiveSide();
-		            if (side == Side.SERVER)
-		            {
-		            	DLCCraft.playerTracker.sendDLCs2(event.entityPlayer, stats);
-		            }
-		            else
-		            {
-		            	DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
-		            }
-			
+			if (side == Side.SERVER)
+			{
+				DLCCraft.playerTracker.sendDLCs2(event.entityPlayer, stats);
+			}
+			else
+			{
+				DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
+			}
+
 			float f = (float)Math.pow(2.0D, (double)(5) / 12.0D);
 			event.item.worldObj.playSoundEffect((double)event.item.posX + 0.5D, (double)event.item.posY + 0.5D, (double)event.item.posZ + 0.5D, "note.harp", 3.0F, f);
 			event.item.setDead();
@@ -99,14 +103,14 @@ public class EventManager
 			stats.dlcManager.dlcs[r].state = 1;
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
 			Side side = FMLCommonHandler.instance().getEffectiveSide();
-            if (side == Side.SERVER)
-            {
-            	DLCCraft.playerTracker.sendDLCs2(event.entityPlayer, stats);
-            }
-            else
-            {
-            	DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
-            }
+			if (side == Side.SERVER)
+			{
+				DLCCraft.playerTracker.sendDLCs2(event.entityPlayer, stats);
+			}
+			else
+			{
+				DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
+			}
 			float f = (float)Math.pow(2.0D, (double)(5) / 12.0D);
 			event.item.worldObj.playSoundEffect((double)event.item.posX + 0.5D, (double)event.item.posY + 0.5D, (double)event.item.posZ + 0.5D, "note.harp", 3.0F, f);
 			event.item.setDead();
@@ -176,21 +180,21 @@ public class EventManager
 	@ForgeSubscribe
 	public void livingHurt(LivingHurtEvent event)
 	{
-			if(event.entityLiving instanceof EntityPlayer)
+		if(event.entityLiving instanceof EntityPlayer)
+		{
+			try
 			{
-				try
-				{
-					EntityPlayer ep = (EntityPlayer) event.source.getSourceOfDamage();
-					String u = ep.username;
-					DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(u).dlcManager;
+				EntityPlayer ep = (EntityPlayer) event.source.getSourceOfDamage();
+				String u = ep.username;
+				DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(u).dlcManager;
 
-					if(dlcs.getState("PvP") != 2)
-					{
-						event.setCanceled(true);
-					}
+				if(dlcs.getState("PvP") != 2)
+				{
+					event.setCanceled(true);
 				}
-				catch(Exception e){}
 			}
+			catch(Exception e){}
+		}
 	}
 
 	@ForgeSubscribe

@@ -1,9 +1,12 @@
 package Abascus.DLCCraft.common;
 
+import java.lang.ref.WeakReference;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 
@@ -18,11 +21,7 @@ public class ExtendedProp implements IExtendedEntityProperties
 
 	public static final String identifier = "DLCCraft";
 
-	/**
-	 * This method is a great static accessor; I strongly recommend doing it this way.  It also is nice and
-	 * clean for access, especially if you have multiple extended property classes.
-	 **/
-	public static ExtendedProp For(EntityLiving entity)
+	public static ExtendedProp For(EntityPlayer entity)
 	{
 		ExtendedProp exp = (ExtendedProp)entity.getExtendedProperties(identifier);
 		exp.ep = entity;
@@ -31,12 +30,17 @@ public class ExtendedProp implements IExtendedEntityProperties
 
 	public void saveNBTData(NBTTagCompound tag) 
 	{
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
+		stats.saveToNBT(tag);
 
 	}
 
 	public void loadNBTData(NBTTagCompound tag)
 	{
-
+		PlayerDLCStats stats = new PlayerDLCStats();
+		stats.player = new WeakReference<EntityPlayer>(ep);		
+		stats.readFromNBT(tag);
+		 DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 	}
 
 	public void init(Entity entity, World world) 
