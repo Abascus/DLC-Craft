@@ -1,5 +1,6 @@
 package Abascus.DLCCraft.common;
 
+import java.awt.Toolkit;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.lang.ref.WeakReference;
@@ -29,12 +30,14 @@ public class PlayerTracker implements IPlayerTracker
 	@Override
 	public void onPlayerLogin (EntityPlayer entityplayer)
 	{
-		System.out.println("login");
 		PlayerDLCStats stats = new PlayerDLCStats();
 		NBTTagCompound tags = entityplayer.getEntityData();
 		boolean b = false;
+		Toolkit.getDefaultToolkit().beep();
+		
 		if (!tags.hasKey("DLCCraft"))
 		{
+			
 			b = true;
 			tags.setCompoundTag("DLCCraft", new NBTTagCompound());
 			NBTTagList tagList = new NBTTagList();
@@ -58,8 +61,9 @@ public class PlayerTracker implements IPlayerTracker
 
 		}
 
-		stats.player = new WeakReference<EntityPlayer>(entityplayer);		
+			
 		stats.readFromNBT(tags);
+		stats.player = new WeakReference<EntityPlayer>(entityplayer);	
 		if(b)
 		{
 			stats.dlcManager.Coins = 20;
@@ -175,8 +179,8 @@ public class PlayerTracker implements IPlayerTracker
 	@Override
 	public void onPlayerLogout (EntityPlayer entityplayer)
 	{
-		savePlayerStats(entityplayer, true);
 		
+		savePlayerStats(entityplayer, true);
 	}
 
 	@Override
@@ -194,7 +198,9 @@ public class PlayerTracker implements IPlayerTracker
 			{
 				stats.saveToNBT(player.getEntityData());
 				if (clean)
+				{
 					playerStats.remove(player.username);
+				}
 			}
 			else
 			{
@@ -210,9 +216,9 @@ public class PlayerTracker implements IPlayerTracker
 		PlayerDLCStats stats = getPlayerDLCStats(entityplayer.username);
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
 
-		NBTTagCompound tags = entityplayer.getEntityData();
-		NBTTagCompound tTag = new NBTTagCompound();
-		tags.setCompoundTag("DLCraft", tTag);
+		//NBTTagCompound tags = entityplayer.getEntityData();
+		//NBTTagCompound tTag = new NBTTagCompound();
+		//tags.setCompoundTag("DLCraft", tTag);
 
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 	}
@@ -222,7 +228,6 @@ public class PlayerTracker implements IPlayerTracker
 	public PlayerDLCStats getPlayerDLCStats (String username)
 	{
 		PlayerDLCStats stats = playerStats.get(username);
-		//System.out.println("Stats: "+stats);
 		if (stats == null)
 		{
 			stats = new PlayerDLCStats();
