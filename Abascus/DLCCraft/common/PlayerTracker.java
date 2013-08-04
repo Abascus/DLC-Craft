@@ -29,11 +29,7 @@ public class PlayerTracker implements IPlayerTracker
 	@Override
 	public void onPlayerLogin (EntityPlayer entityplayer)
 	{
-		System.out.println("5342344643w5");
-		System.out.println("5342344643w5");
-		System.out.println("5342344643w5");
-		System.out.println("5342344643w5");
-		System.out.println("5342344643w5");
+		System.out.println("login");
 		PlayerDLCStats stats = new PlayerDLCStats();
 		NBTTagCompound tags = entityplayer.getEntityData();
 		boolean b = false;
@@ -70,7 +66,6 @@ public class PlayerTracker implements IPlayerTracker
 			stats.init();
 		}
 		playerStats.put(entityplayer.username, stats);
-		add(entityplayer.username);
 	}
 
 	public void add(String name)
@@ -180,11 +175,6 @@ public class PlayerTracker implements IPlayerTracker
 	@Override
 	public void onPlayerLogout (EntityPlayer entityplayer)
 	{
-		System.out.println("frvgbfdgfcdgvfs");
-		System.out.println("frvgbfdgfcdgvfs");
-		System.out.println("frvgbfdgfcdgvfs");
-		System.out.println("frvgbfdgfcdgvfs");
-		System.out.println("frvgbfdgfcdgvfs");
 		savePlayerStats(entityplayer, true);
 		
 	}
