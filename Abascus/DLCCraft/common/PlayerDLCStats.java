@@ -28,8 +28,8 @@ public class PlayerDLCStats
 		NBTTagList tagList = new NBTTagList();
 		dlc.setInteger("Coins", Coins);
 		System.out.println("Coins save: " + Coins);
-		tagList.appendTag(dlc);
-		tags.setTag("DLCCraft", tagList);
+		tags.setTag("DLCCraft", dlc);
+		//tags.setTag("DLCCraft", tagList);
 		dlcManager.saveToNBT(tags);
 	}
 
@@ -37,7 +37,7 @@ public class PlayerDLCStats
 	{
 		NBTTagList tagList = tags.getTagList("DLCCraft");
 		 NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(0);
-		 Coins = tag.getInteger("Coins");
+		 Coins = tags.getInteger("Coins");
 		 System.out.println("Coins load: " + Coins);
 		 
 		dlcManager.readFromNBT(tags);

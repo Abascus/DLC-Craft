@@ -19,6 +19,7 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.item.ItemEvent;
@@ -55,6 +56,21 @@ public class EventManager
 		if (event.entity instanceof EntityPlayer)
 		{
 			//event.entity.registerExtendedProperties(ExtendedProp.identifier, new ExtendedProp());
+			ItemStack diary = new ItemStack(DLCCraft.instance.shop);
+			if (!((EntityPlayer)event.entity).inventory.addItemStackToInventory(diary))
+			{
+				spawnItemAtPlayer((EntityPlayer)event.entity, diary);
+			}
+		}
+	}
+	
+	public static void spawnItemAtPlayer (EntityPlayer player, ItemStack stack)
+	{
+		EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
+		player.worldObj.spawnEntityInWorld(entityitem);
+		if (!(player instanceof FakePlayer))
+		{
+			entityitem.onCollideWithPlayer(player);
 		}
 	}
 

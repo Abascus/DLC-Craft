@@ -50,7 +50,7 @@ public class PlayerTracker implements IPlayerTracker
 			}
 
 			tags.setTag("DLCCraft", tagList);
-			stats.init();
+			
 		}
 
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);		
@@ -58,6 +58,7 @@ public class PlayerTracker implements IPlayerTracker
 		if(b)
 		{
 			stats.Coins = 20;
+			stats.init();
 		}
 		playerStats.put(entityplayer.username, stats);
 	}
