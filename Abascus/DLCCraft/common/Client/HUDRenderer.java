@@ -32,7 +32,7 @@ public class HUDRenderer extends Gui
 
 	public ItemStack is = new ItemStack(DLCCraft.instance.coin, 1);
 	protected static RenderItem itemRenderer = new RenderItem();
-	@ForgeSubscribe
+	//@ForgeSubscribe
 	public void postRenderOverlay(RenderGameOverlayEvent.Post event)
 	{
 		if(event.type == RenderGameOverlayEvent.ElementType.ALL)
