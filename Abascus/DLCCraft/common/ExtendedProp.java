@@ -38,8 +38,34 @@ public class ExtendedProp implements IExtendedEntityProperties
 	public void loadNBTData(NBTTagCompound tag)
 	{
 		PlayerDLCStats stats = new PlayerDLCStats();
+		boolean b = false;
+		if (!tag.hasKey("DLCCraft"))
+		{
+			b = true;
+			tag.setCompoundTag("DLCCraft", new NBTTagCompound());
+			NBTTagList tagList = new NBTTagList();
+			NBTTagCompound dlc;
+
+			for (int i = 0; i < DLCManager.names.length; ++i)
+			{
+				if (DLCManager.names[i] != null)
+				{
+					dlc = new NBTTagCompound();
+					dlc.setInteger(DLCManager.names[i], (byte) 0);
+					tagList.appendTag(dlc);
+				}
+			}
+
+			tag.setTag("DLCCraft", tagList);
+			stats.init();
+		}
+		
 		stats.player = new WeakReference<EntityPlayer>(ep);		
 		stats.readFromNBT(tag);
+		if(b)
+		{
+			stats.Coins = 20;
+		}
 		 DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 	}
 

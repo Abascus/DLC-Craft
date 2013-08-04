@@ -54,7 +54,7 @@ public class EventManager
 	{
 		if (event.entity instanceof EntityPlayer)
 		{
-			event.entity.registerExtendedProperties(ExtendedProp.identifier, new ExtendedProp());
+			//event.entity.registerExtendedProperties(ExtendedProp.identifier, new ExtendedProp());
 		}
 	}
 
