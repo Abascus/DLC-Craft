@@ -73,6 +73,8 @@ public class DLCShopGUI extends GuiContainer
 	private GuiButton buttonBought;
 	
 	private GuiButton buttonReset;
+	private GuiButton buttonUnlock;
+	private GuiButton buttonAllBuy;
 
 	/**
 	 * Used to back up the ContainerDLCShop's inventory slots before filling it with the player's inventory slots for
@@ -175,6 +177,8 @@ public class DLCShopGUI extends GuiContainer
 		if(ep.capabilities.isCreativeMode)
 		{
 		this.buttonList.add(this.buttonReset = new GuiButton(5, (int)(this.width/1.2), this.height/2-20, 72, 20, I18n.func_135053_a("Reset")));
+		this.buttonList.add(this.buttonUnlock = new GuiButton(6, (int)(this.width/1.2), this.height/2, 72, 20, I18n.func_135053_a("Unlock all")));
+		this.buttonList.add(this.buttonUnlock = new GuiButton(7, (int)(this.width/1.2), this.height/2+20, 72, 20, I18n.func_135053_a("Buy all")));
 		}
 		this.buttonAvalible.enabled = false;
 	}
@@ -464,6 +468,8 @@ public class DLCShopGUI extends GuiContainer
 		if(ep.capabilities.isCreativeMode)
 		{
 		this.buttonReset.drawButton(mc, par1, par2);
+		this.buttonUnlock.drawButton(mc, par1, par2);
+		this.buttonAllBuy.drawButton(mc, par1, par2);
 		}
 		this.zLevel = -90.0F;
 
@@ -639,6 +645,24 @@ public class DLCShopGUI extends GuiContainer
 			stats.init();
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 			this.loadSaves();
+			
+		}
+		else if (par1GuiButton.id == 6)
+		{
+			for(int i = 0;i<stats.dlcManager.dlcs.length;i++)
+			{
+			stats.dlcManager.dlcs[i].state=1;
+			}
+			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+			
+		}
+		else if (par1GuiButton.id == 7)
+		{
+			for(int i = 0;i<stats.dlcManager.dlcs.length;i++)
+			{
+			stats.dlcManager.dlcs[i].state=2;
+			}
+			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 			
 		}
 		else
