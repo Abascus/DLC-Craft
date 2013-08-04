@@ -18,27 +18,21 @@ public class Tickhandler implements ITickHandler
 	public void tickStart(EnumSet<TickType> type, Object... tickData)
 	{
 
+		EntityPlayer player = (EntityPlayer)tickData[0];
 		playerTick((EntityPlayer)tickData[0]);
 		if(type.equals(EnumSet.of(TickType.PLAYER)))
 		{
-			if(Minecraft.getMinecraft().theWorld != null && Minecraft.getMinecraft().theWorld.loadedEntityList.size() > 0)
+			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(player.username).dlcManager;
+			if(dlcs.getState("air") != 2)
 			{
-				List<EntityPlayer> players = Minecraft.getMinecraft().theWorld.playerEntities;
-				for(EntityPlayer player : players)
+				if(player.isInWater())
 				{
-					DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(player.username).dlcManager;
-					if(dlcs.getState("air") != 2)
-					{
-						if(player.isInWater())
-						{
-							player.attackEntityFrom(DamageSource.drown, 2);
-						}
-					}
-					else if(dlcs.getState("sprint") != 2)
-					{
-							player.setSprinting(false);
-					}
+					player.attackEntityFrom(DamageSource.drown, 2);
 				}
+			}
+			else if(dlcs.getState("sprint") != 2)
+			{
+				player.setSprinting(false);
 			}
 		}
 
@@ -48,18 +42,18 @@ public class Tickhandler implements ITickHandler
 	{
 		if(DLCKeyBinding.keyPressed)
 		{
-		if(b>2)
-		{
+			if(b>2)
+			{
 				if(!Minecraft.getMinecraft().ingameGUI.getChatGUI().getChatOpen())
 				{
-				player.openGui(DLCCraft.instance, 1, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posY);
+					player.openGui(DLCCraft.instance, 1, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posY);
 				}
 				b=0;
-		}
-		else
-		{
-			b++;
-		}
+			}
+			else
+			{
+				b++;
+			}
 		}
 	}
 

@@ -53,10 +53,6 @@ public class DLCCraft
 	public DLCCraftItem coin;
 	public Item dlc;
 	public static PlayerTracker playerTracker;
-
-	
-	public KeyBinding[] key = {new KeyBinding("DLC Shop", Keyboard.KEY_F)};
-	boolean[] repeat = {false};
 	
 	public DLCCraft()
 	{
@@ -92,8 +88,6 @@ public class DLCCraft
 		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, dlc2);
 		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, dlc2);
 		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, dlc2);
-		
-		KeyBindingRegistry.registerKeyBinding(new DLCKeyBinding(key, repeat));
 
 		MinecraftForge.EVENT_BUS.register(new EventManager());
 		

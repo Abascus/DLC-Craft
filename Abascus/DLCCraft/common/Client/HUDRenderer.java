@@ -32,11 +32,12 @@ public class HUDRenderer extends Gui
 
 	public ItemStack is = new ItemStack(DLCCraft.instance.coin, 1);
 	protected static RenderItem itemRenderer = new RenderItem();
-	//@ForgeSubscribe
+	@ForgeSubscribe
 	public void postRenderOverlay(RenderGameOverlayEvent.Post event)
 	{
-		if(event.type == RenderGameOverlayEvent.ElementType.EXPERIENCE)
+		if(event.type == RenderGameOverlayEvent.ElementType.ALL)
 		{
+			  GL11.glPushMatrix();
 			EntityPlayer ep = Minecraft.getMinecraft().thePlayer;
 			PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
 			ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
@@ -51,6 +52,7 @@ public class HUDRenderer extends Gui
 
 			GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
 			mc.fontRenderer.drawString(stats.Coins + "", (int)(width / 1.4)+20, height - 20, 11421504, false);
+			  GL11.glPopMatrix();
 
 		}
 	}

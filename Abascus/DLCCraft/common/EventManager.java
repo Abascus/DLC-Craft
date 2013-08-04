@@ -29,12 +29,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 public class EventManager 
 {
 
-	@ForgeSubscribe(priority = EventPriority.NORMAL)
-	public void eventHandler(RenderGameOverlayEvent event)
-	{
-
-	}
-
 	@ForgeSubscribe
 	public void playerInteract(PlayerInteractEvent event)
 	{
@@ -262,11 +256,14 @@ public class EventManager
 				event.setCanceled(true);
 			}
 		}
-		else if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemBlock)
+		else if(event.entityPlayer.getCurrentEquippedItem() != null)
 		{
-			if(dlcs.getState("placeBlocks") != 2)
+			if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemBlock )
 			{
-				event.setCanceled(true);
+				if(dlcs.getState("placeBlocks") != 2)
+				{
+					event.setCanceled(true);
+				}
 			}
 		}
 	}
