@@ -92,7 +92,7 @@ public class PlayerTracker implements IPlayerTracker
 		packet.data = bos.toByteArray();
 		packet.length = bos.size();
 
-		PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
+		PacketDispatcher.sendPacketToServer(packet);
 	}
 
 	@Override
