@@ -95,7 +95,7 @@ public class EventManager
 		{
 			if(dlcs.getState("collectDrops") != 2)
 			{
-				//event.setCanceled(true);
+				event.setCanceled(true);
 			}
 		}
 	}
@@ -148,13 +148,11 @@ public class EventManager
 	@ForgeSubscribe
 	public void livingHurt(LivingHurtEvent event)
 	{
-		if(event.entity instanceof EntityPlayer)
-		{
 			if(event.entityLiving instanceof EntityPlayer)
 			{
 				try
 				{
-					EntityPlayer ep = (EntityPlayer) event.entity;
+					EntityPlayer ep = (EntityPlayer) event.source.getSourceOfDamage();
 					String u = ep.username;
 					DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(u).dlcManager;
 
@@ -165,7 +163,6 @@ public class EventManager
 				}
 				catch(Exception e){}
 			}
-		}
 	}
 
 	@ForgeSubscribe
