@@ -81,14 +81,13 @@ public class PlayerTracker implements IPlayerTracker
 		try
 		{
 			outputStream.writeByte(1);
-			outputStream.writeInt(DLCManager.names.length);
+			outputStream.writeInt(stats.Coins);
 			for (int i = 0; i < DLCManager.names.length; ++i)
 			{
 				if (DLCManager.names[i] != null)
 				{
-					outputStream.writeChars(DLCManager.names[i]);
-					outputStream.writeByte(stats.states.get(DLCManager.names[i]).state);
-
+					//outputStream.writeByte(i);
+					outputStream.writeByte(stats.dlcManager.dlcs[i].state);
 				}
 			}
 		}

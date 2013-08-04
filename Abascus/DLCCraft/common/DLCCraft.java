@@ -34,7 +34,7 @@ import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "Abascus_DLCCraft", name = "DLC Craft", version = "0.1")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { "DLCCraft" }, packetHandler = Abascus.DLCCraft.common.PacketHandler.class)
 public class DLCCraft 
 {
 	@SidedProxy(clientSide = "Abascus.DLCCraft.common.Client.ClientProxy", serverSide = "Abascus.DLCCraft.common.CommonProxy")
