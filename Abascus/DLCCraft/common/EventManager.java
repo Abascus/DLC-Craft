@@ -2,14 +2,10 @@ package Abascus.DLCCraft.common;
 
 import java.util.Random;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBow;
@@ -28,7 +24,10 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 
 public class EventManager 
 {
@@ -56,14 +55,11 @@ public class EventManager
 		if (event.entity instanceof EntityPlayer)
 		{
 			//event.entity.registerExtendedProperties(ExtendedProp.identifier, new ExtendedProp());
-			ItemStack diary = new ItemStack(DLCCraft.instance.shop);
-			if (!((EntityPlayer)event.entity).inventory.addItemStackToInventory(diary))
-			{
-				spawnItemAtPlayer((EntityPlayer)event.entity, diary);
-			}
+			//ItemStack diary = new ItemStack(DLCCraft.instance.shop);
+			//spawnItemAtPlayer((EntityPlayer)event.entity, diary);
 		}
 	}
-	
+
 	public static void spawnItemAtPlayer (EntityPlayer player, ItemStack stack)
 	{
 		EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
@@ -144,35 +140,41 @@ public class EventManager
 	@ForgeSubscribe
 	public void entityInteract(EntityInteractEvent event)
 	{
+		
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
-		if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
+		if(event.entityPlayer.getCurrentEquippedItem() != null)
 		{
-			if(dlcs.getState("feedAnimal") != 2)
+			if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemFood)
 			{
-				event.setCanceled(true);
+				if(dlcs.getState("feedAnimal") != 2)
+				{
+					event.setCanceled(true);
+				}
+			}
+			else if(event.entityPlayer.getCurrentEquippedItem().itemID== Item.wheat.itemID)
+			{
+				if(dlcs.getState("feedAnimal") != 2)
+				{
+					event.setCanceled(true);
+				}
+			}
+			else if(event.entityPlayer.getCurrentEquippedItem().itemID== Item.seeds.itemID)
+			{
+				if(dlcs.getState("feedAnimal") != 2)
+				{
+					event.setCanceled(true);
+				}
+			}
+			else if(event.entityLiving instanceof EntityVillager)
+			{
+				if(dlcs.getState("trade") != 2)
+				{
+					event.setCanceled(true);
+				}
 			}
 		}
-		else if(event.entityPlayer.getCurrentEquippedItem().itemID== Item.wheat.itemID)
-		{
-			if(dlcs.getState("feedAnimal") != 2)
-			{
-				event.setCanceled(true);
-			}
-		}
-		else if(event.entityPlayer.getCurrentEquippedItem().itemID== Item.seeds.itemID)
-		{
-			if(dlcs.getState("feedAnimal") != 2)
-			{
-				event.setCanceled(true);
-			}
-		}
-		else if(event.entityLiving instanceof EntityVillager)
-		{
-			if(dlcs.getState("trade") != 2)
-			{
-				event.setCanceled(true);
-			}
-		}
+
+		
 
 	}
 
@@ -316,6 +318,12 @@ public class EventManager
 
 	public void rightClickAir(PlayerInteractEvent event)
 	{
+		ItemStack diary = new ItemStack(DLCCraft.instance.shop);
+		if(!event.entityPlayer.inventory.hasItemStack(diary))
+		{
+			spawnItemAtPlayer(event.entityPlayer, diary);
+		}
+		
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer.username).dlcManager;
 		if(event.entityPlayer.getCurrentEquippedItem() != null)
 		{
