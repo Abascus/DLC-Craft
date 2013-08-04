@@ -23,8 +23,6 @@ import cpw.mods.fml.relauncher.Side;
 
 public class PlayerTracker implements IPlayerTracker
 {
-	/* Player */
-	//public int hunger;
 	public ConcurrentHashMap<String, PlayerDLCStats> playerStats = new ConcurrentHashMap<String, PlayerDLCStats>();
 
 	@Override
@@ -73,7 +71,7 @@ public class PlayerTracker implements IPlayerTracker
 		}
 	}
 
-	void sendDLCs (EntityPlayer entityplayer, PlayerDLCStats stats)
+	public void sendDLCs (EntityPlayer entityplayer, PlayerDLCStats stats)
 	{
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
@@ -95,6 +93,7 @@ public class PlayerTracker implements IPlayerTracker
 		{
 			ex.printStackTrace();
 		}
+		System.out.println("send");
 
 
 		updateClientPlayer(bos, entityplayer);

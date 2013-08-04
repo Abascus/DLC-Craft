@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -14,8 +15,6 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.event.EventPriority;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.item.ItemEvent;
@@ -24,7 +23,6 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class EventManager 
@@ -62,6 +60,7 @@ public class EventManager
 			event.setCanceled(true);
 			stats.Coins+= event.item.getEntityItem().stackSize;
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
+			DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
 			float f = (float)Math.pow(2.0D, (double)(5) / 12.0D);
 			event.item.worldObj.playSoundEffect((double)event.item.posX + 0.5D, (double)event.item.posY + 0.5D, (double)event.item.posZ + 0.5D, "note.harp", 3.0F, f);
 			event.item.setDead();
@@ -86,6 +85,7 @@ public class EventManager
 			int r = new Random().nextInt(i-1);
 			stats.dlcManager.dlcs[r].state = 1;
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
+			DLCCraft.playerTracker.sendDLCs(event.entityPlayer, stats);
 			float f = (float)Math.pow(2.0D, (double)(5) / 12.0D);
 			event.item.worldObj.playSoundEffect((double)event.item.posX + 0.5D, (double)event.item.posY + 0.5D, (double)event.item.posZ + 0.5D, "note.harp", 3.0F, f);
 			event.item.setDead();
@@ -121,6 +121,13 @@ public class EventManager
 		else if(event.entityPlayer.getCurrentEquippedItem().itemID== Item.seeds.itemID)
 		{
 			if(dlcs.getState("feedAnimal") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
+		else if(event.entityLiving instanceof EntityVillager)
+		{
+			if(dlcs.getState("trade") != 2)
 			{
 				event.setCanceled(true);
 			}

@@ -34,6 +34,8 @@ public class PacketHandler implements IPacketHandler
             else
                 handleClientPacket(packet, (EntityPlayer) player);
         }
+        
+        System.out.println("Packet");
     }
 
     void handleClientPacket (Packet250CustomPayload packet, EntityPlayer player)

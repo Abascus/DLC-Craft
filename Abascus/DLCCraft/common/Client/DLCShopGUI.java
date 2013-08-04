@@ -600,6 +600,7 @@ public class DLCShopGUI extends GuiContainer
 							}
 							stats.dlcManager.dlcs[dlc.id].state=2;
 							DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+							DLCCraft.playerTracker.sendDLCs(ep, stats);
 						}						
 					}
 					else
@@ -607,6 +608,7 @@ public class DLCShopGUI extends GuiContainer
 					stats.Coins-=stats.dlcManager.cost[dlc.id];
 					stats.dlcManager.dlcs[dlc.id].state=2;
 					DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+					DLCCraft.playerTracker.sendDLCs(ep, stats);
 					}
 					this.loadSaves();
 					
@@ -636,6 +638,7 @@ public class DLCShopGUI extends GuiContainer
 		{
 			stats.init();
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+			DLCCraft.playerTracker.sendDLCs(ep, stats);
 			this.loadSaves();
 			
 		}
@@ -646,6 +649,7 @@ public class DLCShopGUI extends GuiContainer
 			stats.dlcManager.dlcs[i].state=1;
 			}
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+			DLCCraft.playerTracker.sendDLCs(ep, stats);
 			this.loadSaves();
 			
 		}
@@ -656,6 +660,7 @@ public class DLCShopGUI extends GuiContainer
 			stats.dlcManager.dlcs[i].state=2;
 			}
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+			DLCCraft.playerTracker.sendDLCs(ep, stats);
 			this.loadSaves();
 			
 		}
