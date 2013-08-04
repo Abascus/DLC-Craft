@@ -17,9 +17,7 @@ public class Tickhandler implements ITickHandler
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData)
 	{
-
 		EntityPlayer player = (EntityPlayer)tickData[0];
-		playerTick((EntityPlayer)tickData[0]);
 		if(type.equals(EnumSet.of(TickType.PLAYER)))
 		{
 			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(player.username).dlcManager;
@@ -38,24 +36,6 @@ public class Tickhandler implements ITickHandler
 
 	}
 	public static int b = 20;
-	public static void playerTick(EntityPlayer player)
-	{
-		if(DLCKeyBinding.keyPressed)
-		{
-			if(b>2)
-			{
-				if(!Minecraft.getMinecraft().ingameGUI.getChatGUI().getChatOpen())
-				{
-					player.openGui(DLCCraft.instance, 1, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posY);
-				}
-				b=0;
-			}
-			else
-			{
-				b++;
-			}
-		}
-	}
 
 
 	@Override

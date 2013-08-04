@@ -22,9 +22,13 @@ public class DLCCraftItem extends Item
 		{
 			itemIcon = par1IconRegister.registerIcon("DLC Craft:coin");
 		}
-		else
+		else if(id == DLCCraft.instance.DLCID)
 		{
 			itemIcon = par1IconRegister.registerIcon("DLC Craft:dlc");
+		}
+		else
+		{
+			itemIcon = par1IconRegister.registerIcon("DLC Craft:shop");
 		}
 	}
 	

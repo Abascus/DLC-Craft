@@ -50,8 +50,10 @@ public class DLCCraft
 
 	public int CoinID = 800;
 	public int DLCID = 801;
+	public int ShopID = 802;
 	public DLCCraftItem coin;
 	public Item dlc;
+	public Item shop;
 	public static PlayerTracker playerTracker;
 	
 	public DLCCraft()
@@ -67,6 +69,7 @@ public class DLCCraft
 		startUpInfo = config.get(Configuration.CATEGORY_GENERAL, "Has Startup Info",true).getBoolean(true);
 		CoinID = config.get(Configuration.CATEGORY_ITEM, "Coin Item ID",800).getInt();
 		DLCID = config.get(Configuration.CATEGORY_ITEM, "DLC Item ID",801).getInt();
+		ShopID = config.get(Configuration.CATEGORY_ITEM, "Shop Item ID",802).getInt();
 
 		config.save();
 		//Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
@@ -74,6 +77,7 @@ public class DLCCraft
 
 		coin = (DLCCraftItem) (new DLCCraftItem(CoinID)).setUnlocalizedName("coin").setCreativeTab(CreativeTabs.tabMaterials);
 		dlc = (new DLCCraftItem(DLCID)).setUnlocalizedName("dlc").setCreativeTab(CreativeTabs.tabMaterials);
+		shop = (new DLCCraftItem(ShopID)).setUnlocalizedName("shop").setCreativeTab(CreativeTabs.tabMaterials);
 
 		LanguageRegistry.instance().addName(coin, "Coin");
 		LanguageRegistry.instance().addName(dlc, "DLC");
