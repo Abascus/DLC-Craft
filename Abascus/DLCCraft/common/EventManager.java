@@ -203,6 +203,18 @@ public class EventManager
 			{
 				if(event.entityLiving instanceof EntityPlayer)
 				{
+					
+					PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats((EntityPlayer)event.entityLiving);
+					if(new Random().nextInt(2) == 0)
+					{
+						if(stats.dlcManager.a<50)
+						{
+							stats.dlcManager.Coins+=new Random().nextInt(2)+1;
+							stats.dlcManager.a+=1;
+						}
+						DLCCraft.playerTracker.playerStats.put(((EntityPlayer)event.entityLiving).username, stats);
+						
+					}
 
 					EntityPlayer ep = (EntityPlayer) event.source.getSourceOfDamage();
 					DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep).dlcManager;
@@ -211,6 +223,8 @@ public class EventManager
 					{
 						event.setCanceled(true);
 					}
+					
+					
 
 				}
 				else if(((EntityPlayer)entity).getCurrentEquippedItem() != null)
@@ -263,17 +277,7 @@ public class EventManager
 	public void rightClickBlock(PlayerInteractEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer).dlcManager;
-		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer);
-		if(new Random().nextInt(30) == 0)
-		{
-			if(stats.dlcManager.a<50)
-			{
-				stats.dlcManager.Coins+=new Random().nextInt(2)+1;
-				stats.dlcManager.a+=1;
-			}
-			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
-			
-		}
+		
 		
 		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.chest.blockID)
 		{
