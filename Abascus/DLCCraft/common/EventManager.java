@@ -36,18 +36,6 @@ import cpw.mods.fml.relauncher.Side;
 public class EventManager 
 {
 
-	@ForgeSubscribe
-	public void gen(DecorateBiomeEvent.Post event)
-	{
-		for(int i = 0;i<4;i++)
-		{
-			EntityItem entity = new EntityItem(event.world, event.chunkX*16+event.rand.nextInt(15)+1, event.chunkZ*16+event.rand.nextInt(15)+1, 128, new ItemStack(DLCCraft.instance.coin, new Random().nextInt(2)+1));
-			event.world.spawnEntityInWorld(entity);
-		}
-		Toolkit.getDefaultToolkit().beep();
-
-	}
-
 
 	@ForgeSubscribe
 	public void playSound(PlaySoundAtEntityEvent event)
