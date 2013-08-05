@@ -26,81 +26,10 @@ import cpw.mods.fml.relauncher.Side;
 public class PlayerTracker implements IPlayerTracker
 {
 	public ConcurrentHashMap<String, PlayerDLCStats> playerStats = new ConcurrentHashMap<String, PlayerDLCStats>();
-	public String[] names = new String[1000];
 	@Override
 	public void onPlayerLogin (EntityPlayer entityplayer)
 	{
-		System.out.println("login");
-		PlayerDLCStats stats = new PlayerDLCStats();
-		NBTTagCompound tags = entityplayer.getEntityData();
-		boolean b = false;
-
-		if (!tags.hasKey("DLCCraft"))
-		{
-
-			b = true;
-			tags.setCompoundTag("DLCCraft", new NBTTagCompound());
-			NBTTagList tagList = new NBTTagList();
-			NBTTagCompound dlc;
-
-			for (int i = 0; i < DLCManager.names.length; ++i)
-			{
-				if (DLCManager.names[i] != null)
-				{
-					dlc = new NBTTagCompound();
-					dlc.setInteger(DLCManager.names[i], (byte) 0);
-					tagList.appendTag(dlc);
-				}
-			}
-
-			dlc = new NBTTagCompound();
-			dlc.setInteger("Coins", 20);
-			tagList.appendTag(dlc);
-
-			tags.setTag("DLCCraft", tagList);
-
-		}
-
-		stats.player = new WeakReference<EntityPlayer>(entityplayer);		
-		stats.readFromNBT(tags);
-		if(b)
-		{
-			stats.dlcManager.Coins = 20;
-			stats.init();
-		}
-		playerStats.put(entityplayer.username, stats);
-	}
-
-	public void add(String name)
-	{
-		boolean b = false;
-		for(int i = 0;i< names.length;i++)
-		{
-			if(names[i] != null)
-			{
-				if(names[i].equals(name))
-				{
-					b = true;
-					break;
-				}
-			}
-			else
-			{
-				break;
-			}
-		}
-		if(!b)
-		{
-			for(int i = 0;i< names.length;i++)
-			{
-				if(names[i] == null)
-				{
-					names[i] = name;
-					break;
-				}
-			}
-		}
-
+		load(entityplayer);
 	}
 
 	public void sendDLCs (EntityPlayer entityplayer, PlayerDLCStats stats)
@@ -207,6 +136,49 @@ public class PlayerTracker implements IPlayerTracker
 			}
 		}
 	}
+	
+	public PlayerDLCStats load(EntityPlayer ep)
+	{
+		PlayerDLCStats stats = new PlayerDLCStats();
+		NBTTagCompound tags = ep.getEntityData();
+		boolean b = false;
+
+		if (!tags.hasKey("DLCCraft"))
+		{
+
+			b = true;
+			tags.setCompoundTag("DLCCraft", new NBTTagCompound());
+			NBTTagList tagList = new NBTTagList();
+			NBTTagCompound dlc;
+
+			for (int i = 0; i < DLCManager.names.length; ++i)
+			{
+				if (DLCManager.names[i] != null)
+				{
+					dlc = new NBTTagCompound();
+					dlc.setInteger(DLCManager.names[i], (byte) 0);
+					tagList.appendTag(dlc);
+				}
+			}
+
+			dlc = new NBTTagCompound();
+			dlc.setInteger("Coins", 20);
+			tagList.appendTag(dlc);
+
+			tags.setTag("DLCCraft", tagList);
+
+		}
+
+		stats.player = new WeakReference<EntityPlayer>(ep);		
+		stats.readFromNBT(tags);
+		if(b)
+		{
+			stats.dlcManager.Coins = 20;
+			stats.init();
+		}
+		playerStats.put(ep.username, stats);
+		return stats;
+	}
 
 	@Override
 	public void onPlayerRespawn (EntityPlayer entityplayer)
@@ -230,45 +202,7 @@ public class PlayerTracker implements IPlayerTracker
 		//System.out.println("Stats: "+stats);
 		if (stats == null)
 		{
-			stats = new PlayerDLCStats();
-			stats = new PlayerDLCStats();
-			NBTTagCompound tags = ep.getEntityData();
-			boolean b = false;
-
-			if (!tags.hasKey("DLCCraft"))
-			{
-
-				b = true;
-				tags.setCompoundTag("DLCCraft", new NBTTagCompound());
-				NBTTagList tagList = new NBTTagList();
-				NBTTagCompound dlc;
-
-				for (int i = 0; i < DLCManager.names.length; ++i)
-				{
-					if (DLCManager.names[i] != null)
-					{
-						dlc = new NBTTagCompound();
-						dlc.setInteger(DLCManager.names[i], (byte) 0);
-						tagList.appendTag(dlc);
-					}
-				}
-
-				dlc = new NBTTagCompound();
-				dlc.setInteger("Coins", 20);
-				tagList.appendTag(dlc);
-
-				tags.setTag("DLCCraft", tagList);
-
-			}
-
-			stats.player = new WeakReference<EntityPlayer>(ep);		
-			stats.readFromNBT(tags);
-			if(b)
-			{
-				stats.dlcManager.Coins = 20;
-				stats.init();
-			}
-			playerStats.put(ep.username, stats);
+			stats = load(ep);
 		}
 		return stats;
 	}
