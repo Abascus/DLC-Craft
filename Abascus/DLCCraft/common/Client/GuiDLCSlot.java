@@ -115,7 +115,7 @@ public class GuiDLCSlot extends GuiSlot
 		if(parentDLCGui.getDepend(par1) != -1)
 		{
 			String s3 = "Depends on: " + stats.dlcManager.Names[parentDLCGui.getDepend(par1)];
-			this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s3, par2 + 2, par3 + 36, 8421504);
+			this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s3, par2 + 2+(s2.length()*6), par3 + 24, 8421504);
 		}
 	}
 }

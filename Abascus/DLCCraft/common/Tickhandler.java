@@ -34,7 +34,7 @@ public class Tickhandler implements ITickHandler
 			{
 				player.setSprinting(false);
 			}
-			if(dlcs.getState("sprint") != 2)
+			if(dlcs.getState("jump") != 2)
 			{
 				player.addPotionEffect(new PotionEffect(Potion.jump.id, 20, -3));
 			}

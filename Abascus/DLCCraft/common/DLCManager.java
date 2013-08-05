@@ -20,8 +20,8 @@ public class DLCManager
 		{
 			dep[i] = -1;
 		}
-		names[0] = "punchWood";
-		names[1] = "sprint";
+		names[1] = "punchWood";
+		names[0] = "sprint";
 		names[2] = "eat";
 		names[3] = "air";
 		names[4] = "potion";
@@ -47,14 +47,14 @@ public class DLCManager
 		names[24] = "mobCoins";
 		names[25] = "hopper";
 		names[26] = "inGameCoins";
-		names[27] = "fishing";
+		names[27] = "sprint";
 		names[28] = "fishing";
 		names[29] = "fishing";
 		names[30] = "fishing";
 		names[31] = "fishing";
 		
-		Names[0] = "Breaking Wood";
-		Names[1] = "Sprinting";
+		Names[0] = "Breaking Blocks";
+		Names[1] = "Breaking Wood";
 		Names[2] = "Eating";
 		Names[3] = "Breathing";
 		Names[4] = "Drinking Potions";
@@ -80,14 +80,14 @@ public class DLCManager
 		Names[24] = "Coins from Mobs";
 		Names[25] = "Hopper";
 		Names[26] = "InGame Coin HUD";
-		Names[27] = "Brewing Potions";
+		Names[27] = "Sprinting";
 		Names[28] = "Brewing Potions";
 		Names[29] = "Brewing Potions";
 		Names[30] = "Brewing Potions";
 		Names[31] = "Brewing Potions";
 		
-		description[0] = "Wood is THE basic material, so get it, fast!!";		
-		description[1] = "You wanna run faster? You need to Sprint";		
+		description[0] = "Destroy the Terrain!";		
+		description[1] = "Wood is THE basic material, so get it, fast!!";		
 		description[2] = "You're getting Hungry?";		
 		description[3] = "Swimming is fun, drowning isn't";		
 		description[4] = "Time to drink something?";		
@@ -113,14 +113,14 @@ public class DLCManager
 		description[24] = "What? you haven't got enought Coins?";		
 		description[25] = "Hop, hop, Hoppers!";		
 		description[26] = "Do you wanna see, how many Coins you have?";		
-		description[27] = "";		
+		description[27] = "You wanna run faster? You need to Sprint";		
 		description[28] = "";		
 		description[29] = "";		
 		description[30] = "";		
 		description[31] = "";
 		
 		cost[0] = 5;
-		cost[1] = 10;
+		cost[1] = 5;
 		cost[2] = 10;
 		cost[3] = 15;
 		cost[4] = 25;
@@ -146,7 +146,7 @@ public class DLCManager
 		cost[24] = 150;
 		cost[25] = 50;
 		cost[26] = 5;
-		cost[27] = 5;
+		cost[27] = 10;
 		cost[28] = 5;
 		cost[29] = 5;
 		cost[30] = 5;
@@ -158,6 +158,7 @@ public class DLCManager
 		}
 		
 		dlcs[0].setState(1);
+		dlcs[1].setState(1);
 		dlcs[2].setState(1);
 		dlcs[5].setState(1);
 		dlcs[11].setState(1);
@@ -169,6 +170,7 @@ public class DLCManager
 		dlcs[22].setState(1);
 		dlcs[26].setState(1);
 		
+		dep[1] = 0;
 		dep[4] = 8;
 	}
 	
