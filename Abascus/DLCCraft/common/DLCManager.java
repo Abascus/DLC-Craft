@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagList;
 
 public class DLCManager 
 {
-	public static int lenght = 30;
+	public static int lenght = 27;
 	public static String[] names = new String[lenght];
 	public static String[] Names = new String[lenght];
 	public static int[] dep = new int[lenght];
@@ -48,9 +48,6 @@ public class DLCManager
 		names[24] = "mobCoins";
 		names[25] = "hopper";
 		names[26] = "inGameCoins";
-		names[27] = "";
-		names[28] = "";
-		names[29] = "";
 		
 		Names[0] = "Breaking Blocks";
 		Names[1] = "Breaking Wood";
@@ -79,9 +76,6 @@ public class DLCManager
 		Names[24] = "Coins from Mobs";
 		Names[25] = "Hopper";
 		Names[26] = "InGame Coin HUD";
-		Names[27] = "";
-		Names[28] = "";
-		Names[29] = "";
 		
 		description[0] = "Destroy the Terrain!";		
 		description[1] = "Wood is THE basic material, so get it, fast!!";		
@@ -110,9 +104,6 @@ public class DLCManager
 		description[24] = "What? you haven't got enought Coins?";		
 		description[25] = "Hop, hop, Hoppers!";		
 		description[26] = "Do you wanna see, how many Coins you have?";		
-		description[27] = "";		
-		description[28] = "";		
-		description[29] = "";
 		
 		cost[0] = 5;
 		cost[1] = 5;
@@ -141,9 +132,6 @@ public class DLCManager
 		cost[24] = 150;
 		cost[25] = 50;
 		cost[26] = 5;
-		cost[27] = 5;
-		cost[28] = 5;
-		cost[29] = 5;
 		
 		for(int i = 0; i< dlcs.length; i++)
 		{

@@ -107,7 +107,6 @@ public class DLCCommands extends CommandBase {
 					s[0] = ((EntityPlayer)icommandsender).username;
 					s[1] = "delet";					
 					s[2] = astring[1];
-					
 					processCommand(icommandsender, s);
 					
 				}
@@ -117,7 +116,6 @@ public class DLCCommands extends CommandBase {
 					s[0] = ((EntityPlayer)icommandsender).username;
 					s[1] = "unlock";					
 					s[2] = astring[1];
-					
 					processCommand(icommandsender, s);
 				}
 				else if("buy".startsWith(astring[0].toLowerCase()))
@@ -126,7 +124,6 @@ public class DLCCommands extends CommandBase {
 					s[0] = ((EntityPlayer)icommandsender).username;
 					s[1] = "buy";					
 					s[2] = astring[1];
-					
 					processCommand(icommandsender, s);
 				}
 				else if("coinsadd".startsWith(astring[0].toLowerCase()))
@@ -135,7 +132,6 @@ public class DLCCommands extends CommandBase {
 					s[0] = ((EntityPlayer)icommandsender).username;
 					s[1] = "coinsadd";					
 					s[2] = astring[1];
-					
 					processCommand(icommandsender, s);
 
 				}
