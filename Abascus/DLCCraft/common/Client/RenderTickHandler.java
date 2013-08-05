@@ -35,29 +35,29 @@ public class RenderTickHandler implements ITickHandler
 	protected static RenderItem itemRenderer = new RenderItem();
 
 	private static final ResourceLocation rr = new ResourceLocation("dlc craft/items/Coin.png");
-    
+
 	int zLevel;
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData)
 	{
-		
+
 		try
 		{
 			if(Minecraft.getMinecraft().currentScreen == null)
 			{
 				EntityPlayer ep = Minecraft.getMinecraft().thePlayer;
 				PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep);
-				
+
 				if(stats.dlcManager.getState("inGameCoins") == 2)
 				{				
-				ScaledResolution scaledresolution = new ScaledResolution(Minecraft.getMinecraft().gameSettings, Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
-				int width = scaledresolution.getScaledWidth();
-				int height = scaledresolution.getScaledHeight();
-				
-				itemRenderer.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().func_110434_K(), is, (int)(width / 1.3), 10);
-				Minecraft.getMinecraft().fontRenderer.drawString(stats.dlcManager.Coins + "", (int)(width / 1.3)+40, 14, 11421504, false);
+					ScaledResolution scaledresolution = new ScaledResolution(Minecraft.getMinecraft().gameSettings, Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
+					int width = scaledresolution.getScaledWidth();
+					int height = scaledresolution.getScaledHeight();
+
+					itemRenderer.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().func_110434_K(), is, (int)(width / 1.3), 10);
+					Minecraft.getMinecraft().fontRenderer.drawString(stats.dlcManager.Coins + "", (int)(width / 1.3)+40, 14, 11421504, false);
 				}
-				}
+			}
 		}
 		catch(Exception e){}
 	}
