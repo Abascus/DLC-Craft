@@ -175,7 +175,7 @@ public class DLCManager
 	{
 		for(int i = 0; i<names.length; i++)
 		{
-			if(s.equalsIgnoreCase(names[i]))
+			if(s.toLowerCase().equalsIgnoreCase(names[i].toLowerCase()))
 			{
 				return i;
 			}
