@@ -27,7 +27,6 @@ public class PacketHandler implements IPacketHandler
     {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
 
-        System.out.println("Packet");
         if (packet.channel.equals("DLCCraft"))
         {
             if (side == Side.SERVER)

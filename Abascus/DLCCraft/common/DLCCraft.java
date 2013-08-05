@@ -1,24 +1,17 @@
 package Abascus.DLCCraft.common;
 
-import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.command.ICommandManager;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.BaseMod;
 import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
@@ -39,7 +32,7 @@ import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "Abascus_DLCCraft", name = "DLC Craft", version = "0.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { "DLCCraft" }, packetHandler = Abascus.DLCCraft.common.PacketHandler.class)
-public class DLCCraft extends BaseMod
+public class DLCCraft
 {
 	@SidedProxy(clientSide = "Abascus.DLCCraft.common.Client.ClientProxy", serverSide = "Abascus.DLCCraft.common.CommonProxy")
 	public static CommonProxy proxy;
@@ -55,7 +48,7 @@ public class DLCCraft extends BaseMod
 	public int CoinID = 800;
 	public int DLCID = 801;
 	public int ShopID = 802;
-	public DLCCraftItem coin;
+	public Item coin;
 	public Item dlc;
 	public Item shop;
 	public static PlayerTracker playerTracker;
@@ -78,19 +71,18 @@ public class DLCCraft extends BaseMod
 		config.save();
 		try
 		{
-		//Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
-			Msg = new String[1];
-			Msg[0]	= "[DLCCraft] No internet connection";
+		Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
 		}
 		catch(Exception e)
 		{
+			Msg = new String[1];
 		Msg[0]	= "[DLCCraft] No internet connection";
 		}
 		//Capes = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Capes.txt");
 
-		coin = (DLCCraftItem) (new DLCCraftItem(CoinID)).setUnlocalizedName("coin").setCreativeTab(CreativeTabs.tabMaterials);
-		dlc = (new DLCCraftItem(DLCID)).setUnlocalizedName("dlc").setCreativeTab(CreativeTabs.tabMaterials);
-		shop = (new DLCCraftItem(ShopID)).setUnlocalizedName("shop").setCreativeTab(CreativeTabs.tabMaterials);
+		coin = new DLCCraftItem(CoinID).setUnlocalizedName("coin").setCreativeTab(CreativeTabs.tabMaterials);
+		dlc = new DLCCraftItem(DLCID).setUnlocalizedName("dlc").setCreativeTab(CreativeTabs.tabMaterials);
+		shop = new DLCCraftItem(ShopID).setUnlocalizedName("shop").setCreativeTab(CreativeTabs.tabMaterials);
 
 		LanguageRegistry.instance().addName(coin, "Coin");
 		LanguageRegistry.instance().addName(dlc, "DLC");
@@ -181,17 +173,6 @@ public class DLCCraft extends BaseMod
 		}
 
 		return new String[]{"[DLCCraft]Unable to get Mod Information"};
-	}
-
-	@Override
-	public String getVersion() 
-	{
-		return "DLCCraft";
-	}
-
-	@Override
-	public void load() {
-		
 	}
 
 }
