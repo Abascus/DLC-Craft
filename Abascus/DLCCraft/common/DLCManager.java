@@ -13,6 +13,7 @@ public class DLCManager
 	public static int[] cost = new int[lenght];
 	public DLC[] dlcs = new DLC[lenght];
 	public int Coins = 20;
+	public int a = 0;
 	
 	public DLCManager()
 	{
@@ -201,6 +202,10 @@ public class DLCManager
 	        dlc = new NBTTagCompound();
             dlc.setInteger("Coins", Coins);
             tagList.appendTag(dlc);
+            
+            dlc = new NBTTagCompound();
+            dlc.setInteger("A", a);
+            tagList.appendTag(dlc);
 
 	        tags.setTag("DLCCraft", tagList);
 	    }
@@ -222,6 +227,8 @@ public class DLCManager
 	        }
 	        NBTTagCompound nbttagcompound = (NBTTagCompound)nbttaglist.tagAt(i);
 	        Coins =  (nbttagcompound.getInteger("Coins"));
+	        nbttagcompound = (NBTTagCompound)nbttaglist.tagAt(i+1);
+	        a =  (nbttagcompound.getInteger("A"));
 	    }
 
 }

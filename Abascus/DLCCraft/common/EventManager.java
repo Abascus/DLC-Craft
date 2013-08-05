@@ -263,11 +263,16 @@ public class EventManager
 	public void rightClickBlock(PlayerInteractEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer).dlcManager;
-		
-		if(new Random().nextInt(1) == 0)
+		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer);
+		if(new Random().nextInt(30) == 0)
 		{
-			EntityItem entity = new EntityItem(event.entityPlayer.worldObj, event.x+0.5D, event.y+0.5D, event.z+0.5D, new ItemStack(DLCCraft.instance.coin, new Random().nextInt(2)+1));
-			event.entityPlayer.worldObj.spawnEntityInWorld(entity);
+			if(stats.dlcManager.a<100)
+			{
+				stats.dlcManager.Coins+=new Random().nextInt(2)+1;
+				stats.dlcManager.a+=1;
+			}
+			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
+			
 		}
 		
 		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.chest.blockID)
