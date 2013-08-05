@@ -326,6 +326,14 @@ public class EventManager
 				event.setCanceled(true);
 			}
 		}
+		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.hopperBlock.blockID)
+		{
+
+			if(dlcs.getState("hopper") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
 		else if(event.entityPlayer.getCurrentEquippedItem() != null)
 		{
 			if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemBlock )
@@ -394,10 +402,14 @@ public class EventManager
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer).dlcManager;
 
-		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
+		if(dlcs.getState("breakBlock") != 2)
+		{
+			event.setCanceled(true);
+		}
+		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
 		{
 
-			if(dlcs.getState(0) != 2)
+			if(dlcs.getState("punchWood") != 2)
 			{
 				event.setCanceled(true);
 			}
