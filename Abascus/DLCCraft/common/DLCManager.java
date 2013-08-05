@@ -48,7 +48,7 @@ public class DLCManager
 		names[25] = "hopper";
 		names[26] = "inGameCoins";
 		names[27] = "sprint";
-		names[28] = "fishing";
+		names[28] = "axe";
 		names[29] = "fishing";
 		names[30] = "fishing";
 		names[31] = "fishing";
@@ -81,7 +81,7 @@ public class DLCManager
 		Names[25] = "Hopper";
 		Names[26] = "InGame Coin HUD";
 		Names[27] = "Sprinting";
-		Names[28] = "Brewing Potions";
+		Names[28] = "Axe";
 		Names[29] = "Brewing Potions";
 		Names[30] = "Brewing Potions";
 		Names[31] = "Brewing Potions";
@@ -114,7 +114,7 @@ public class DLCManager
 		description[25] = "Hop, hop, Hoppers!";		
 		description[26] = "Do you wanna see, how many Coins you have?";		
 		description[27] = "You wanna run faster? You need to Sprint";		
-		description[28] = "";		
+		description[28] = "Timber";		
 		description[29] = "";		
 		description[30] = "";		
 		description[31] = "";
@@ -147,7 +147,7 @@ public class DLCManager
 		cost[25] = 50;
 		cost[26] = 5;
 		cost[27] = 10;
-		cost[28] = 5;
+		cost[28] = 10;
 		cost[29] = 5;
 		cost[30] = 5;
 		cost[31] = 5;

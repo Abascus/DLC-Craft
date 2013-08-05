@@ -40,7 +40,7 @@ public class DLCCraft
 
 	public boolean startUpInfo = true;
 
-	public String[] Msg = {"Abc", "def"};
+	public String[] Msg;
 	public String[] Capes;
 
 	public int CoinID = 800;
@@ -67,7 +67,14 @@ public class DLCCraft
 		ShopID = config.get(Configuration.CATEGORY_ITEM, "Shop Item ID",802).getInt();
 
 		config.save();
-		//Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
+		try
+		{
+		Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
+		}
+		catch(Exception e)
+		{
+		Msg[0]	= "[DLCCraft] No internet connection";
+		}
 		//Capes = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Capes.txt");
 
 		coin = (DLCCraftItem) (new DLCCraftItem(CoinID)).setUnlocalizedName("coin").setCreativeTab(CreativeTabs.tabMaterials);

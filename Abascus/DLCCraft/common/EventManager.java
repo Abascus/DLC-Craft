@@ -8,6 +8,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemFishingRod;
@@ -16,8 +17,6 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -406,7 +405,7 @@ public class EventManager
 		{
 			event.setCanceled(true);
 		}
-		else if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
+		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.wood.blockID)
 		{
 
 			if(dlcs.getState("punchWood") != 2)
@@ -414,12 +413,23 @@ public class EventManager
 				event.setCanceled(true);
 			}
 		}
-		else if(event.entityPlayer.getCurrentEquippedItem() != null)
+		if(event.entityPlayer.getCurrentEquippedItem() != null)
 		{
 			if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemPickaxe && event.entityPlayer.getCurrentEquippedItem().canHarvestBlock(Block.oreDiamond))
 			{
 
 				if(dlcs.getState("useIronPick") != 2)
+				{
+					event.setCanceled(true);
+				}
+			}
+		}
+		if(event.entityPlayer.getCurrentEquippedItem() != null)
+		{
+			if(Item.itemsList[event.entityPlayer.getCurrentEquippedItem().itemID] instanceof ItemAxe)
+			{
+
+				if(dlcs.getState("Axe") != 2)
 				{
 					event.setCanceled(true);
 				}
