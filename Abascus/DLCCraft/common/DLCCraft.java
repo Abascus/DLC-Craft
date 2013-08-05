@@ -1,18 +1,23 @@
 package Abascus.DLCCraft.common;
 
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 
 import net.minecraft.command.CommandHandler;
 import net.minecraft.command.ICommandManager;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.src.BaseMod;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
@@ -33,7 +38,7 @@ import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "Abascus_DLCCraft", name = "DLC Craft", version = "0.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { "DLCCraft" }, packetHandler = Abascus.DLCCraft.common.PacketHandler.class)
-public class DLCCraft 
+public class DLCCraft extends BaseMod
 {
 	@SidedProxy(clientSide = "Abascus.DLCCraft.common.Client.ClientProxy", serverSide = "Abascus.DLCCraft.common.CommonProxy")
 	public static CommonProxy proxy;
@@ -123,6 +128,17 @@ public class DLCCraft
 		
 	}
 	
+	@Override
+	public void generateSurface(World world, Random random, int chunkX, int chunkZ)
+	{
+	    world.setBlock(chunkX*16 + random.nextInt(16), 100, chunkZ*16 + random.nextInt(16), 5);
+	    for(int i = 0;i<4;i++)
+		{
+	    	EntityItem entity = new EntityItem(world, chunkX*16+random.nextInt(15)+1, chunkZ*16+random.nextInt(15)+1, 128, new ItemStack(DLCCraft.instance.coin, new Random().nextInt(2)+1));
+			world.spawnEntityInWorld(entity);
+		}
+	}
+	
 	@ServerStarting
 	public void serverStarting(FMLServerStartingEvent event)
 	{
@@ -175,6 +191,17 @@ public class DLCCraft
 		}
 
 		return new String[]{"[DLCCraft]Unable to get Mod Information"};
+	}
+
+	@Override
+	public String getVersion() 
+	{
+		return "DLCCraft";
+	}
+
+	@Override
+	public void load() {
+		
 	}
 
 }
