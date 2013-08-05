@@ -97,8 +97,8 @@ public class DLCCraft extends BaseMod
 		LanguageRegistry.instance().addName(shop, "DLC Shop");
 		
 		
-		WeightedRandomChestContent dlc1 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 4, 2);
-		WeightedRandomChestContent dlc2 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 3, 0);
+		WeightedRandomChestContent dlc1 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 1, 1);
+		WeightedRandomChestContent dlc2 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 1, 1);
 		
 		ChestGenHooks.addItem(ChestGenHooks.BONUS_CHEST, dlc1);
 		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, dlc2);

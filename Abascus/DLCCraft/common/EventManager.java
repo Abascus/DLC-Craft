@@ -266,7 +266,7 @@ public class EventManager
 		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer);
 		if(new Random().nextInt(30) == 0)
 		{
-			if(stats.dlcManager.a<100)
+			if(stats.dlcManager.a<50)
 			{
 				stats.dlcManager.Coins+=new Random().nextInt(2)+1;
 				stats.dlcManager.a+=1;
