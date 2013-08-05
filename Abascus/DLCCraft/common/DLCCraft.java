@@ -72,7 +72,9 @@ public class DLCCraft
 		config.save();
 		try
 		{
-		Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
+		//Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
+			Msg = new String[1];
+			Msg[0]	= "[DLCCraft] No internet connection";
 		}
 		catch(Exception e)
 		{
@@ -100,6 +102,7 @@ public class DLCCraft
 		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, dlc2);
 
 		MinecraftForge.EVENT_BUS.register(new EventManager());
+		MinecraftForge.TERRAIN_GEN_BUS.register(new EventManager());
 		
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 		proxy.registerRenderInformation();
