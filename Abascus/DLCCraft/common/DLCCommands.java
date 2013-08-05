@@ -53,30 +53,6 @@ public class DLCCommands extends CommandBase {
 			throw new WrongUsageException(getUsageString(), new Object[0]);
 		}
 	}
-	
-	public void process1(int i1, String[] astring, EntityPlayer ep)
-	{
-		try
-		{
-		PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(ep.username);
-		int i = stats.dlcManager.getID(astring[1]);
-		stats.dlcManager.dlcs[i].state = i1;
-		DLCCraft.playerTracker.playerStats.put(ep.username, stats);
-		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if (side == Side.SERVER)
-		{
-			DLCCraft.playerTracker.sendDLCs2(ep, stats);
-		}
-		else
-		{
-			DLCCraft.playerTracker.sendDLCs(ep, stats);
-		}
-		}
-		catch(Exception e)
-		{
-			throw new WrongUsageException(getUsageString(), new Object[0]);
-		}
-	}
 
 	@Override
 	public void processCommand(ICommandSender icommandsender, String[] astring) 
@@ -125,40 +101,43 @@ public class DLCCommands extends CommandBase {
 			}
 			else if(astring.length == 2)
 			{
-				if("delet".startsWith(astring[1].toLowerCase()))
+				if("delet".startsWith(astring[0].toLowerCase()))
 				{
-					process1(0, astring, (EntityPlayer)icommandsender);
+					String[] s = new String[3];
+					s[0] = ((EntityPlayer)icommandsender).username;
+					s[1] = "delet";					
+					s[2] = astring[1];
+					
+					processCommand(icommandsender, s);
 					
 				}
-				else if("unlock".startsWith(astring[1].toLowerCase()))
+				else if("unlock".startsWith(astring[0].toLowerCase()))
 				{
-					process1(1, astring, (EntityPlayer)icommandsender);
+					String[] s = new String[3];
+					s[0] = ((EntityPlayer)icommandsender).username;
+					s[1] = "unlock";					
+					s[2] = astring[1];
+					
+					processCommand(icommandsender, s);
 				}
-				else if("buy".startsWith(astring[1].toLowerCase()))
+				else if("buy".startsWith(astring[0].toLowerCase()))
 				{
-					process1(2, astring, (EntityPlayer)icommandsender);
+					String[] s = new String[3];
+					s[0] = ((EntityPlayer)icommandsender).username;
+					s[1] = "buy";					
+					s[2] = astring[1];
+					
+					processCommand(icommandsender, s);
 				}
-				else if("coinsadd".startsWith(astring[1].toLowerCase()))
+				else if("coinsadd".startsWith(astring[0].toLowerCase()))
 				{
-					try
-					{
-					PlayerDLCStats stats = DLCCraft.playerTracker.getPlayerDLCStats(((EntityPlayer)icommandsender).username);
-					stats.dlcManager.Coins+= Integer.parseInt(astring[1]);
-					DLCCraft.playerTracker.playerStats.put(((EntityPlayer)icommandsender).username, stats);
-					Side side = FMLCommonHandler.instance().getEffectiveSide();
-					if (side == Side.SERVER)
-					{
-						DLCCraft.playerTracker.sendDLCs2((EntityPlayer)icommandsender, stats);
-					}
-					else
-					{
-						DLCCraft.playerTracker.sendDLCs((EntityPlayer)icommandsender, stats);
-					}
-					}
-					catch(Exception e)
-					{
-						throw new WrongUsageException(getUsageString(), new Object[0]);
-					}
+					String[] s = new String[3];
+					s[0] = ((EntityPlayer)icommandsender).username;
+					s[1] = "coinsadd";					
+					s[2] = astring[1];
+					
+					processCommand(icommandsender, s);
+
 				}
 			}
 			
