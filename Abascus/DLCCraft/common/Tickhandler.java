@@ -30,13 +30,13 @@ public class Tickhandler implements ITickHandler
 					player.attackEntityFrom(DamageSource.drown, 2);
 				}
 			}
-			else if(dlcs.getState("sprint") != 2)
+			if(dlcs.getState("sprint") != 2)
 			{
 				player.setSprinting(false);
 			}
-			else if(dlcs.getState("jump") != 2)
+			if(dlcs.getState("sprint") != 2)
 			{
-				player.addPotionEffect(new PotionEffect(Potion.jump.id, 2, 3));;
+				player.addPotionEffect(new PotionEffect(Potion.jump.id, 20, -3));
 			}
 		}
 
