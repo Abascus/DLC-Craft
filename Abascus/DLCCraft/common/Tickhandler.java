@@ -6,6 +6,8 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import Abascus.DLCCraft.common.Client.DLCShopGUI;
 import cpw.mods.fml.common.ITickHandler;
@@ -31,6 +33,10 @@ public class Tickhandler implements ITickHandler
 			else if(dlcs.getState("sprint") != 2)
 			{
 				player.setSprinting(false);
+			}
+			else if(dlcs.getState("jump") != 2)
+			{
+				player.addPotionEffect(new PotionEffect(Potion.jump.id, 2, 3));;
 			}
 		}
 

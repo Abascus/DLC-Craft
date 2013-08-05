@@ -16,6 +16,8 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -219,7 +221,6 @@ public class EventManager
 
 					if(dlcs.getState("sword") != 2)
 					{
-						event.entityLiving.setInvisible(true);
 						event.ammount = 0;
 					}
 				}
