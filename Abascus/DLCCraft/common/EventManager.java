@@ -1,6 +1,5 @@
 package Abascus.DLCCraft.common;
 
-import java.awt.Toolkit;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -21,7 +20,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -29,12 +28,16 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
 public class EventManager 
 {
+	@ForgeSubscribe
+	public void construct(EntityConstructing event)
+	{
+		spawnItemAtentity(event.entity, new ItemStack(DLCCraft.instance.coin, new Random().nextInt(4)+1));
+	}
 
 	@ForgeSubscribe
 	public void playerInteract(PlayerInteractEvent event)
@@ -54,14 +57,10 @@ public class EventManager
 
 	}
 
-	public static void spawnItemAtPlayer (EntityPlayer player, ItemStack stack)
+	public static void spawnItemAtentity (Entity player, ItemStack stack)
 	{
 		EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
 		player.worldObj.spawnEntityInWorld(entityitem);
-		if (!(player instanceof FakePlayer))
-		{
-			entityitem.onCollideWithPlayer(player);
-		}
 	}
 
 	@ForgeSubscribe
@@ -370,7 +369,7 @@ public class EventManager
 		{
 			if (!event.entityPlayer.inventory.addItemStackToInventory(diary))
 			{
-				spawnItemAtPlayer(event.entityPlayer, diary);
+				spawnItemAtentity(event.entityPlayer, diary);
 			}
 		}
 

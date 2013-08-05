@@ -162,7 +162,7 @@ public class PlayerTracker implements IPlayerTracker
 			}
 
 			dlc = new NBTTagCompound();
-			dlc.setInteger("Coins", 20);
+			dlc.setInteger("Coins", 30);
 			tagList.appendTag(dlc);
 			
 			dlc = new NBTTagCompound();

@@ -52,7 +52,7 @@ public class DLCCraft
 	public Item dlc;
 	public Item shop;
 	public static PlayerTracker playerTracker;
-	
+
 	public DLCCraft()
 	{
 
@@ -71,12 +71,12 @@ public class DLCCraft
 		config.save();
 		try
 		{
-		Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
+			Msg = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Msg.txt");
 		}
 		catch(Exception e)
 		{
 			Msg = new String[1];
-		Msg[0]	= "[DLCCraft] No internet connection";
+			Msg[0]	= "[DLCCraft] No internet connection";
 		}
 		//Capes = grab("https://dl.dropboxusercontent.com/u/58920433/Mods%20Download/DLCCraft/Capes.txt");
 
@@ -87,12 +87,11 @@ public class DLCCraft
 		LanguageRegistry.instance().addName(coin, "Coin");
 		LanguageRegistry.instance().addName(dlc, "DLC");
 		LanguageRegistry.instance().addName(shop, "DLC Shop");
-		
-		
-		WeightedRandomChestContent dlc1 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 1, 1);
-		WeightedRandomChestContent dlc2 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 1, 1);
-		
-		ChestGenHooks.addItem(ChestGenHooks.BONUS_CHEST, dlc1);
+
+
+		WeightedRandomChestContent dlc2 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 1, 100000);
+
+		ChestGenHooks.addItem(ChestGenHooks.BONUS_CHEST, dlc2);
 		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, dlc2);
 		ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, dlc2);
 		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, dlc2);
@@ -101,26 +100,26 @@ public class DLCCraft
 
 		MinecraftForge.EVENT_BUS.register(new EventManager());
 		MinecraftForge.TERRAIN_GEN_BUS.register(new EventManager());
-		
+
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 		proxy.registerRenderInformation();
 
 		playerTracker = new PlayerTracker();
 		GameRegistry.registerPlayerTracker(playerTracker);
 		MinecraftForge.EVENT_BUS.register(playerTracker);
-		 
+
 		TickRegistry.registerTickHandler(new Tickhandler(), Side.SERVER);
-		
-		
-		
+
+
+
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) 
 	{
-		
+
 	}
-	
+
 	@ServerStarting
 	public void serverStarting(FMLServerStartingEvent event)
 	{

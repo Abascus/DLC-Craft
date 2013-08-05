@@ -12,7 +12,7 @@ public class DLCManager
 	public static String[] description = new String[lenght];
 	public static int[] cost = new int[lenght];
 	public DLC[] dlcs = new DLC[lenght];
-	public int Coins = 20;
+	public int Coins = 30;
 	public int a = 0;
 	
 	public DLCManager()
