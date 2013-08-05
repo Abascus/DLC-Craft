@@ -171,6 +171,18 @@ public class DLCManager
 		return dlcs[id].state;
 	}
 	
+	public int getID(String s)
+	{
+		for(int i = 0; i<names.length; i++)
+		{
+			if(s.equalsIgnoreCase(names[i]))
+			{
+				return i;
+			}
+		}
+		return 0;
+	}
+	
 	public int getState(String s)
 	{
 		for(int i = 0; i<names.length; i++)

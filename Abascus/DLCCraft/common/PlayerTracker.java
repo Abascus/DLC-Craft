@@ -206,6 +206,12 @@ public class PlayerTracker implements IPlayerTracker
 		}
 		return stats;
 	}
+	
+	public PlayerDLCStats getPlayerDLCStats (String n)
+	{
+		PlayerDLCStats stats = playerStats.get(n);
+		return stats;
+	}
 
 	public EntityPlayer getEntityPlayer (String username)
 	{
