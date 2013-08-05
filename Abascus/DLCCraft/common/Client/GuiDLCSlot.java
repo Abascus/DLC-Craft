@@ -102,11 +102,12 @@ public class GuiDLCSlot extends GuiSlot
 		
 		if(parentDLCGui.buy)
 		{
-			if(parentDLCGui.getDepend(par1) != -1)
+			for(DLC dlc1 : parentDLCGui.dlcList)
 			{
-				if(parentDLCGui.dlcList.contains(stats.dlcManager.Names[parentDLCGui.getDepend(par1)]))
+				if(dlc1.id == parentDLCGui.getDepend(par1))
 				{
 					d = true;
+					break;
 				}
 				}
 		}

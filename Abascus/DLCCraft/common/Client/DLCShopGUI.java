@@ -71,7 +71,7 @@ public class DLCShopGUI extends GuiContainer
 	private GuiButton buttonDone;
 	private GuiButton buttonAvalible;
 	private GuiButton buttonBought;
-	
+
 	private GuiButton buttonReset;
 	private GuiButton buttonUnlock;
 	private GuiButton buttonAllBuy;
@@ -88,8 +88,8 @@ public class DLCShopGUI extends GuiContainer
 	private int maxPages = 0;
 	public EntityPlayer ep;
 	public Minecraft mc1;
-	
-	
+
+
 	public DLCShopGUI(EntityPlayer par1EntityPlayer)
 	{
 		super(new ContainerDLCShop(par1EntityPlayer));
@@ -176,9 +176,9 @@ public class DLCShopGUI extends GuiContainer
 		this.buttonList.add(this.buttonBought = new GuiButton(4, this.width / 2 + 30, 10, 72, 20, I18n.func_135053_a("Bought DLC's")));
 		if(ep.capabilities.isCreativeMode)
 		{
-		this.buttonList.add(this.buttonReset = new GuiButton(5, (int)(this.width/1.2), this.height/2-20, 72, 20, I18n.func_135053_a("Reset")));
-		this.buttonList.add(this.buttonUnlock = new GuiButton(6, (int)(this.width/1.2), this.height/2, 72, 20, I18n.func_135053_a("Unlock all")));
-		this.buttonList.add(this.buttonAllBuy = new GuiButton(7, (int)(this.width/1.2), this.height/2+20, 72, 20, I18n.func_135053_a("Buy all")));
+			this.buttonList.add(this.buttonReset = new GuiButton(5, (int)(this.width/1.2), this.height/2-20, 72, 20, I18n.func_135053_a("Reset")));
+			this.buttonList.add(this.buttonUnlock = new GuiButton(6, (int)(this.width/1.2), this.height/2, 72, 20, I18n.func_135053_a("Unlock all")));
+			this.buttonList.add(this.buttonAllBuy = new GuiButton(7, (int)(this.width/1.2), this.height/2+20, 72, 20, I18n.func_135053_a("Buy all")));
 		}
 		this.buttonAvalible.enabled = false;
 	}
@@ -241,7 +241,7 @@ public class DLCShopGUI extends GuiContainer
 			return DLCManager.Names[dlc.id];
 		}
 	}
-	
+
 	public int getDepend(int par1)
 	{
 		DLC dlc;
@@ -256,7 +256,7 @@ public class DLCShopGUI extends GuiContainer
 			return DLCManager.dep[dlc.id];
 		}
 	}
-	
+
 	public int getCost(int par1)
 	{
 		DLC dlc;
@@ -303,12 +303,12 @@ public class DLCShopGUI extends GuiContainer
 	{
 		buyList.clear();
 		dlcList.clear();
-		
+
 		DLCManager dlcManager = DLCCraft.playerTracker.playerStats.get(ep.username).dlcManager;
 		for(int i =0;i<dlcManager.dlcs.length;i++)
 		{
 			DLC dlc = dlcManager.dlcs[i];
-			
+
 			if(dlcManager.dlcs[i].state == 1)
 			{
 				buyList.add(dlc);
@@ -467,9 +467,9 @@ public class DLCShopGUI extends GuiContainer
 		this.buttonBought.drawButton(mc, par1, par2);
 		if(ep.capabilities.isCreativeMode)
 		{
-		this.buttonReset.drawButton(mc, par1, par2);
-		this.buttonUnlock.drawButton(mc, par1, par2);
-		this.buttonAllBuy.drawButton(mc, par1, par2);
+			this.buttonReset.drawButton(mc, par1, par2);
+			this.buttonUnlock.drawButton(mc, par1, par2);
+			this.buttonAllBuy.drawButton(mc, par1, par2);
 		}
 		this.zLevel = -90.0F;
 
@@ -586,37 +586,41 @@ public class DLCShopGUI extends GuiContainer
 			{
 				if(this.buyList.toArray().length>=selectedDLC+1)
 				{
-				dlc = (DLC)this.buyList.get(selectedDLC);
+					dlc = (DLC)this.buyList.get(selectedDLC);
 
-				if(stats.dlcManager.Coins >= stats.dlcManager.cost[dlc.id] || ep.capabilities.isCreativeMode)
-				{
-					if(getDepend(selectedDLC) != -1)
+					if(stats.dlcManager.Coins >= stats.dlcManager.cost[dlc.id] || ep.capabilities.isCreativeMode)
 					{
-						if(dlcList.contains(stats.dlcManager.Names[getDepend(selectedDLC)]))
+						if(getDepend(selectedDLC) != -1)
+						{
+							for(DLC dlc1 : dlcList)
+							{
+								if(dlc1.id == getDepend(selectedDLC))
+								{
+									if(!ep.capabilities.isCreativeMode)
+									{
+										stats.dlcManager.Coins-=stats.dlcManager.cost[dlc.id];
+									}
+									stats.dlcManager.dlcs[dlc.id].state=2;
+									DLCCraft.playerTracker.playerStats.put(ep.username, stats);
+									DLCCraft.playerTracker.sendDLCs(ep, stats);
+									break;
+								}	
+							}
+						}
+						else
 						{
 							if(!ep.capabilities.isCreativeMode)
 							{
-							stats.dlcManager.Coins-=stats.dlcManager.cost[dlc.id];
+								stats.dlcManager.Coins-=stats.dlcManager.cost[dlc.id];
 							}
 							stats.dlcManager.dlcs[dlc.id].state=2;
 							DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 							DLCCraft.playerTracker.sendDLCs(ep, stats);
-						}						
-					}
-					else
-					{
-						if(!ep.capabilities.isCreativeMode)
-						{
-						stats.dlcManager.Coins-=stats.dlcManager.cost[dlc.id];
 						}
-					stats.dlcManager.dlcs[dlc.id].state=2;
-					DLCCraft.playerTracker.playerStats.put(ep.username, stats);
-					DLCCraft.playerTracker.sendDLCs(ep, stats);
+						this.loadSaves();
+
 					}
-					this.loadSaves();
-					
 				}
-			}
 			}
 
 		}
@@ -644,30 +648,30 @@ public class DLCShopGUI extends GuiContainer
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 			DLCCraft.playerTracker.sendDLCs(ep, stats);
 			this.loadSaves();
-			
+
 		}
 		else if (par1GuiButton.id == 6)
 		{
 			for(int i = 0;i<stats.dlcManager.dlcs.length;i++)
 			{
-			stats.dlcManager.dlcs[i].state=1;
+				stats.dlcManager.dlcs[i].state=1;
 			}
-			
+
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 			DLCCraft.playerTracker.sendDLCs(ep, stats);
 			this.loadSaves();
-			
+
 		}
 		else if (par1GuiButton.id == 7)
 		{
 			for(int i = 0;i<stats.dlcManager.dlcs.length;i++)
 			{
-			stats.dlcManager.dlcs[i].state=2;
+				stats.dlcManager.dlcs[i].state=2;
 			}
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 			DLCCraft.playerTracker.sendDLCs(ep, stats);
 			this.loadSaves();
-			
+
 		}
 		else
 		{
