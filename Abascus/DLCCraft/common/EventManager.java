@@ -3,6 +3,7 @@ package Abascus.DLCCraft.common;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,25 +15,23 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.WorldEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
 public class EventManager 
 {
-	
+
 
 	@ForgeSubscribe
 	public void playerInteract(PlayerInteractEvent event)
@@ -50,16 +49,6 @@ public class EventManager
 			leftClickBlock(event);
 		}
 
-	}
-	@ForgeSubscribe
-	public void onEntityConstructing(EntityConstructing event)
-	{
-		if (event.entity instanceof EntityPlayer)
-		{
-			//event.entity.registerExtendedProperties(ExtendedProp.identifier, new ExtendedProp());
-			//ItemStack diary = new ItemStack(DLCCraft.instance.shop);
-			//spawnItemAtPlayer((EntityPlayer)event.entity, diary);
-		}
 	}
 
 	public static void spawnItemAtPlayer (EntityPlayer player, ItemStack stack)
@@ -132,7 +121,7 @@ public class EventManager
 		}
 		else if(event.item.getEntityItem().itemID == DLCCraft.instance.shop.itemID)
 		{
-			
+
 		}
 		else
 		{
@@ -146,7 +135,7 @@ public class EventManager
 	@ForgeSubscribe
 	public void entityInteract(EntityInteractEvent event)
 	{
-		
+
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer).dlcManager;
 		if(event.entityPlayer.getCurrentEquippedItem() != null)
 		{
@@ -180,7 +169,7 @@ public class EventManager
 			}
 		}
 
-		
+
 
 	}
 
@@ -204,10 +193,14 @@ public class EventManager
 	@ForgeSubscribe
 	public void livingHurt(LivingHurtEvent event)
 	{
-		if(event.entityLiving instanceof EntityPlayer)
+		Entity entity = event.source.getSourceOfDamage();
+		try
 		{
-			try
+			if(entity != null)
 			{
+			if(event.entityLiving instanceof EntityPlayer)
+			{
+
 				EntityPlayer ep = (EntityPlayer) event.source.getSourceOfDamage();
 				DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep).dlcManager;
 
@@ -215,9 +208,25 @@ public class EventManager
 				{
 					event.setCanceled(true);
 				}
+
 			}
-			catch(Exception e){}
+			else if(((EntityPlayer)entity).getCurrentEquippedItem() != null)
+			{
+				if(Item.itemsList[((EntityPlayer)entity).getCurrentEquippedItem().itemID] instanceof ItemSword)
+				{
+					EntityPlayer ep = (EntityPlayer)entity;
+					DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep).dlcManager;
+
+					if(dlcs.getState("sword") != 2)
+					{
+						event.entityLiving.setInvisible(true);
+						event.ammount = 0;
+					}
+				}
+			}
 		}
+		}
+		catch(Exception e){}
 	}
 
 	@ForgeSubscribe
@@ -327,10 +336,10 @@ public class EventManager
 		{
 			if (!event.entityPlayer.inventory.addItemStackToInventory(diary))
 			{
-			spawnItemAtPlayer(event.entityPlayer, diary);
+				spawnItemAtPlayer(event.entityPlayer, diary);
 			}
 		}
-		
+
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer).dlcManager;
 		if(event.entityPlayer.getCurrentEquippedItem() != null)
 		{
