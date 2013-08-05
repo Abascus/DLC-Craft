@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.command.ICommandManager;
 import net.minecraft.creativetab.CreativeTabs;
@@ -126,17 +127,6 @@ public class DLCCraft extends BaseMod
 	public void load(FMLInitializationEvent event) 
 	{
 		
-	}
-	
-	@Override
-	public void generateSurface(World world, Random random, int chunkX, int chunkZ)
-	{
-	    world.setBlock(chunkX*16 + random.nextInt(16), 100, chunkZ*16 + random.nextInt(16), 5);
-	    for(int i = 0;i<4;i++)
-		{
-	    	EntityItem entity = new EntityItem(world, chunkX*16+random.nextInt(15)+1, chunkZ*16+random.nextInt(15)+1, 128, new ItemStack(DLCCraft.instance.coin, new Random().nextInt(2)+1));
-			world.spawnEntityInWorld(entity);
-		}
 	}
 	
 	@ServerStarting

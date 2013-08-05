@@ -36,21 +36,6 @@ import cpw.mods.fml.relauncher.Side;
 public class EventManager 
 {
 
-
-	@ForgeSubscribe
-	public void playSound(PlaySoundAtEntityEvent event)
-	{
-		if(event.entity instanceof EntityPlayer)
-		{
-			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats((EntityPlayer)event.entity).dlcManager;
-			if(dlcs.getState("Sounds") != 2)
-			{
-				event.setCanceled(true);
-			}
-		}
-
-	}
-
 	@ForgeSubscribe
 	public void playerInteract(PlayerInteractEvent event)
 	{
@@ -278,6 +263,13 @@ public class EventManager
 	public void rightClickBlock(PlayerInteractEvent event)
 	{
 		DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(event.entityPlayer).dlcManager;
+		
+		if(new Random().nextInt(1) == 0)
+		{
+			EntityItem entity = new EntityItem(event.entityPlayer.worldObj, event.x+0.5D, event.y+0.5D, event.z+0.5D, new ItemStack(DLCCraft.instance.coin, new Random().nextInt(2)+1));
+			event.entityPlayer.worldObj.spawnEntityInWorld(entity);
+		}
+		
 		if(event.entityPlayer.worldObj.getBlockId(event.x, event.y, event.z) == Block.chest.blockID)
 		{
 
