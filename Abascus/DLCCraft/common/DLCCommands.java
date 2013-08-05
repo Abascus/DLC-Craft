@@ -22,7 +22,7 @@ public class DLCCommands extends CommandBase {
 	@Override
     public String getCommandUsage(ICommandSender par1ICommandSender)
     {
-        return "/" + this.getCommandName() + "           type /DLC for full list.";
+        return getUsageString();
     }
 	
 	@Override
@@ -34,15 +34,31 @@ public class DLCCommands extends CommandBase {
 	@Override
 	public void processCommand(ICommandSender icommandsender, String[] astring) 
 	{
-		
+		if(astring.length > 0)
+		{
+			String command = astring[0];
+			
+			if(astring.length == 1)
+			{
+				if("delet".startsWith(command.toLowerCase()))
+				{
+				}
+			}
+			
+		}
+		else
+		{
+			throw new WrongUsageException(getUsageString(), new Object[0]);
+		}
 	}
 	
 	public String getUsageString()
 	{
 		return " DLC commands\n" +
-				"/DLC <player> delet <dlc name>     Set the State of an DLC to Unavailible.\n" +
-				"/DLC <player> unlock <dlc name>    Set the State of an DLC to Availible.\n" +
-				"/DLC <player> buy  <dlc name>      Set the State of an DLC to Bought.";
+				"/DLC <player> delet <dlc name>       Set the State of an DLC to Unavailible.\n" +
+				"/DLC <player> unlock <dlc name>      Set the State of an DLC to Availible.\n" +
+				"/DLC <player> buy  <dlc name>        Set the State of an DLC to Bought. \n"+
+				"/DLC <player> Coins add  <amount>    Gives player Coins. \n";
 	}
 
 }

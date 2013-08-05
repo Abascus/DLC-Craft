@@ -19,9 +19,11 @@ import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.ServerStarting;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -108,18 +110,25 @@ public class DLCCraft
 		 
 		TickRegistry.registerTickHandler(new Tickhandler(), Side.SERVER);
 		
-		ICommandManager manager = MinecraftServer.getServer().getCommandManager();
-		if(manager instanceof CommandHandler)
-		{
-			CommandHandler handler = (CommandHandler)manager;
-			handler.registerCommand(new DLCCommands());
-		}
+		
 		
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) 
 	{
+		
+	}
+	
+	@ServerStarting
+	public void serverStarting(FMLServerStartingEvent event)
+	{
+		ICommandManager manager = event.getServer().getCommandManager();
+		if(manager instanceof CommandHandler)
+		{
+			CommandHandler handler = (CommandHandler)manager;
+			handler.registerCommand(new DLCCommands());
+		}
 	}
 
 	public static String[] grab(String location)
