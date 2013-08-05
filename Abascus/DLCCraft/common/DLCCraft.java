@@ -154,7 +154,7 @@ public class DLCCraft
 			ex.printStackTrace();
 		}
 
-		return new String[]{"Unable to get Mod Information"};
+		return new String[]{"[DLCCraft]Unable to get Mod Information"};
 	}
 
 }

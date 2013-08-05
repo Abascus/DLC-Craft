@@ -5,12 +5,13 @@ import net.minecraft.nbt.NBTTagList;
 
 public class DLCManager 
 {
-	public static String[] names = new String[32];
-	public static String[] Names = new String[32];
-	public static int[] dep = new int[32];
-	public static String[] description = new String[32];
-	public static int[] cost = new int[32];
-	public DLC[] dlcs = new DLC[32];
+	public static int lenght = 30;
+	public static String[] names = new String[lenght];
+	public static String[] Names = new String[lenght];
+	public static int[] dep = new int[lenght];
+	public static String[] description = new String[lenght];
+	public static int[] cost = new int[lenght];
+	public DLC[] dlcs = new DLC[lenght];
 	public int Coins = 20;
 	
 	public DLCManager()
@@ -30,8 +31,8 @@ public class DLCManager
 		names[7] = "furnace";
 		names[8] = "brewing";
 		names[9] = "mobDrops";
-		names[10] = "music";
-		names[11] = "sounds";
+		names[10] = "axe";
+		names[11] = "sprint";
 		names[12] = "bow";
 		names[13] = "sword";
 		names[14] = "collectDrops";
@@ -47,11 +48,9 @@ public class DLCManager
 		names[24] = "mobCoins";
 		names[25] = "hopper";
 		names[26] = "inGameCoins";
-		names[27] = "sprint";
-		names[28] = "axe";
-		names[29] = "fishing";
-		names[30] = "fishing";
-		names[31] = "fishing";
+		names[27] = "";
+		names[28] = "";
+		names[29] = "";
 		
 		Names[0] = "Breaking Blocks";
 		Names[1] = "Breaking Wood";
@@ -63,8 +62,8 @@ public class DLCManager
 		Names[7] = "Using a Furnace";
 		Names[8] = "Brewing Potions";
 		Names[9] = "Mob Drops";
-		Names[10] = "Music";
-		Names[11] = "Sounds";
+		Names[10] = "Axe";
+		Names[11] = "Sprinting";
 		Names[12] = "Bow";
 		Names[13] = "Sword Damage";
 		Names[14] = "Collect Drops";
@@ -80,11 +79,9 @@ public class DLCManager
 		Names[24] = "Coins from Mobs";
 		Names[25] = "Hopper";
 		Names[26] = "InGame Coin HUD";
-		Names[27] = "Sprinting";
-		Names[28] = "Axe";
-		Names[29] = "Brewing Potions";
-		Names[30] = "Brewing Potions";
-		Names[31] = "Brewing Potions";
+		Names[27] = "";
+		Names[28] = "";
+		Names[29] = "";
 		
 		description[0] = "Destroy the Terrain!";		
 		description[1] = "Wood is THE basic material, so get it, fast!!";		
@@ -96,8 +93,8 @@ public class DLCManager
 		description[7] = "Normal crafting isn't enought?";		
 		description[8] = "Potions potions poison";		
 		description[9] = "Do you wanna start getting mob Drops?";		
-		description[10] = "La la la";		
-		description[11] = "Why it's so Quiet?";		
+		description[10] = "Timber";		
+		description[11] = "You wanna run faster? You need to Sprint";		
 		description[12] = "Bang bang";		
 		description[13] = "Poke them with your Sword, poke them hard!";		
 		description[14] = "Wait, why are you unable to collect Items?";		
@@ -113,11 +110,9 @@ public class DLCManager
 		description[24] = "What? you haven't got enought Coins?";		
 		description[25] = "Hop, hop, Hoppers!";		
 		description[26] = "Do you wanna see, how many Coins you have?";		
-		description[27] = "You wanna run faster? You need to Sprint";		
-		description[28] = "Timber";		
-		description[29] = "";		
-		description[30] = "";		
-		description[31] = "";
+		description[27] = "";		
+		description[28] = "";		
+		description[29] = "";
 		
 		cost[0] = 5;
 		cost[1] = 5;
@@ -129,8 +124,8 @@ public class DLCManager
 		cost[7] = 10;
 		cost[8] = 30;
 		cost[9] = 20;
-		cost[10] = 7;
-		cost[11] = 7;
+		cost[10] = 10;
+		cost[11] = 10;
 		cost[12] = 30;
 		cost[13] = 15;
 		cost[14] = 5;
@@ -146,11 +141,9 @@ public class DLCManager
 		cost[24] = 150;
 		cost[25] = 50;
 		cost[26] = 5;
-		cost[27] = 10;
-		cost[28] = 10;
+		cost[27] = 5;
+		cost[28] = 5;
 		cost[29] = 5;
-		cost[30] = 5;
-		cost[31] = 5;
 		
 		for(int i = 0; i< dlcs.length; i++)
 		{
@@ -161,7 +154,6 @@ public class DLCManager
 		dlcs[1].setState(1);
 		dlcs[2].setState(1);
 		dlcs[5].setState(1);
-		dlcs[11].setState(1);
 		dlcs[13].setState(1);
 		dlcs[14].setState(1);
 		dlcs[15].setState(1);
