@@ -36,7 +36,10 @@ public class EventManager
 	@ForgeSubscribe
 	public void construct(EntityConstructing event)
 	{
+		if(!(event.entity instanceof EntityItem))
+		{
 		spawnItemAtentity(event.entity, new ItemStack(DLCCraft.instance.coin, new Random().nextInt(4)+1));
+		}
 	}
 
 	@ForgeSubscribe
@@ -92,20 +95,25 @@ public class EventManager
 		{
 			event.setCanceled(true);
 
-			int i;
-			for(i=0; i<stats.dlcManager.dlcs.length;i++)
+			
+			for(int x=0;x<event.item.getEntityItem().stackSize;x++)
 			{
-			}
-			int[] ids = new int[i];
-			for(i=0; i<stats.dlcManager.dlcs.length;i++)
-			{
-				if(stats.dlcManager.dlcs[i].state == 0)
+				int i;
+				for(i=0; i<stats.dlcManager.dlcs.length;i++)
 				{
-					ids[i]=stats.dlcManager.dlcs[i].id;
 				}
-			}
+				int[] ids = new int[i];
+				for(i=0; i<stats.dlcManager.dlcs.length;i++)
+				{
+					if(stats.dlcManager.dlcs[i].state == 0)
+					{
+						ids[i]=stats.dlcManager.dlcs[i].id;
+					}
+				}
+				
 			int r = new Random().nextInt(i-1);
-			stats.dlcManager.dlcs[r].state = 1;
+			stats.dlcManager.dlcs[ids[r]].state = 1;
+			}
 			DLCCraft.playerTracker.playerStats.put(event.entityPlayer.username, stats);
 			Side side = FMLCommonHandler.instance().getEffectiveSide();
 			if (side == Side.SERVER)

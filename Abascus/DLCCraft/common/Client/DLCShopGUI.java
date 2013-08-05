@@ -644,7 +644,7 @@ public class DLCShopGUI extends GuiContainer
 		else if (par1GuiButton.id == 5)
 		{
 			stats.init();
-			stats.dlcManager.Coins = 20;
+			stats.dlcManager.Coins = 30;
 			DLCCraft.playerTracker.playerStats.put(ep.username, stats);
 			DLCCraft.playerTracker.sendDLCs(ep, stats);
 			this.loadSaves();

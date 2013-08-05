@@ -89,14 +89,20 @@ public class DLCCraft
 		LanguageRegistry.instance().addName(shop, "DLC Shop");
 
 
-		WeightedRandomChestContent dlc2 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 1, 100000);
+		WeightedRandomChestContent dlc2 = new WeightedRandomChestContent(new ItemStack(dlc, 1), 1, 1, 10);
+		WeightedRandomChestContent c = new WeightedRandomChestContent(new ItemStack(coin, 1), 1, 5, 10);
 
 		ChestGenHooks.addItem(ChestGenHooks.BONUS_CHEST, dlc2);
 		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, dlc2);
+		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, c);
 		ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, dlc2);
+		ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, c);
 		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, dlc2);
+		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, c);
 		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, dlc2);
+		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, c);
 		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, dlc2);
+		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, c);
 
 		MinecraftForge.EVENT_BUS.register(new EventManager());
 		MinecraftForge.TERRAIN_GEN_BUS.register(new EventManager());
