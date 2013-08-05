@@ -87,12 +87,28 @@ public class GuiDLCSlot extends GuiSlot
 
 		int slot;
 		boolean c = false;
+		boolean d = false;
 		if(parentDLCGui.buy)
 		{
 			if(stats.dlcManager.Coins >= stats.dlcManager.cost[dlc.id])
 			{
 				c = true;
 			}
+		}
+		if(parentDLCGui.ep.capabilities.isCreativeMode)
+		{
+			c = true;
+		}
+		
+		if(parentDLCGui.buy)
+		{
+			if(parentDLCGui.getDepend(par1) != -1)
+			{
+				if(parentDLCGui.dlcList.contains(stats.dlcManager.Names[parentDLCGui.getDepend(par1)]))
+				{
+					d = true;
+				}
+				}
 		}
 
 		this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s, par2 + 2, par3 + 1, 16777215);
@@ -114,8 +130,25 @@ public class GuiDLCSlot extends GuiSlot
 		}
 		if(parentDLCGui.getDepend(par1) != -1)
 		{
+		
+		if(parentDLCGui.buy)
+		{
+			if(d)
+			{
+				String s3 = "Depends on: " + stats.dlcManager.Names[parentDLCGui.getDepend(par1)];
+				this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s3, par2 + 2+(s2.length()*6), par3 + 24, 2421504);
+			}
+			else
+			{
+				String s3 = "Depends on: " + stats.dlcManager.Names[parentDLCGui.getDepend(par1)];
+				this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s3, par2 + 2+(s2.length()*6), par3 + 24, 11421504);
+			}
+		}
+		else
+		{
 			String s3 = "Depends on: " + stats.dlcManager.Names[parentDLCGui.getDepend(par1)];
-			this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s3, par2 + 2+(s2.length()*6), par3 + 24, 8421504);
+			this.parentDLCGui.drawString(Minecraft.getMinecraft().fontRenderer, s3, par2 + 2+(s2.length()*6), par3 + 24, 21421504);
+		}
 		}
 	}
 }

@@ -20,8 +20,8 @@ public class DLCManager
 		{
 			dep[i] = -1;
 		}
+		names[0] = "breakBlock";
 		names[1] = "punchWood";
-		names[0] = "sprint";
 		names[2] = "eat";
 		names[3] = "air";
 		names[4] = "potion";

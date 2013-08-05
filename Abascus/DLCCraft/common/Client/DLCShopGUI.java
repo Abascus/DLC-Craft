@@ -62,7 +62,7 @@ public class DLCShopGUI extends GuiContainer
 	private int selectedDLC;
 
 	private List<DLC> buyList = new ArrayList<DLC>();
-	private List<DLC> dlcList = new ArrayList<DLC>();
+	public List<DLC> dlcList = new ArrayList<DLC>();
 	private GuiDLCSlot dlcSlotContainer;
 	public boolean buy = true;
 

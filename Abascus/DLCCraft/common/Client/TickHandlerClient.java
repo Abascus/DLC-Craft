@@ -4,8 +4,10 @@ import java.util.EnumSet;
 import java.util.List;
 
 import Abascus.DLCCraft.common.DLCCraft;
+import Abascus.DLCCraft.common.DLCManager;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.ImageBufferDownload;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
@@ -25,6 +27,18 @@ public class TickHandlerClient implements ITickHandler
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData)
 	{
+		EntityPlayer player = (EntityPlayer)tickData[0];
+		if(type.equals(EnumSet.of(TickType.PLAYER)))
+		{
+			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(player).dlcManager;
+			if(dlcs.getState("inventory") != 2)
+			{
+				if(Minecraft.getMinecraft().currentScreen instanceof GuiInventory)
+				{
+					player.closeScreen();
+				}
+			}
+		}
 	}
 
 	@Override

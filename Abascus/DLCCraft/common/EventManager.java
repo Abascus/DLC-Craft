@@ -242,6 +242,14 @@ public class EventManager
 			{
 				event.setCanceled(true);
 			}
+			
+			if(dlcs.getState("mobCoins") != 2)
+			{
+				if(new Random().nextInt(2) == 0)
+				{
+				event.drops.add(new EntityItem(event.entityLiving.worldObj, event.entityLiving.posY, event.entityLiving.posZ, event.entityLiving.posX,new ItemStack(DLCCraft.instance.coin, new Random().nextInt(3)+1)));
+			}
+			}
 		}
 		catch(Exception e){}
 		if(new Random().nextInt(50) == 0)
