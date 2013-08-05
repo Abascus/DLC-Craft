@@ -7,6 +7,7 @@ import Abascus.DLCCraft.common.DLCCraft;
 import Abascus.DLCCraft.common.DLCManager;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundPool;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.ImageBufferDownload;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,6 +38,11 @@ public class TickHandlerClient implements ITickHandler
 				{
 					player.closeScreen();
 				}
+			}
+			
+			if(dlcs.getState("Sounds") != 2)
+			{
+				Minecraft.getMinecraft().sndManager.stopAllSounds();
 			}
 		}
 	}

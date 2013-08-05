@@ -53,10 +53,10 @@ public class RenderTickHandler implements ITickHandler
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 				GL11.glTranslatef(0.0F, 0.0F, 32.0F);
-				itemRenderer.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().func_110434_K(), is, (int)(width / 1.4), height - 20);
+				itemRenderer.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().func_110434_K(), is, (int)(width / 1.3), 10);
 
 
-				Minecraft.getMinecraft().fontRenderer.drawString(stats.dlcManager.Coins + "", (int)(width / 1.4)+20, height - 20, 11421504, false);
+				Minecraft.getMinecraft().fontRenderer.drawString(stats.dlcManager.Coins + "", (int)(width / 1.3)+40, 14, 2222222, false);
 				}
 				}
 		}

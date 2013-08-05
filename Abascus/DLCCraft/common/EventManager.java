@@ -20,6 +20,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -33,6 +34,20 @@ import cpw.mods.fml.relauncher.Side;
 public class EventManager 
 {
 
+
+	@ForgeSubscribe
+	public void playSound(PlaySoundAtEntityEvent event)
+	{
+		if(event.entity instanceof EntityPlayer)
+		{
+			DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats((EntityPlayer)event.entity).dlcManager;
+			if(dlcs.getState("Sounds") != 2)
+			{
+				event.setCanceled(true);
+			}
+		}
+
+	}
 
 	@ForgeSubscribe
 	public void playerInteract(PlayerInteractEvent event)
@@ -199,32 +214,32 @@ public class EventManager
 		{
 			if(entity != null)
 			{
-			if(event.entityLiving instanceof EntityPlayer)
-			{
-
-				EntityPlayer ep = (EntityPlayer) event.source.getSourceOfDamage();
-				DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep).dlcManager;
-
-				if(dlcs.getState("PvP") != 2)
+				if(event.entityLiving instanceof EntityPlayer)
 				{
-					event.setCanceled(true);
-				}
 
-			}
-			else if(((EntityPlayer)entity).getCurrentEquippedItem() != null)
-			{
-				if(Item.itemsList[((EntityPlayer)entity).getCurrentEquippedItem().itemID] instanceof ItemSword)
-				{
-					EntityPlayer ep = (EntityPlayer)entity;
+					EntityPlayer ep = (EntityPlayer) event.source.getSourceOfDamage();
 					DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep).dlcManager;
 
-					if(dlcs.getState("sword") != 2)
+					if(dlcs.getState("PvP") != 2)
 					{
-						event.ammount = 0;
+						event.setCanceled(true);
+					}
+
+				}
+				else if(((EntityPlayer)entity).getCurrentEquippedItem() != null)
+				{
+					if(Item.itemsList[((EntityPlayer)entity).getCurrentEquippedItem().itemID] instanceof ItemSword)
+					{
+						EntityPlayer ep = (EntityPlayer)entity;
+						DLCManager dlcs = DLCCraft.playerTracker.getPlayerDLCStats(ep).dlcManager;
+
+						if(dlcs.getState("sword") != 2)
+						{
+							event.ammount = 0;
+						}
 					}
 				}
 			}
-		}
 		}
 		catch(Exception e){}
 	}
@@ -241,13 +256,13 @@ public class EventManager
 			{
 				event.setCanceled(true);
 			}
-			
+
 			if(dlcs.getState("mobCoins") != 2)
 			{
 				if(new Random().nextInt(2) == 0)
 				{
-				event.drops.add(new EntityItem(event.entityLiving.worldObj, event.entityLiving.posY, event.entityLiving.posZ, event.entityLiving.posX,new ItemStack(DLCCraft.instance.coin, new Random().nextInt(3)+1)));
-			}
+					event.drops.add(new EntityItem(event.entityLiving.worldObj, event.entityLiving.posY, event.entityLiving.posZ, event.entityLiving.posX,new ItemStack(DLCCraft.instance.coin, new Random().nextInt(3)+1)));
+				}
 			}
 		}
 		catch(Exception e){}

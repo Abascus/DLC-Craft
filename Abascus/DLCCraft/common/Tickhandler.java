@@ -39,6 +39,8 @@ public class Tickhandler implements ITickHandler
 				player.addPotionEffect(new PotionEffect(Potion.jump.id, 20, -3));
 			}
 			
+			
+			
 		}
 
 	}
