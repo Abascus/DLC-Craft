@@ -6,15 +6,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import net.minecraft.command.CommandHandler;
+import net.minecraft.command.ICommandManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
-import Abascus.DLCCraft.common.Client.RenderTickHandler;
-import Abascus.DLCCraft.common.Client.TickHandlerClient;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -106,6 +107,13 @@ public class DLCCraft
 		MinecraftForge.EVENT_BUS.register(playerTracker);
 		 
 		TickRegistry.registerTickHandler(new Tickhandler(), Side.SERVER);
+		
+		ICommandManager manager = MinecraftServer.getServer().getCommandManager();
+		if(manager instanceof CommandHandler)
+		{
+			CommandHandler handler = (CommandHandler)manager;
+			handler.registerCommand(new DLCCommands());
+		}
 		
 	}
 
