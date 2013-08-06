@@ -1,18 +1,14 @@
 package Abascus.DLCCraft.common.Client;
 
 import java.util.EnumSet;
-import java.util.List;
-
-import Abascus.DLCCraft.common.DLCCraft;
-import Abascus.DLCCraft.common.DLCManager;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundPool;
+import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraft.client.renderer.ImageBufferDownload;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
+import Abascus.DLCCraft.common.DLCCraft;
+import Abascus.DLCCraft.common.DLCManager;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -40,9 +36,12 @@ public class TickHandlerClient implements ITickHandler
 				}
 			}
 			
-			if(dlcs.getState("Sounds") != 2)
+			if(dlcs.getState("trade") != 2)
 			{
-				Minecraft.getMinecraft().sndManager.stopAllSounds();
+				if(Minecraft.getMinecraft().currentScreen instanceof GuiMerchant)
+				{
+					player.closeScreen();
+				}
 			}
 		}
 	}
